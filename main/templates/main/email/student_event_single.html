@@ -1,0 +1,17 @@
+
+<tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+    {{ event.name }} de {{ event.course.name }} em {{ date }}.
+</td>
+</tr>
+<tr>
+<td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+    Descrição:<br>
+    {{ event.description | linebreaksbr }}
+</td>
+</tr>
+<tr>
+<td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
+    Professor(a) {{ event.teacher.nickname }}
+</td>
+<hr>
+</tr>
