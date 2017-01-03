@@ -80,7 +80,7 @@ class StudentForm(forms.ModelForm):
             'school': 'Escola',
             'year': 'Série'
         }
-        widget = {
+        widgets = {
             'born': DateInput,
         }
 
