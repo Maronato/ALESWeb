@@ -93,6 +93,25 @@ def confirm_email(request, key):
     return render(request, 'main/set_password.html', {'form': form, 'key': key})
 
 
+def unsubscribe(request, key):
+    """Unsubscribe
+    receives a key and unsubscribes the user from the email list
+    """
+
+    # Get the key's owner
+    manager = Email_Manager.find_key(key)
+    # If the key does not exist or was already used, redirect to index and tell them that
+    if not manager:
+        messages.add_message(request, messages.SUCCESS, 'Chave inválida.')
+        return redirect('index')
+
+    manager.user.is_subscribed = False
+    manager.user.save()
+
+    messages.add_message(request, messages.SUCCESS, 'Pronto! Você não receberá mais emails como aquele.')
+    return redirect('index')
+
+
 @login_required
 def change_password(request):
     # Allows users to change their passwords
