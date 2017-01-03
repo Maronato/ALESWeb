@@ -21,21 +21,29 @@ Now you should have a version of the website running locally
 ## Local settings
 
 Now you need to setup some local settings.
+
 Go to project/settings.py and change the following:
 
 ### General settings
 `SECRET_KEY` Django's signing key. No need to change it if running with `DEBUG = True`
+
 `SITE_URL` is the website's domain. If running locally, yours wil probably be something like `http://localhost:8000`
 
 ### Email settings
 To properly sign users in the website uses a email verification system.
+
 You'll need a valid email account to serve as host
 
 `DEFAULT_FROM_EMAIL` the default email address to be used as 'from' field
+
 `EMAIL_HOST_USER` email address that'll be used as host
+
 `EMAIL_HOST_PASSWORD` the password of the above host
+
 You can leave `EMAIL_USE_TLS`, `EMAIL_HOST` and `EMAIL_PORT` as is if you are using gmail
+
 `SERVER_EMAIL` the email address that django will use when sending error reports
+
 `ADMINS` List of tuples with admin names and emails. Used when sending error reports
 
 Now you are all set.
@@ -43,9 +51,11 @@ Now you are all set.
 # Using the website
 
 Start by going to the index page and clicking Login
+
 Use your admin username and password to login
 
 Now you'll see some options. Start at the top and create a City.
+
 Proceed by creating schools, courses, etc. Create as many as you want.
 
 Whenever you create a Teacher or a Student, a confirmation email is sent to them. Within it you'll find a unique confirmation url. Use it to activate and set a password for the teacher or student.
