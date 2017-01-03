@@ -1,0 +1,9 @@
+Olá, {{ username }}!
+
+Você está recebendo esse email porque se inscreveu no Projeto ALES.
+
+Para confirmar seu email e terminar sua inscrição no projeto, use o link abaixo:
+
+{{ url }}
+
+Se você não se inscreveu para o Projeto ALES, simplesmente ignore esse email.
