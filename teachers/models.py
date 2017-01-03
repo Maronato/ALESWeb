@@ -22,7 +22,7 @@ class Teacher(models.Model):
     nickname = models.CharField(max_length=30, unique=True)
     email = models.EmailField(unique=True)
     emailmanager = models.OneToOneField(Email_Manager, null=True)
-    s_subscribed = models.BooleanField(default=True)
+    is_subscribed = models.BooleanField(default=True)
     phone = models.CharField(max_length=20, unique=True)
     schools = models.ManyToManyField(School, related_name="teachers")
 
