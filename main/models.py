@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.crypto import get_random_string
 from django.contrib.auth.models import User
 from django.contrib import auth
+from .email_helpers import confirmation_email
 
 
 @property
@@ -89,7 +90,9 @@ class Email_Manager(models.Model):
             new.save()
             user.emailmanager = new
             user.save()
-            # Call Send Email helper (unimplemented)
+
+            # Send confirmation email
+            confirmation_email(new)
         return user.emailmanager
 
     def confirm(key):
