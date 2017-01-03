@@ -1,5 +1,5 @@
 # ALES's Website
-Website that serves as a database for the ALES Project
+Website that serves as a database and framework for the ALES Project
 
 # Instructions to run locally
 
