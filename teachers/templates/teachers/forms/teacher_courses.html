@@ -1,0 +1,47 @@
+<form method="post" action="{% url 'teacher-courses' %}">
+    {% csrf_token %}
+    <div class="ui stackable three column grid">
+        {% for choice in form.courses %}
+        {% for obj in form.courses.field.queryset %}
+        {% if obj.id|stringformat:"i" == choice.choice_value %}
+        <div class="column">
+            <div class="ui fluid card">
+                <div class="content">
+                    <div class="header">
+                        {{ obj.name }}
+                    </div>
+                    <div class="meta">
+                        <i class="user icon"></i>
+                        {% if obj.students.all|length == 1 %}
+                        {{ obj.students.all|length }} aluno inscrito
+                        {% else %}
+                        {{ obj.students.all|length }} alunos inscritos
+                        {% endif %}
+                    </div>
+                    <div class="description">
+                        {{ obj.description | linebreaksbr }}
+                        <div class="ui horizontal divider" style="margin: 10px">
+                             Professores
+                        </div>
+                        <div class="ui list" style="margin-left: 20px">
+                            {% for teacher in obj.teachers.all %}
+                            <div class="item"><i class="student icon"></i>   {{ teacher.nickname }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="extra content">
+                    <div class="ui toggle checkbox">
+                        {{ choice.tag }}
+                        <label>Se inscrever?</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+    </div>
+    <div class="ui divider"></div>
+    <input type="submit" class="ui big primary button" value="Salvar alterações" />
+</form>

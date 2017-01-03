@@ -1,0 +1,9 @@
+<form action="{% url 'dashboard' %}">
+    <select class="ui dropdown" name="_" onchange="this.form.action=this.value">
+        <option value="" disabled selected>Escola</option>
+        {% for school in school_list %}
+        <option value="{% url 'update-students' school_id=school.id %}">{{ school.name }}</option>
+        {% endfor %}
+   </select>
+   <button class="ui button" type="submit">Editar alunos</button>
+</form>

@@ -1,0 +1,26 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+        <a href="{% url 'dashboard' %}"><button class="ui button large primary"><i class="icon arrow left"></i>Voltar</button></a>
+            <div class="center aligned twelve wide column">
+                <h1>Lista de presença</h1>
+                <h2>{{ event.name }}</h2>
+                <h4>{{ event.description }}</h4>
+                <h4>{{ event.datetime }}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ui divider"></div>
+        </div>
+    </div>
+    <div class="ui one column stackable center aligned page grid">
+
+        {% include "teachers/forms/presence_list.html" %}
+    </div>
+</div>
+
+{% endblock %}

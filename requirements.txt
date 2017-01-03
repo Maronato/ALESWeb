@@ -5,3 +5,7 @@ psycopg2
 whitenoise
 requests
 unidecode
+django-crispy-forms
+crispy-semantic-ui
+phonenumbers
+django-widget-tweaks

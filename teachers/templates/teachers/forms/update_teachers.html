@@ -1,0 +1,45 @@
+<form action="{% url 'update-teachers' %}" method="post" class="ui form">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <div id="form_set">
+        {% for form in formset.forms %}
+        <div class="fields">
+            {% for field in form.visible_fields %}
+            <div class="field">
+                <label>{{ field.label }}<span class="small red">{{ field.errors.as_text }}</span></label>
+                {{ field }}
+            </div>
+            {% endfor %}
+            {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+            {% endfor %}
+
+        </div>
+        <div class="ui divider"></div>
+        {% endfor %}
+    </div>
+    <button class="ui button green" type="button" id="add_more">Adicionar mais</button>
+    <div id="empty_form" style="display:none">
+        <div class="fields">
+            {% for field in formset.empty_form.visible_fields %}
+            <div class="field">
+                <label>{{ field.label }}<span class="small red">{{ field.errors.as_text }}</span></label>
+                {{ field }}
+            </div>
+            {% endfor %}
+            {% for hidden in formset.empty_form.hidden_fields %}
+            {{ hidden }}
+            {% endfor %}
+            <div class="ui divider"></div>
+        </div>
+    </div>
+    <button class="ui button primary" type="submit">Salvar alterações</button>
+</form>
+
+<script>
+    $('#add_more').click(function() {
+        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+</script>

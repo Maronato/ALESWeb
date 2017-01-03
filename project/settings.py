@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import dj_database_url
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -39,6 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
+    'semantic_ui',
+    'main',
+    'schools',
+    'teachers',
+    'courses',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +76,9 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_TEMPLATE_PACK = 'semantic-ui'
+CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap', 'uni_form', 'bootstrap3', 'semantic-ui')
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
@@ -142,3 +152,17 @@ DATABASES['default'].update(db_from_env)
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/dashboard/'
+
+
+DEFAULT_FROM_EMAIL = str(os.environ.get('EMAIL_ACCOUNT'))
+EMAIL_HOST_USER = str(os.environ.get('EMAIL_ACCOUNT'))
+EMAIL_HOST_PASSWORD = str(os.environ.get('EMAIL_PASSWORD'))
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+SERVER_EMAIL = str(os.environ.get('EMAIL_ACCOUNT'))
+
+ADMINS = [('Admin', str(os.environ.get('ADMIN_ACCOUNT'))), ]

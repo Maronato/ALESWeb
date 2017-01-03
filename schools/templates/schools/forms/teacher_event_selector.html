@@ -1,0 +1,16 @@
+<form action="{% url 'dashboard' %}">
+    <select class="ui dropdown" name="_" onchange="this.form.action=this.value">
+        <option value="" disabled selected>Evento</option>
+        {% for event in event_list %}
+        {% if type == 'near_future' and event.is_near_future %}
+            <option value="{% url 'presence-list' event_id=event.id %}">{{ event.name }}, {{ event.course.name }}</option>
+        {% elif type == 'past' and event.is_past %}
+            <option value="{% url 'presence-list' event_id=event.id %}">{{ event.name }}, {{ event.course.name }}</option>
+        {% elif type == 'far_future' and event.is_far_future %}
+            <option value="{% url 'presence-list' event_id=event.id %}">{{ event.name }}, {{ event.course.name }}</option>
+        {% else %}
+        {% endif %}
+        {% endfor %}
+   </select>
+   <button class="ui button" type="submit">Fazer chamada</button>
+</form>

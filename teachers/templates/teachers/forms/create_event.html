@@ -1,0 +1,15 @@
+<form action="{% url 'create-event' %}" method="post" class="ui form">
+    {% csrf_token %}
+    <div class="fields">
+        {% for field in form.visible_fields %}
+        <div class="field">
+            <label>{{ field.label }}<span class="small red">{{ field.errors.as_text }}</span></label>
+            {{ field }}
+        </div>
+        {% endfor %}
+        {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+        {% endfor %}
+    </div>
+    <button class="ui button primary" type="submit">Salvar alterações</button>
+</form>

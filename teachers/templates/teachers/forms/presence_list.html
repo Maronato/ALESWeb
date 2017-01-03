@@ -1,0 +1,34 @@
+{% load widget_tweaks %}
+<form action="{% url 'presence-list' event_id=event.id %}" method="post" class="ui form">
+    {% csrf_token %}
+    {{ formset.management_form }}
+
+    <table class="ui celled table">
+        <thead>
+            <tr><th>Presença</th>
+            <th>Nome</th>
+            <th>Série</th>
+            <th>Escola</th>
+        </tr></thead>
+        <tbody>
+        {% for form in formset.forms %}
+            <tr>
+            {% for field in form.visible_fields %}
+                <td>
+                {% if field.label != 'Presença' %}
+                    {{ field.value }}
+                    {{ field|attr:"type:hidden" }}
+                {% else %}
+                    {{ field }}
+                {% endif %}
+                </td>
+            {% endfor %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+</table>
+    <button class="ui button primary" type="submit">Salvar alterações</button>
+</form>

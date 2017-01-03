@@ -1,0 +1,294 @@
+
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+{% if user.is_superuser %}
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="six wide left floated column">
+                <h3>
+                    Configurações de Adminstrador
+                </h3>
+                <p>
+                    Muito cuidado ao editar essas configurações pois elas afetam diversas tabelas do banco de dados ao mesmo tempo
+                </p>
+            </div>
+            <div class="eight wide column">
+                <h3 class="ui header">Criar e Editar Cidades</h3>
+                <a href="{% url 'update-cities' %}"><button class="ui button">Cidades</button></a>
+                <h3 class="ui header">Criar e Editar Escolas</h3>
+                <a href="{% url 'update-schools' %}"><button class="ui button">Escolas</button></a>
+                <h3 class="ui header">Criar e Editar Séries</h3>
+                <a href="{% url 'update-years' %}"><button class="ui button">Séries</button></a>
+                <h3 class="ui header">Criar e Editar Cursos</h3>
+                <a href="{% url 'update-courses' %}"><button class="ui button">Cursos</button></a>
+                <h3 class="ui header">Criar e Editar Professores</h3>
+                <a href="{% url 'update-teachers' %}"><button class="ui button">Professores</button></a>
+                <h3 class="ui header">Criar e Editar Alunos</h3>
+                {% include 'schools/forms/update_student_selector.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{% if user.is_student %}
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="six wide left floated column">
+                <h3>
+                    Configurações e inscrições
+                </h3>
+                <p>
+                    Aqui você pode alterar algumas informações básicas sobre você, enviar emails direto para professores e se inscrever nas matérias que mais te interessam!
+                    <br>
+                    Clique no ícone para acessar!
+                </p>
+            </div>
+            <div class="eight wide column center aligned">
+                <h2 class="ui icon header">
+                    <a href="{% url 'student-info' %}"><i class="user icon"></i></a>
+                    <div class="content">
+                        Suas informações
+                        <div class="sub header">Altere e veja as suas informações.</div>
+                    </div>
+                </h2>
+                <h2 class="ui icon header">
+                    <a href="{% url 'student-courses' %}"><i class="book icon"></i></a>
+                    <div class="content">
+                        Suas matérias
+                        <div class="sub header">Saiba mais sobre as matérias que oferecemos e se inscreva nelas.
+                        </div>
+                    </div>
+                </h2>
+                <h2 class="ui icon header">
+                    <a href=""><i class="comment icon"></i></a>
+                    <div class="content">
+                        Fale com um professor
+                        <div class="sub header">
+                            Está com algum problema? Fale conosco!
+                        </div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui vertical stripe segment">
+    <div class="ui center aligned stackable grid container">
+        <div class="row">
+            <div class="column">
+                <h3>Abaixo estão suas aulas das próximas duas semanas</h3>
+                <p>Se não puder ir a alguma delas, contate o professor!</p>
+                <table class="ui celled unstackable table">
+                    <thead>
+                        <tr>
+                            <th>Evento</th>
+                            <th>Matéria</th>
+                            <th>Dia</th>
+                            <th>Hora</th>
+                            <th>Detalhes</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for event in user.student.events %}
+                        <tr>
+                            <td>{{ event.name }}</td>
+                            <td>{{ event.course.name }}</td>
+                            <td>{{ event.datetime.day }}/{{ event.datetime.month }}/{{ event.datetime.year }}</td>
+                            <td>{{ event.time }}</td>
+                            <td><button class="ui button" onclick="event_details('{{event.name}}', '{{event.description|linebreaksbr}}', '{{event.course.name}}', '{{ event.datetime }}', '{{event.duration}}', '{{event.teacher.nickname}}', '{{event.file}}')">Detalhes</button></td>
+                            <script type="text/javascript">
+                                function event_details(name, description, course, date, duration, teacher, link) {
+                                    $('#modal-name').text(name);
+                                    $('#modal-description').html(description);
+                                    $('#modal-course').text(course);
+                                    $('#modal-date').text(date);
+                                    var llink = ''
+                                    if (link) {
+                                        var llink = '<div class="ui divider"></div><a href="' + link + '" target="_blank"><button class="ui button primary"><i class="download icon"></i>Download da apostila</button></a>'
+                                    };
+                                    $('#modal-link').html(llink);
+                                    $('#modal-duration').text(duration);
+                                    $('#modal-teacher').text(teacher);
+                                    $('.ui.modal')
+                                    .modal('show')
+                                    ;
+                                }
+                            </script>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% if user.is_teacher %}
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="six wide left floated column">
+                <h3>
+                    Configurações e inscrições
+                </h3>
+                <p>
+                    Aqui você pode alterar algumas informações básicas sobre você e se inscrever nas matérias que mais te interessam!
+                    <br>
+                    Clique no ícone para acessar!
+                </p>
+            </div>
+            <div class="eight wide column center aligned">
+                <h2 class="ui icon header">
+                    <a href="{% url 'teacher-info' %}"><i class="user icon"></i></a>
+                    <div class="content">
+                        Suas informações
+                        <div class="sub header">Altere e veja as suas informações.</div>
+                    </div>
+                </h2>
+                <h2 class="ui icon header">
+                    <a href="{% url 'teacher-courses' %}"><i class="book icon"></i></a>
+                    <div class="content">
+                        Suas matérias
+                        <div class="sub header">Quer começar a ensinar alguma matéria? Se inscreva aqui!
+                        </div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="six wide left floated column">
+                <h3>
+                    Aulas e Eventos
+                </h3>
+                <p>
+                    Aqui você pode criar e editar eventos e aulas.
+                    <br>
+                    Clique no ícone para acessar!
+                </p>
+            </div>
+            <div class="eight wide column center aligned">
+                <h2 class="ui icon header">
+                    <a href="{% url 'create-event' %}"><i class="add to calendar icon"></i></a>
+                    <div class="content">
+                        Criar evento ou aula
+                        <div class="sub header">Crie eventos ou aulas das matérias que você está inscrito.</div>
+                    </div>
+                </h2>
+                <h2 class="ui icon header">
+                    <a href="{% url 'update-events' %}"><i class="book icon"></i></a>
+                    <div class="content">
+                        Editar e apagar eventos
+                        <div class="sub header">Edite ou apague seus eventos aqui.</div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="six wide left floated column">
+                <h3>
+                    Listas de Chamada
+                </h3>
+                <p>
+                    Tem uma aula agora? Quer alterar uma lista de alguns dias atrás ou saber quantas pessoas vão comparecer no futuro? Cheque as listas de chamadas!
+                </p>
+            </div>
+            <div class="eight wide column center aligned">
+                <h2 class="ui icon header">
+                    <!-- <i class="user icon"></i> -->
+                    <div class="content">
+                        Listas do futuro póximo
+                        <div class="sub header">
+                            {% with "near_future" as type %}
+                            {% include 'schools/forms/teacher_event_selector.html' %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                </h2>
+                <div class="ui divider"></div>
+                <h2 class="ui icon header">
+                    <!-- <i class="book icon"></i> -->
+                    <div class="content">
+                        Listas passadas
+                        <div class="sub header">
+                            {% with "past" as type %}
+                            {% include 'schools/forms/teacher_event_selector.html' %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                </h2>
+                <div class="ui divider"></div>
+                <h2 class="ui icon header">
+                    <!-- <i class="book icon"></i> -->
+                    <div class="content">
+                        Listas do futuro distante
+                        <div class="sub header">
+                            {% with "far_future" as type %}
+                            {% include 'schools/forms/teacher_event_selector.html' %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+<!-- Student event details modal -->
+<div class="ui small modal">
+    <i class="close icon"></i>
+    <div class="content">
+        <div class="description">
+            <div class="ui two column stackable grid">
+                <div class="column">
+                    <div class="row">
+                        <h2><span id='modal-name'></span> de <span id='modal-course'></span></h2>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="row">
+                        <p><span id='modal-description'></span></span></p>
+                    </div>
+                </div>
+
+                <div class="center aligned column">
+                    <div class="row">
+                        <h2><span id='modal-date'></span></h2>
+                    </div>
+                    <div class="row">
+                        <h4>Duração: <span id='modal-duration'></span></h4>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="row">
+                        <h4>Professor(a): <span id='modal-teacher'></span></span></h4>
+                    </div>
+                </div>
+                <div class="center aligned sixteen wide column">
+                    <h3><span id='modal-link'></span></span></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <div class="ui positive right labeled icon button">
+            Pronto!
+            <i class="checkmark icon"></i>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
