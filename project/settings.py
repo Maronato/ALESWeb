@@ -30,6 +30,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# Current site URL (http://localhost:8000)
+SITE_URL = 'http://localhost:8000'
+
 
 # Application definition
 
