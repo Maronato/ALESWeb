@@ -103,9 +103,6 @@
 			</div>
 		</div>
 
-		{% block masthead %}{% endblock %}
-
-
 		<!-- Messages -->
 		{% if messages %}
 		<div class="ui container">
@@ -126,6 +123,7 @@
 		</div>
 		{% endif %}
 
+		{% block masthead %}{% endblock %}
 
 		<!-- Specific contents -->
 		{% block content %}{% endblock %}
