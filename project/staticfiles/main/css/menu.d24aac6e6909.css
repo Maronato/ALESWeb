@@ -4,7 +4,7 @@
 }
 
 .masthead {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('../img/masthead.jpg') !important;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url("../img/masthead.a84b3cfed723.jpg") !important;
     background-size: cover !important;
     background-position:center center !important;
 }
