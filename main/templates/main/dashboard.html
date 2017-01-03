@@ -2,6 +2,23 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}
 {% block content %}
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="sixteen wide column center aligned">
+                <h3>
+                    {% if user.is_student %}
+                    Olá, {{ user.student.name }}, como vai você?
+                    {% elif user.is_teacher %}
+                    Olá, {{ user.teacher.nickname }}, como vai você?
+                    {% else %}
+                    Olá, {{ user.username }}, como vai você?
+                    {% endif %}
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% if user.is_superuser %}
 <div class="ui vertical stripe segment">
@@ -81,7 +98,7 @@
     <div class="ui center aligned stackable grid container">
         <div class="row">
             <div class="column">
-                <h3>Abaixo estão suas aulas das próximas duas semanas</h3>
+                <h3>Essas são suas aulas das próximas duas semanas</h3>
                 <p>Se não puder ir a alguma delas, contate o professor!</p>
                 <table class="ui celled unstackable table">
                     <thead>
