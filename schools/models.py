@@ -63,6 +63,7 @@ class Student(models.Model):
     born = models.CharField(max_length=20)
     email = models.EmailField(unique=True)
     emailmanager = models.OneToOneField(Email_Manager, null=True)
+    is_subscribed = models.BooleanField(default=True)
     phone = models.CharField(max_length=20, unique=True)
     school = models.ForeignKey(
         School,

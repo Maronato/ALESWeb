@@ -1,7 +1,7 @@
 from django.db import models
 from schools.models import School
 from django.contrib.auth.models import User
-from django.db.models.signals import pre_delete, post_save
+from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 from main.models import Email_Manager
 from django.utils.crypto import get_random_string
@@ -22,6 +22,7 @@ class Teacher(models.Model):
     nickname = models.CharField(max_length=30, unique=True)
     email = models.EmailField(unique=True)
     emailmanager = models.OneToOneField(Email_Manager, null=True)
+    s_subscribed = models.BooleanField(default=True)
     phone = models.CharField(max_length=20, unique=True)
     schools = models.ManyToManyField(School, related_name="teachers")
 
@@ -51,7 +52,7 @@ def post_save_teacher(sender, instance, **kwargs):
 
 
 # Delete EmailManager and User if Teacher is deleted
-@receiver(pre_delete, sender=Teacher, dispatch_uid="delete_teacher")
+@receiver(post_delete, sender=Teacher, dispatch_uid="delete_teacher")
 def delete_teacher(sender, instance, **kwargs):
     instance.emailmanager.delete()
     instance.user.delete()
