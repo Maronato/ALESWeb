@@ -77,9 +77,6 @@ TEMPLATES = [
     },
 ]
 
-CRISPY_TEMPLATE_PACK = 'semantic-ui'
-CRISPY_ALLOWED_TEMPLATE_PACKS = ('bootstrap', 'uni_form', 'bootstrap3', 'semantic-ui')
-
 WSGI_APPLICATION = 'project.wsgi.application'
 
 
