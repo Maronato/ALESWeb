@@ -82,10 +82,10 @@ You'll now be able to login as the activated teacher or student and do some othe
 ### Main
 Finish the main app so that:
 
-* The main page is complete with realtime data about the number of students, courses, teachers, etc
+* ~~The main page is complete with realtime data about the number of students, courses, teachers, etc~~
 * ~~there is a working Contact tab to email us~~
 * ~~There is a working 'Inscreva-se' tab that embeds a google form for students to apply~~
-* There is a working 'Escolas' subtab at the index page that shows the current schools and cities we are working with, and the number of students and teachers working at them
+* ~~There is a working 'Escolas' subtab at the index page that shows the current schools and cities we are working with, and the number of students and teachers working at them~~
 
 ### Blog
 Finish the blog app so that:

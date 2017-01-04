@@ -4,7 +4,9 @@ from .models import Email_Manager
 from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from schools.models import School
+from schools.models import School, Student
+from courses.models import Course
+from teachers.models import Teacher
 from .forms import ContactForm
 # Create your views here.
 
@@ -12,9 +14,19 @@ from .forms import ContactForm
 def index(request, contactform=None):
     # Index page
 
+    schools = School.objects.all()
+    students = Student.objects.all()
+    teachers = Teacher.objects.all()
+    courses = Course.objects.all()
     if contactform is None:
         contactform = ContactForm()
-    return render(request, 'main/index.html', {'contactform': contactform})
+    return render(request, 'main/index.html', {
+        'contactform': contactform,
+        'schools': schools,
+        'students': students,
+        'teachers': teachers,
+        'courses': courses
+    })
 
 
 def enroll(request):
