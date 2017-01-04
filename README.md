@@ -62,4 +62,78 @@ Whenever you create a Teacher or a Student, a confirmation email is sent to them
 
 You'll now be able to login as the activated teacher or student and do some other things as them, like enroll in courses or create events.
 
-### More to come
+# TODO
+
+### Main
+Finish the main app so that:
+
+* The main page is complete with realtime data about the number of students, courses, teachers, etc
+* there is a working Contact tab to email us
+* There is a working 'Inscreva-se' tab that embeds a google form for students and teachers to apply
+* There is a working 'Escoals' subtab at the index page that shows the current schools and cities we are working with, and the number of students and teachers working at them
+
+### Blog
+Finish the blog app so that:
+
+* teachers can:
+ * create, edit and delete their own posts
+* visitants see a list of posts at /blog
+* visitants can see the post in detail
+* list of posts supports pagination
+* visitants can search for posts
+* posts are posted on the facebook page automagically
+
+### Pictures
+Finish the pictures app so that:
+
+* admins can create albums
+* admins can upload pictures within said albums
+* pictures are uploaded to S3
+* pictures are thumbnailed
+* deleting a picture deletes the file in S3
+* visitants can see albuns at /albums
+* visitants can see the pictures within each album
+* lists need not be paginated
+
+### Videos
+Finish the videos app so that:
+
+* admins can create, edit and delete videos
+* vidos should be hosted on youtube
+* visitants can see a list of videos at /videos
+* list need not be paginated
+
+### Press - (?)
+Finish the press app so that
+
+* admins can create, edit and delete press posts
+* visitants can see a paginated list of press posts
+* BONUS - press data is collected by a snippet bot
+
+### Courses
+
+* create view to show courses details for everyone to see
+* do the same for events
+* create 'category' model to assign events (?)
+* propagate categories a little better accross views(like telling students what category the event is)
+
+### Teachers
+
+* Finish 'my info' dashboard tab so that teachers can change their passwords, emails, unsubscribe from reminders and see what info we have about them
+* create a command for reminding teachers about their events
+
+### Schools
+
+* Finish 'my info' dashboard tab so that students can change their passwords, emails, unsubscribe from reminders and see what info we have about them
+* make it so the schools' principals can see stats about their students
+* make it so parents can see stats about their kids, or make it so the kids themselves can see the stats and parents can login as their kids
+
+### Misc
+
+* Are there any other ways to interact with facebook?
+* Finish the change password and email views/forms for students and teachers
+* create a custom template for the reset-password view
+* change reminder command so that it sends emails for events that are exactly X days away, so that we can send multiple emails for each event
+* fix the footer so that it is sticky
+* make the welcome email a little nicer, since people are going to apply and not know when we are going to accept them. Make it sound like it is a big deal to be accepted
+* make the email templates a little nicer
