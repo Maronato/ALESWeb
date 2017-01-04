@@ -22,7 +22,22 @@ Now you should have a version of the website running locally
 
 Now you need to setup some local settings.
 
-Go to project/settings.py and change the following:
+You can modify the settings directly or create a `.env` to keep your local settings secret.
+
+To use a `.env` simply create a new file at the root of the project and write the settings that you wish to alter followed by their content.
+
+A typical `.env` for this project should look like this (some settings may be missing):
+```
+EMAIL_PASSWORD=supersecretpassword
+EMAIL_ACCOUNT=youremailaccount@domain.com
+DJANGO_SECRET=longstringofrandomcharacters
+EMAIL_ADMIN=adminaddress@important.com
+SITE_URL=http://localhost:8000
+```
+
+If you wish, just go to `project/settings.py` and manually change the settings
+
+*Don't forget to erase your passwords before pushing changes, though!*
 
 ### General settings
 `SECRET_KEY` Django's signing key. No need to change it if running with `DEBUG = True`
@@ -137,3 +152,4 @@ Finish the press app so that
 * fix the footer so that it is sticky
 * make the welcome email a little nicer, since people are going to apply and not know when we are going to accept them. Make it sound like it is a big deal to be accepted
 * make the email templates a little nicer
+* fix the datepicker widget so that it works with firefox
