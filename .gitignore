@@ -53,6 +53,8 @@ coverage.xml
 *.log
 db.sqlite3
 local_settings.py
+project/staticfiles/
+!project/staticfiles/hithere.txt
 
 # Flask stuff:
 instance/
