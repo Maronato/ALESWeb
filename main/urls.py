@@ -7,6 +7,8 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     # Dashboard
     url(r'dashboard/', views.dashboard, name='dashboard'),
+    # Enrollment page
+    url(r'enroll/', views.enroll, name='enroll'),
     url(r'^login/$', views.login_user, name='login'),
     url(r'^logout/$', views.logout_user, name='logout'),
     # Receives a key and verifies the user if the key is valid. Also asks the user to create a password

@@ -84,8 +84,8 @@ Finish the main app so that:
 
 * The main page is complete with realtime data about the number of students, courses, teachers, etc
 * there is a working Contact tab to email us
-* There is a working 'Inscreva-se' tab that embeds a google form for students and teachers to apply
-* There is a working 'Escoals' subtab at the index page that shows the current schools and cities we are working with, and the number of students and teachers working at them
+* ~~There is a working 'Inscreva-se' tab that embeds a google form for students to apply~~
+* There is a working 'Escolas' subtab at the index page that shows the current schools and cities we are working with, and the number of students and teachers working at them
 
 ### Blog
 Finish the blog app so that:
@@ -142,6 +142,8 @@ Finish the press app so that
 * Finish 'my info' dashboard tab so that students can change their passwords, emails, unsubscribe from reminders and see what info we have about them
 * make it so the schools' principals can see stats about their students
 * make it so parents can see stats about their kids, or make it so the kids themselves can see the stats and parents can login as their kids
+* add adults' fields to student model or create a new adult table
+* add 'permission to leave alone' so that only students with permissions can leave by themselves
 
 ### Misc
 

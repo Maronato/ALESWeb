@@ -13,6 +13,11 @@ def index(request):
     return render(request, 'main/index.html')
 
 
+def enroll(request):
+    # Enrollment page
+    return render(request, 'main/enroll.html')
+
+
 def login_user(request):
     # Custom login method
     context = {}
