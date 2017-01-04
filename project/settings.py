@@ -30,8 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# Current site URL (http://localhost:8000)
-SITE_URL = 'http://localhost:8000'
+# Current site domain (http://localhost:8000 if locally, probably)
+SITE_URL = str(os.environ.get('SITE_URL'))
 
 
 # Application definition

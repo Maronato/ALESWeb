@@ -14,17 +14,15 @@ Website that serves as a database and framework for the ALES Project
  * `pip install -r requirements.txt` to install the requirements
  * `python manage.py migrate` to migrate the database
  * `python manage.py createsuperuser` to create the website's admin. Take note of the username and password for later
- * `python manage.py runserver` to start the server
+ * `python manage.py collectstatic` to collect the staticfiles so that the app is self-contained
 
-Now you should have a version of the website running locally
+ You can now start the server with `python manage.py runserver`, but follow the local instructions below first to set your environment variables.
 
 ## Local settings
 
-Now you need to setup some local settings.
-
 You can modify the settings directly or create a `.env` to keep your local settings secret.
 
-To use a `.env` simply create a new file at the root of the project and write the settings that you wish to alter followed by their content.
+To use a `.env` simply create a new `.env` file at the root of the project and write the settings that you wish to alter, followed by their content.
 
 A typical `.env` for this project should look like this (some settings may be missing):
 ```
@@ -62,6 +60,8 @@ You can leave `EMAIL_USE_TLS`, `EMAIL_HOST` and `EMAIL_PORT` as is if you are us
 `ADMINS` List of tuples with admin names and emails. Used when sending error reports
 
 Now you are all set.
+
+To start the website, do `python manage.py runserver`
 
 # Using the website
 
