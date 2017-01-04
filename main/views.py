@@ -5,17 +5,36 @@ from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from schools.models import School
+from .forms import ContactForm
 # Create your views here.
 
 
-def index(request):
+def index(request, contactform=None):
     # Index page
-    return render(request, 'main/index.html')
+
+    if contactform is None:
+        contactform = ContactForm()
+    return render(request, 'main/index.html', {'contactform': contactform})
 
 
 def enroll(request):
     # Enrollment page
     return render(request, 'main/enroll.html')
+
+
+def contact(request):
+
+    if request.method == 'POST':
+
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            form.send()
+            messages.add_message(request, messages.SUCCESS, 'Mensagem enviada com sucesso!')
+        else:
+            return index(request, form)
+
+    return redirect('index')
 
 
 def login_user(request):

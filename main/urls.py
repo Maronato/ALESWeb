@@ -5,6 +5,8 @@ from django.contrib.auth.views import password_reset, password_reset_done, passw
 urlpatterns = [
     # Index page
     url(r'^$', views.index, name='index'),
+    # Contact view
+    url(r'contact/', views.contact, name='contact'),
     # Dashboard
     url(r'dashboard/', views.dashboard, name='dashboard'),
     # Enrollment page
