@@ -59,13 +59,25 @@
 
 	<!-- Sidebar Menu -->
 	<div class="ui vertical inverted sidebar menu left">
-		<a class="active item">Home</a>
-		<a class="item">Work</a>
-		<a class="item">Company</a>
-		<a class="item">Careers</a>
-		<a class="item">Login</a>
-		<a class="item">Signup</a>
-	</div>
+		<a href="{% url 'index' %}" class="item">Projeto ALES</a>
+		<a href="/#project" class="right item">O que é</a>
+		<a href="/#stats" class="item">Escolas</a>
+		<!-- <a class="item">Mídia</a> -->
+		<!-- <a class="item">Blog</a> -->
+		<a href="{% url 'enroll' %}" class="item">Inscreva-se</a>
+		{% if user.is_authenticated %}
+		<div class="item">
+			<a href="{% url 'dashboard' %}"><div class="ui primary button">Painel de Controle</div></a>
+		</div>
+		<div class="item">
+			<a href="{% url 'logout' %}"><div class="ui red button">Logout</div></a>
+		</div>
+		{% else %}
+		<div class="item">
+			<a href="{% url 'login' %}"><div class="ui green button">Login</div></a>
+		</div>
+		{% endif %}
+</div>
 
 
 	<!-- Page Contents -->
@@ -86,8 +98,8 @@
 				<a href="/#project" class="right item">O que é</a>
 				<a href="/#stats" class="item">Escolas</a>
 				<a href="/#contact" class="item">Contato</a>
-				<a class="item">Mídia</a>
-				<a class="item">Blog</a>
+				<!-- <a class="item">Mídia</a> -->
+				<!-- <a class="item">Blog</a> -->
 				<a href="{% url 'enroll' %}" class="item">Inscreva-se</a>
 
 				{% if user.is_authenticated %}
