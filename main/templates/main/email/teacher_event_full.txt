@@ -1,4 +1,4 @@
-Olá, {{ student.name }}!
+Olá, {{ teacher.nickname }}!
 
 Não esqueça dos seus eventos que acontecerão em {{ days }} dia{{ days|pluralize }}:
 

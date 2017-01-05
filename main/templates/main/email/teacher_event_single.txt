@@ -3,6 +3,4 @@
 Descrição:
 {{ event.description | linebreaksbr }}
 
- Professor(a) {{ event.teacher.nickname }}
-
 --------------

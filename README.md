@@ -136,7 +136,8 @@ Finish the press app so that
 
 * ~~Finish 'my info' dashboard tab so that teachers can change their passwords, emails, unsubscribe from reminders and see what info we have about them~~
 * Make 'my info' a little nicer
-* create a command for reminding teachers about their events
+* ~~create a command for reminding teachers about their events~~
+* Make it so that teachers can search for students to get info about their parents or something
 
 ### Schools
 
@@ -154,6 +155,6 @@ Finish the press app so that
 * create a custom template for the reset-password view
 * ~~change reminder command so that it sends emails for events that are exactly X days away, so that we can send multiple emails for each event~~
 * ~~fix the footer so that it is sticky~~
-* make the welcome email a little nicer, since people are going to apply and not know when we are going to accept them. Make it sound like it is a big deal to be accepted
+* ~~make the welcome email a little nicer, since people are going to apply and not know when we are going to accept them. Make it sound like it is a big deal to be accepted~~
 * ~~make the email templates a little nicer~~
 * fix the datepicker widget so that it works with firefox

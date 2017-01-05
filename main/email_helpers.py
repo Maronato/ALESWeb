@@ -82,3 +82,39 @@ def event_warning_students(data):
 
     # close the connection
     connection.close()
+
+
+def event_warning_teachers(data):
+    """Event Warning Teachers
+    Takes a list of dicts containing a Teacher, the html body of an email and the plain email body
+    and sends the emails to all of them using a single SMTP connection
+    Accessed through the teachers_event_reminder command
+    """
+
+    # get the smtp connection
+    connection = mail.get_connection()
+
+    # Manually open the connection
+    connection.open()
+
+    # for each email in data
+    for email in data:
+
+        # get the from field
+        fr = str(settings.DEFAULT_FROM_EMAIL)
+
+        # construct the message
+        msg = EmailMultiAlternatives(
+            'Lembrete de eventos',
+            email['plain'],
+            fr,
+            [email['teacher'].email],
+        )
+        # attach the html version
+        msg.attach_alternative(email['html'], "text/html")
+
+        # email away
+        msg.send()
+
+    # close the connection
+    connection.close()

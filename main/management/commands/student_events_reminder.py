@@ -48,6 +48,7 @@ class Command(BaseCommand):
 
                     # generate the unsubscribe url
                     unsubscribe = str(settings.SITE_URL) + reverse('unsubscribe', kwargs={'key': student.emailmanager.key})
+                    dashboard = str(settings.SITE_URL) + reverse('dashboard')
 
                     # generate single events' html and plain
                     for event in events:
@@ -55,8 +56,8 @@ class Command(BaseCommand):
                         plain += render_to_string('main/email/student_event_single.txt', {'event': event, 'date': event.datetime.strftime("%a, %d de %b às %H:%M")})
 
                     # gather everything on the final email body
-                    html = render_to_string('main/email/student_event_full.html', {'html': html, 'student': student, 'days': days, 'unsubscribe': unsubscribe})
-                    plain = render_to_string('main/email/student_event_single.txt', {'plain': plain, 'student': student, 'days': days, 'unsubscribe': unsubscribe})
+                    html = render_to_string('main/email/student_event_full.html', {'html': html, 'student': student, 'days': days, 'unsubscribe': unsubscribe, 'dashboard': dashboard})
+                    plain = render_to_string('main/email/student_event_single.txt', {'txt': plain, 'student': student, 'days': days, 'unsubscribe': unsubscribe, 'dashboard': dashboard})
 
                     # append the data to a list of emails
                     data.append({'student': student, 'html': html, 'plain': plain})

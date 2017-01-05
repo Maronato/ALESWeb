@@ -1,8 +1,10 @@
+Bem-vindo(a) ao Projeto ALES!
+
 Olá, {{ username }}!
 
-Você está recebendo esse email porque se inscreveu no Projeto ALES.
-
-Para confirmar seu email e terminar sua inscrição no projeto, use o link abaixo:
+Será um prazer tê-lo(a) conosco esse ano!
+Use o link abaixo para confirmar seu email e criar sua senha. Depois disso, você será redirecionado(a) para o Painel de Controle, onde poderá se inscrever em matérias e ver informações sobre elas.
+Sinta-se livre para responder esse email caso qualquer dúvida surja.
 
 {{ url }}
 
