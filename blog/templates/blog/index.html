@@ -1,0 +1,13 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+
+<h1> Blog </ h1>
+{% for post in posts %}
+    <h2>{{post.name}}</h2>
+    <p>Escrito por {{post.author.nickname}} em {{post.created}}</p>
+    <br>
+    {{post.text}}
+    <br><br>
+    {% endfor %}
+    
+    
