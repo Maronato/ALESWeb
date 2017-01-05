@@ -150,10 +150,10 @@ Finish the press app so that
 ### Misc
 
 * Are there any other ways to interact with facebook?
-* Finish the change password and email views/forms for students and teachers
+* ~~Finish the change password and email views/forms for students and teachers~~
 * create a custom template for the reset-password view
-* change reminder command so that it sends emails for events that are exactly X days away, so that we can send multiple emails for each event
-* fix the footer so that it is sticky
+* ~~change reminder command so that it sends emails for events that are exactly X days away, so that we can send multiple emails for each event~~
+* ~~fix the footer so that it is sticky~~
 * make the welcome email a little nicer, since people are going to apply and not know when we are going to accept them. Make it sound like it is a big deal to be accepted
-* make the email templates a little nicer
+* ~~make the email templates a little nicer~~
 * fix the datepicker widget so that it works with firefox
