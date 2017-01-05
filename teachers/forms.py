@@ -2,6 +2,8 @@ from django import forms
 from .models import Teacher
 from courses.models import Course
 import phonenumbers
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 
 class TeacherForm(forms.ModelForm):
@@ -91,3 +93,91 @@ class ChangeCoursesTeacherForm(forms.ModelForm):
             self.save_m2m()
 
         return instance
+
+
+class TeacherInfo(forms.ModelForm):
+
+    mail = forms.EmailField(label='Email', required=True)
+    password = forms.CharField(widget=forms.PasswordInput(), label='Senha atual', required=False)
+    password1 = forms.CharField(widget=forms.PasswordInput(), label='Senha nova', required=False)
+    password2 = forms.CharField(widget=forms.PasswordInput(), label='Repita a senha nova', required=False)
+
+    class Meta:
+        model = Teacher
+        fields = ['nickname', 'phone', 'schools', 'is_subscribed']
+        labels = {
+            'nickname': 'Apelido',
+            'phone': 'Telefone',
+            'schools': 'Escolas',
+            'is_subscribed': 'Receber avisos de aulas'
+        }
+
+        widgets = {
+            'schools': forms.widgets.CheckboxSelectMultiple(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(TeacherInfo, self).__init__(*args, **kwargs)
+
+        self.fields['mail'].initial = self.instance.email
+
+    def clean_phone(self):
+        # Only allows valid phones
+        data = self.cleaned_data.get('phone', '')
+        if not data:
+            raise forms.ValidationError("Telefone necessário")
+        try:
+            x = phonenumbers.parse(data, 'BR')
+            data = phonenumbers.format_number(x, 'BR')
+        except:
+            raise forms.ValidationError(
+                "Número de telefone inválido"
+            )
+        return data
+
+    def clean_password(self):
+
+        password = self.cleaned_data.get('password', '')
+        password1 = self.data['password1']
+
+        if password or password1:
+            user = self.instance.user
+
+            auth = authenticate(username=user, password=password)
+
+            if auth is None:
+                raise forms.ValidationError(
+                    "Senha inválida"
+                )
+
+    def clean_password1(self):
+        password = self.data['password']
+        password1 = self.data['password1']
+        if password and not password1:
+            raise forms.ValidationError(
+                "Digite uma nova senha"
+            )
+
+    def clean_password2(self):
+        password1 = self.data['password1']
+        password2 = self.data['password2']
+        if password1 and password1 != password2:
+            raise forms.ValidationError(
+                "Senhas estão diferentes"
+            )
+
+    def apply(self, request):
+
+        instance = self.instance
+
+        if self.data['password']:
+            password2 = self.data['password2']
+
+            instance.user.set_password(password2)
+            instance.user.save()
+            login(request, instance.user)
+
+        if self.cleaned_data.get('mail', '') != instance.email:
+
+            instance.emailmanager.change_email(self.cleaned_data.get('mail', ''))
+            messages.add_message(request, messages.SUCCESS, 'Você receberá um email para confirmar a alteração de email.')

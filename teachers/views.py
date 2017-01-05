@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import TeacherFormSet, TeacherForm, ChangeCoursesTeacherForm
+from .forms import TeacherFormSet, TeacherForm, ChangeCoursesTeacherForm, TeacherInfo
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from main.decorators import *
@@ -38,15 +38,16 @@ def update_info(request):
 
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = TeacherForm(request.POST, instance=request.user.teacher)
+        form = TeacherInfo(request.POST, instance=request.user.teacher)
         # check whether it's valid:
         if form.is_valid():
             form.save()
+            form.apply(request)
             messages.add_message(request, messages.SUCCESS, 'Informações atualizadas!')
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = TeacherForm(instance=request.user.teacher)
+        form = TeacherInfo(instance=request.user.teacher)
 
     return render(request, 'teachers/teacher_info.html', {'form': form})
 

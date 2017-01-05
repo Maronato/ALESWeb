@@ -98,6 +98,7 @@ def student_info(request):
         form = StudentInfo(request.POST, instance=request.user.student)
         if form.is_valid():
             form.save()
+            form.apply(request)
             messages.add_message(request, messages.SUCCESS, 'Informações atualizadas!')
     else:
         form = StudentInfo(instance=request.user.student)

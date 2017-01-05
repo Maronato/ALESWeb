@@ -148,6 +148,25 @@ def unsubscribe(request, key):
     return redirect('index')
 
 
+def change_email(request, key):
+    """Change Email
+    receives a key and changes their email
+    """
+
+    # Get the key's owner
+    manager = Email_Manager.find_key(key)
+    # If the key does not exist or was already used, redirect to index and tell them that
+    if not manager:
+        messages.add_message(request, messages.SUCCESS, 'Chave inválida.')
+        return redirect('index')
+
+    # Confirm the key
+    Email_Manager.confirm(key)
+
+    messages.add_message(request, messages.SUCCESS, 'Pronto! Email confirmado!')
+    return redirect('index')
+
+
 @login_required
 def change_password(request):
     # Allows users to change their passwords

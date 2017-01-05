@@ -134,12 +134,14 @@ Finish the press app so that
 
 ### Teachers
 
-* Finish 'my info' dashboard tab so that teachers can change their passwords, emails, unsubscribe from reminders and see what info we have about them
+* ~~Finish 'my info' dashboard tab so that teachers can change their passwords, emails, unsubscribe from reminders and see what info we have about them~~
+* Make 'my info' a little nicer
 * create a command for reminding teachers about their events
 
 ### Schools
 
-* Finish 'my info' dashboard tab so that students can change their passwords, emails, unsubscribe from reminders and see what info we have about them
+* ~~Finish 'my info' dashboard tab so that students can change their passwords, emails, unsubscribe from reminders and see what info we have about them~~
+* Make 'my info' a little nicer
 * make it so the schools' principals can see stats about their students
 * make it so parents can see stats about their kids, or make it so the kids themselves can see the stats and parents can login as their kids
 * add adults' fields to student model or create a new adult table

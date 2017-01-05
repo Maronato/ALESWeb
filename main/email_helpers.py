@@ -7,7 +7,7 @@ from django.core import mail
 
 
 # https://github.com/mailgun/transactional-email-templates
-def confirmation_email(user):
+def welcome_email(user):
     context = {
         'username': user.user.name,
         'url': settings.SITE_URL + reverse('password_set', args={user.key}),
@@ -15,11 +15,32 @@ def confirmation_email(user):
     }
     to = user.active_email
     fr = str(settings.DEFAULT_FROM_EMAIL)
-    msg_plain = render_to_string('main/email/confirm_email.txt', context)
-    msg_html = render_to_string('main/email/confirm_email.html', context)
+    msg_plain = render_to_string('main/email/welcome_email.txt', context)
+    msg_html = render_to_string('main/email/welcome_email.html', context)
 
     send_mail(
-        'Confirmação de email',
+        'Confirmação do ALES',
+        msg_plain,
+        fr,
+        [to],
+        html_message=msg_html,
+    )
+
+
+def send_change_email(user, email):
+    context = {
+        'username': user.user.name,
+        'url': settings.SITE_URL + reverse('change_email', args={user.key}),
+        'project_url': settings.SITE_URL
+    }
+    print(context['url'])
+    to = email
+    fr = str(settings.DEFAULT_FROM_EMAIL)
+    msg_plain = render_to_string('main/email/change_email.txt', context)
+    msg_html = render_to_string('main/email/change_email.html', context)
+
+    send_mail(
+        'Alteração de email',
         msg_plain,
         fr,
         [to],
