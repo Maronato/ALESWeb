@@ -46,18 +46,15 @@ TeacherFormSet = forms.modelformset_factory(Teacher, form=TeacherForm, can_delet
 
 class ChangeCoursesTeacherForm(forms.ModelForm):
     """ChangeCoursesTeacherForm
-    Allows for the change of courses
+    Base model that allows the user to change their courses
     """
+
+    # Representing the many to many related field in Teacher
+    courses = forms.ModelMultipleChoiceField(queryset=Course.objects.all(), widget=forms.widgets.CheckboxSelectMultiple())
 
     class Meta:
         model = Teacher
         fields = ['courses']
-        widgets = {
-            'courses': forms.widgets.CheckboxSelectMultiple(),
-        }
-
-    # Representing the many to many related field in Teacher
-    courses = forms.ModelMultipleChoiceField(queryset=Course.objects.all())
 
     # Overriding __init__ here allows us to provide initial
     # data for 'courses' field
@@ -68,8 +65,7 @@ class ChangeCoursesTeacherForm(forms.ModelForm):
         # The widget for a ModelMultipleChoiceField expects
         # a list of primary key for the selected data.
         self.initial['courses'] = [t.pk for t in self.instance.courses.all()]
-
-        # forms.ModelForm.__init__(self, *args, **kwargs)
+        self.fields['courses'].widget.attrs['class'] = "ui toggle checkbox"
 
     # Overriding save allows us to process the value of 'courses' field
     def save(self, commit=True):
