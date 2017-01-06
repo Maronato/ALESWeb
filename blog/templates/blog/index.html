@@ -1,13 +1,13 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}
 
-<h1> Blog </ h1>
-{% for post in posts[:number_of_posts] %}
+{% block content %}
+<h1> Blog </h1>
+{% for post in posts %}
     <a href="{% url 'blog:detail' post.id %}"><h2>{{post.name}}</h2></a>
     <p>Escrito por {{post.author.nickname}} em {{post.created}}</p>
     <br>
-    {{post.text}}
+    <p>{{post.text}}</p>
     <br><br>
 {% endfor %}
-    
-    
+{% endblock %}
