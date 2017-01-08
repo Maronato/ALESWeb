@@ -50,13 +50,13 @@ class EventForm(forms.ModelForm):
         fields = ['name', 'description', 'file', 'date', 'time', 'duration', 'schools', 'course', 'category']
         labels = {
             'name': 'Nome',
-            'description': 'Descrição(Assuntos)',
+            'description': 'Descrição (Assuntos)',
             'file': 'URL da lista',
             'date': 'Data',
             'time': 'Hora',
             'duration': 'Duração',
             'schools': 'Escolas',
-            'course': 'Curso',
+            'course': 'Matéria',
             'category': 'Tipo',
         }
         widgets = {

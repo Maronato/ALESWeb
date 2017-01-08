@@ -6,6 +6,7 @@ from django.forms import formset_factory
 from django.contrib.auth.decorators import user_passes_test
 from main.decorators import *
 from django.contrib import messages
+from datetime import datetime
 # Create your views here.
 
 
@@ -81,11 +82,17 @@ def update_event(request):
         if form.is_valid():
             # and save it
             form.save()
+
+            # Save manually so pre_save is triggered
+            for item in form:
+                item.instance.save()
+
             messages.add_message(request, messages.SUCCESS, 'Eventos atualizados!')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = EventFormSet()
+        form = EventFormSet(queryset=Event.objects.filter(datetime__gte=datetime.now()).order_by('-datetime'))
     # for every form in the formset
     for item in form:
         # Teachers can only select certain schools and courses(the ones they are enrolled in)

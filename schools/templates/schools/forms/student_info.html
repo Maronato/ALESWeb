@@ -1,15 +1,58 @@
+{% load widget_tweaks %}
 <form action="{% url 'student-info' %}" method="post" class="ui form">
     {% csrf_token %}
-    <div class="fields">
-        {% for field in form.visible_fields %}
-        <div class="field">
-            <label>{{ field.label }}<span class="small red">{{ field.errors.as_text }}</span></label>
-            {{ field }}
+    <h4 class="ui dividing header">Informações básicas</h4>
+    <div class="two fields">
+        <div class="field {% if form.phone.errors.as_text %}error{% endif %}">
+            <label>{{ form.phone.label}}</label>
+            <span style="color: red" class="small">{{ form.phone.errors.as_text }}</span>
+            {{ form.phone }}
         </div>
-        {% endfor %}
-        {% for hidden in form.hidden_fields %}
-        {{ hidden }}
-        {% endfor %}
+        <div class="field {% if form.year.errors.as_text %}error{% endif %}">
+            <label>{{ form.year.label}}</label>
+            <span style="color: red" class="small">{{ form.year.errors.as_text }}</span>
+            {{ form.year }}
+        </div>
     </div>
+    <br>
+    <h4 class="ui dividing header">Alterar email</h4>
+    <div class="field {% if form.mail.errors.as_text %}error{% endif %}">
+        <label>{{ form.mail.label}}</label>
+        <span style="color: red" class="small">{{ form.mail.errors.as_text }}</span>
+        {{ form.mail }}
+    </div>
+    <br>
+    <h4 class="ui dividing header">Alterar senha</h4>
+    <div class="three fields">
+        <div class="field {% if form.password.errors.as_text %}error{% endif %}">
+            <label>{{ form.password.label}}</label>
+            <span style="color: red" class="small">{{ form.password.errors.as_text }}</span>
+            {{ form.password }}
+        </div>
+        <div class="field {% if form.password1.errors.as_text %}error{% endif %}">
+            <label>{{ form.password1.label}}</label>
+            <span style="color: red" class="small">{{ form.password1.errors.as_text }}</span>
+            {{ form.password1 }}
+        </div>
+        <div class="field {% if form.password2.errors.as_text %}error{% endif %}">
+            <label>{{ form.password2.label}}</label>
+            <span style="color: red" class="small">{{ form.password2.errors.as_text }}</span>
+            {{ form.password2 }}
+        </div>
+    </div>
+    <br>
+    <h4 class="ui dividing header">Inscrições</h4>
+    <div class="field {% if form.mail.errors.as_text %}error{% endif %}">
+        <!-- <span style="color: red" class="small">{{ form.is_subscribed.errors.as_text }}</span> -->
+         <div class="ui checkbox">
+            {{ form.is_subscribed }}
+            <label>{{ form.is_subscribed.label}}</label>
+        </div>
+    </div>
+    {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+    <br>
+
     <button class="ui button primary" type="submit">Salvar alterações</button>
 </form>

@@ -1,15 +1,72 @@
+{% load widget_tweaks %}
 <form action="{% url 'create-event' %}" method="post" class="ui form">
     {% csrf_token %}
-    <div class="fields">
-        {% for field in form.visible_fields %}
+    <div class="field {% if form.name.errors.as_text %}error{% endif %}">
+        <label>{{ form.name.label}}</label>
+        <span style="color: red" class="small">{{ form.name.errors.as_text }}</span>
+        {{ form.name }}
+    </div>
+    <div class="field {% if form.description.errors.as_text %}error{% endif %}">
+        <label>{{ form.description.label}}</label>
+        <span style="color: red" class="small">{{ form.description.errors.as_text }}</span>
+        {{ form.description }}
+    </div>
+    <div class="two fields">
+        <div class="field {% if form.course.errors.as_text %}error{% endif %}">
+            <label>{{ form.course.label}}</label>
+            <span style="color: red" class="small">{{ form.course.errors.as_text }}</span>
+            {{ form.course }}
+        </div>
+        <div class="field {% if form.course.category.as_text %}error{% endif %}">
+            <label>{{ form.category.label}}</label>
+            <span style="color: red" class="small">{{ form.category.errors.as_text }}</span>
+            {{ form.category }}
+        </div>
+    </div>
+    <br>
+    <h4 class="ui dividing header">Horário</h4>
+    <div class="three fields">
+        <div class="eight wide field {% if form.date.errors.as_text %}error{% endif %}">
+            <label>{{ form.date.label}}</label>
+            <span style="color: red" class="small">{{ form.date.errors.as_text }}</span>
+            {{ form.date }}
+        </div>
+        <div class="field {% if form.time.errors.as_text %}error{% endif %}">
+            <label>{{ form.time.label}}</label>
+            <span style="color: red" class="small">{{ form.time.errors.as_text }}</span>
+            {{ form.time }}
+        </div>
+        <div class="field {% if form.duration.errors.as_text %}error{% endif %}">
+            <label>{{ form.duration.label}}</label>
+            <span style="color: red" class="small">{{ form.duration.errors.as_text }}</span>
+            {{ form.duration }}
+        </div>
+    </div>
+    <br>
+    <h4 class="ui dividing header">Disponibilidade</h4>
+    <div class="field {% if form.schools.errors.as_text %}error{% endif %}">
+        <label>{{ form.schools.label}}</label>
+        <span style="color: red" class="small">{{ form.schools.errors.as_text }}</span>
+        {% for option in form.schools %}
         <div class="field">
-            <label>{{ field.label }}<span class="small red">{{ field.errors.as_text }}</span></label>
-            {{ field }}
+            <div class="ui checkbox">
+                {{ option.tag }}
+                <label>{{ option.choice_label }}</label>
+            </div>
         </div>
         {% endfor %}
-        {% for hidden in form.hidden_fields %}
-        {{ hidden }}
-        {% endfor %}
     </div>
+    <br>
+    <h4 class="ui dividing header">Lista de exercícios (opcional)</h4>
+    <div class="field {% if form.file.errors.as_text %}error{% endif %}">
+        <label>{{ form.file.label}}</label>
+        <span style="color: red" class="small">{{ form.file.errors.as_text }}</span>
+        {{ form.file }}
+    </div>
+
+    {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+    <br>
     <button class="ui button primary" type="submit">Salvar alterações</button>
 </form>
