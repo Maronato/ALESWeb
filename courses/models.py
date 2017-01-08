@@ -4,6 +4,11 @@ from schools.models import School, Student, Year
 from teachers.models import Teacher
 from django.db.models import Q
 from datetime import datetime, timedelta
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.utils import timezone
+import pytz
+now = timezone.now()
 
 
 class Course(models.Model):
@@ -31,6 +36,7 @@ class Event(models.Model):
     description = models.TextField(blank=True, null=True)
     file = models.URLField(blank=True, null=True)
     date = models.CharField(max_length=20)
+    datetime = models.DateTimeField(default=datetime.strptime('1972-01-01', "%Y-%m-%d"))
     time = models.TimeField()
     duration = models.TimeField()
     teacher = models.ForeignKey(
@@ -64,24 +70,16 @@ class Event(models.Model):
     def students(self):
         return Student.objects.filter(Q(school__events__in=[self]) & Q(courses__in=[self.course]))
 
-    # Merges self.time and self.date into a datetime object
-    # Returns an invalid date if the merging failed(invalid initial data)
-    @property
-    def datetime(self):
-        try:
-            return datetime.strptime(self.date, "%Y-%m-%d").replace(hour=self.time.hour, minute=self.time.minute)
-        except ValueError:
-            return datetime.strptime('1972-01-01', "%Y-%m-%d")
-
     # True if the event is in the next 2 weeks, False otherwise
     @property
     def is_near_future(self):
-        return self.datetime > (datetime.now() - timedelta(days=1)) and self.datetime < (datetime.now() + timedelta(days=14))
+        print(self.datetime.day > datetime.now().day)
+        return self.datetime > (now - timedelta(days=1)) and self.datetime < (now + timedelta(days=14))
 
     # True if the event is in the past, False otherwise
     @property
     def is_past(self):
-        return self.datetime <= (datetime.now() - timedelta(days=1))
+        return self.datetime <= (now - timedelta(days=1))
 
     # True if the event is more than 2 weeks in the future, False otherwise
     @property
@@ -90,3 +88,10 @@ class Event(models.Model):
 
     def __str__(self):
         return str(self.name) + " de " + str(self.course.name)
+
+
+# Apply datetime at save
+@receiver(pre_save, sender=Event, dispatch_uid="pre_save_event")
+def pre_save_event(sender, instance, **kwargs):
+    tz = pytz.timezone(timezone.get_default_timezone_name())
+    instance.datetime = tz.localize(datetime.strptime(instance.date, "%Y-%m-%d").replace(hour=instance.time.hour, minute=instance.time.minute))
