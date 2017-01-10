@@ -63,7 +63,7 @@ class Event(models.Model):
     )
 
     students_attended = models.ManyToManyField(Student, related_name="events_attended", blank=True)
-    stundets_missed = models.ManyToManyField(Student, related_name="events_missed", blank=True)
+    students_missed = models.ManyToManyField(Student, related_name="events_missed", blank=True)
 
     # Represents all the students that CAN attend the event. Students shown here will be notified of the event beforehand
     @property
