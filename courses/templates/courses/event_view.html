@@ -1,0 +1,76 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% block content %}
+<div class="ui vertical stripe ">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="sixteen wide column center aligned">
+                <h1>
+                    {{ event.name }}
+                </h1>
+                <p>
+                <a href="{% url 'course-view' course_id=event.course.id %}">{{ event.course.name }}</a>
+                </p>
+                <p>
+                    {{ event.datetime }}
+                </p>
+                <p>
+                    Professor(a): {{ event.teacher.name }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="six wide left floated column">
+                <h3>
+                    Descrição
+                </h3>
+                <p>
+                    {{ event.description | linebreaksbr }}
+                </p>
+            </div>
+            <div class="eight wide column center aligned">
+
+                {% if not event.is_past %}
+                <div class="ui huge statistic">
+                    <div class="value">
+                        {{ event.students | length }} <i class="icon child"></i>
+                    </div>
+                    <div class="label">
+                        Alunos atenderão
+                    </div>
+                </div>
+                {% else %}
+                <div class="ui statistic">
+                    <div class="value">
+                        {{ event.students_attended.all | length }}
+                    </div>
+                    <div class="label">
+                        Alunos compareceram
+                    </div>
+                </div>
+                <div class="ui statistic">
+                    <div class="value">
+                        {{ event.students_missed.all | length }}
+                    </div>
+                    <div class="label">
+                        Alunos faltaram
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% if event.file %}
+            <div class="sixteen wide center aligned column">
+            <br>
+            <br>
+                <a href="{{ event.file }}"><button class="ui button blue"><i class="icon download"></i>Download da apostila</button></a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, reverse
-from .models import Event
+from .models import Event, Course
 from schools.models import Student
 from .forms import CourseFormSet, EventForm, StudentPresence, EventFormSet
 from django.forms import formset_factory
@@ -7,7 +7,18 @@ from django.contrib.auth.decorators import user_passes_test
 from main.decorators import *
 from django.contrib import messages
 from datetime import datetime
+from django.shortcuts import get_object_or_404
 # Create your views here.
+
+
+def course_view(request, course_id):
+    course = get_object_or_404(Course, pk=course_id)
+    return render(request, 'courses/course_view.html', {'course': course})
+
+
+def event_view(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    return render(request, 'courses/event_view.html', {'event': event})
 
 
 @user_passes_test(is_admin)

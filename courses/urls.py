@@ -2,6 +2,10 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    # Public view that shows the course's info
+    url(r'course/(?P<course_id>\d+)', views.course_view, name='course-view'),
+    # Public view that shows the event's info
+    url(r'event/(?P<event_id>\d+)', views.event_view, name='event-view'),
     # Admin view, update and add courses
     url(r'^update-courses/', views.update_course, name='update-courses'),
     # Teacher view, create events
