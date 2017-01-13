@@ -73,7 +73,6 @@ class Event(models.Model):
     # True if the event is in the next 2 weeks, False otherwise
     @property
     def is_near_future(self):
-        print(self.datetime.day > datetime.now().day)
         return self.datetime > (now - timedelta(days=1)) and self.datetime < (now + timedelta(days=14))
 
     # True if the event is in the past, False otherwise

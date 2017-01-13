@@ -40,7 +40,7 @@ class Command(BaseCommand):
                 # if x.datetime > datetime.now() and x.datetime < (datetime.now() + timedelta(days=days))
                 events = [x for x in teacher.events.all() if x.datetime.day == (datetime.now() + timedelta(days=days)).day]
 
-                # if there are any events in the coming week
+                # if there are any events in the coming days
                 if len(events) > 0:
 
                     html = ''
@@ -48,15 +48,17 @@ class Command(BaseCommand):
 
                     # generate the unsubscribe url
                     unsubscribe = str(settings.SITE_URL) + reverse('unsubscribe', kwargs={'key': teacher.emailmanager.key})
+                    dashboard = str(settings.SITE_URL) + reverse('dashboard')
 
                     # generate single events' html and plain
                     for event in events:
-                        html += render_to_string('main/email/teacher_event_single.html', {'event': event, 'date': event.datetime.strftime("%a, %d de %b às %H:%M")})
-                        plain += render_to_string('main/email/teacher_event_single.txt', {'event': event, 'date': event.datetime.strftime("%a, %d de %b às %H:%M")})
+                        event_link = str(settings.SITE_URL) + reverse('event-view', kwargs={'event_id': event.id})
+                        html += render_to_string('main/email/teacher_event_single.html', {'event_link': event_link, 'event': event, 'date': event.datetime.strftime("%a, %d de %b às %H:%M")})
+                        plain += render_to_string('main/email/teacher_event_single.txt', {'event_link': event_link, 'event': event, 'date': event.datetime.strftime("%a, %d de %b às %H:%M")})
 
                     # gather everything on the final email body
-                    html = render_to_string('main/email/teacher_event_full.html', {'html': html, 'teacher': teacher, 'days': days, 'unsubscribe': unsubscribe})
-                    plain = render_to_string('main/email/teacher_event_single.txt', {'plain': plain, 'teacher': teacher, 'days': days, 'unsubscribe': unsubscribe})
+                    html = render_to_string('main/email/teacher_event_full.html', {'html': html, 'teacher': teacher, 'days': days, 'unsubscribe': unsubscribe, 'dashboard': dashboard})
+                    plain = render_to_string('main/email/teacher_event_single.txt', {'plain': plain, 'teacher': teacher, 'days': days, 'unsubscribe': unsubscribe, 'dashboard': dashboard})
 
                     # append the data to a list of emails
                     data.append({'teacher': teacher, 'html': html, 'plain': plain})

@@ -52,8 +52,9 @@ class Command(BaseCommand):
 
                     # generate single events' html and plain
                     for event in events:
-                        html += render_to_string('main/email/student_event_single.html', {'event': event, 'date': event.datetime.strftime("%a, %d de %b às %H:%M")})
-                        plain += render_to_string('main/email/student_event_single.txt', {'event': event, 'date': event.datetime.strftime("%a, %d de %b às %H:%M")})
+                        event_link = str(settings.SITE_URL) + reverse('event-view', kwargs={'event_id': event.id})
+                        html += render_to_string('main/email/student_event_single.html', {'event_link': event_link, 'event': event, 'date': event.datetime.strftime("%a, %d de %b às %H:%M")})
+                        plain += render_to_string('main/email/student_event_single.txt', {'event_link': event_link, 'event': event, 'date': event.datetime.strftime("%a, %d de %b às %H:%M")})
 
                     # gather everything on the final email body
                     html = render_to_string('main/email/student_event_full.html', {'html': html, 'student': student, 'days': days, 'unsubscribe': unsubscribe, 'dashboard': dashboard})
