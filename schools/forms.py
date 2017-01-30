@@ -236,6 +236,17 @@ class ChangeCoursesStudentForm(forms.ModelForm):
         # a list of primary key for the selected data.
         self.initial['courses'] = [t.pk for t in self.instance.courses.all()]
         self.fields['courses'].widget.attrs['class'] = "ui toggle checkbox"
+        self.fields['courses'].widget.attrs['onclick'] = "changeHandler($(this));"
+
+    def clean_courses(self):
+        courses = self.cleaned_data.get('courses').all()
+        for course in courses:
+            for kourse in courses:
+                if kourse != course and course.day == kourse.day and course.time == course.time:
+                    raise forms.ValidationError(
+                        "Você não pode se inscrever ao mesmo tempo em " + course.name + " e " + kourse.name
+                    )
+        return courses
 
     # Overriding save allows us to process the value of 'courses' field
     def save(self, commit=True):

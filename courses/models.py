@@ -10,6 +10,11 @@ from django.utils import timezone
 import pytz
 now = timezone.now()
 
+DAYS = (
+    (1, 'Sábado'),
+    (2, 'Domingo')
+)
+
 
 class Course(models.Model):
     """Course
@@ -22,6 +27,10 @@ class Course(models.Model):
     students = models.ManyToManyField(Student, related_name="courses", blank=True)
     schools = models.ManyToManyField(School, related_name="courses", blank=True)
     years = models.ManyToManyField(Year, related_name="courses", blank=True)
+
+    day = models.IntegerField(choices=DAYS, null=True)
+    time = models.TimeField(null=True)
+    duration = models.TimeField(null=True)
 
     def __str__(self):
         return str(self.name)

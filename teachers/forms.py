@@ -66,6 +66,7 @@ class ChangeCoursesTeacherForm(forms.ModelForm):
         # a list of primary key for the selected data.
         self.initial['courses'] = [t.pk for t in self.instance.courses.all()]
         self.fields['courses'].widget.attrs['class'] = "ui toggle checkbox"
+        self.fields['courses'].widget.attrs['onclick'] = "changeHandler($(this));"
 
     # Overriding save allows us to process the value of 'courses' field
     def save(self, commit=True):

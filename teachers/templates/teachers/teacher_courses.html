@@ -1,18 +1,33 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}
+
+{% block extend_scripts %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+<script type="text/javascript" src="{% static 'main/js/initializeCalendar.js' %}"></script>
+<script type="text/javascript" src="{% static 'main/js/calendarFunctions.js' %}"></script>
+{% endblock %}
+
+{% block extend_style %}
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/calendar.css' %}">
+{% endblock %}
+
 {% block content %}
 
 <div class="ui vertical stripe segment">
     <div class="ui middle aligned stackable grid container">
         <div class="row">
-        <a href="{% url 'dashboard' %}"><button class="ui button large primary"><i class="icon arrow left"></i>Voltar</button></a>
+            <a href="{% url 'dashboard' %}"><button class="ui button large primary"><i class="icon arrow left"></i>Voltar</button></a>
             <div class="center aligned twelve wide column">
                 <h1>Matérias</h1>
             </div>
         </div>
+        <div class="ui divider"></div>
         <div class="row">
-            <div class="ui divider"></div>
+            <div id="calendar"></div>
         </div>
+        <div class="ui divider"></div>
     </div>
     <div class="ui one column stackable center aligned page grid">
         {% include "teachers/forms/teacher_courses.html" %}

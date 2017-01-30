@@ -45,3 +45,16 @@
     <div class="ui divider"></div>
     <input type="submit" class="ui big primary button" value="Salvar alterações" />
 </form>
+
+<script type="text/javascript">
+    options = {
+        {% for obj in form.courses.field.queryset %}
+        '{{ obj.id }}': {
+            'name': '{{ obj.name }}',
+            'start': '{{ obj.time }}',
+            'duration': '{{ obj.duration }}',
+            'day': '{{ obj.day }}',
+        },
+        {% endfor %}
+    };
+</script>
