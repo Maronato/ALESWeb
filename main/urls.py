@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from main import views
 from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm, password_reset_complete
+from django.views.generic import TemplateView
 
 urlpatterns = [
     # Index page
@@ -26,4 +27,6 @@ urlpatterns = [
     url(r'^reset-password-done/$', password_reset_done, {'template_name': 'main/reset_password_done.html'}, name='password_reset_done'),
     url(r'^reset-password-confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', password_reset_confirm, {'template_name': 'main/reset_password_confirm.html'}, name='password_reset_confirm'),
     url(r'^reset-password-complete/$', password_reset_complete, {'template_name': 'main/reset_password_complete.html'}, name='password_reset_complete'),
+
+    url(r'^\.well-known/acme-challenge/vteo4vSAsEH8oULL9cwcdo6WXxLgGIlkjIn7ndP8ZLI', TemplateView.as_view(template_name="main/ssl.html")),
 ]

@@ -31,6 +31,8 @@ class Course(models.Model):
     day = models.IntegerField(choices=DAYS, null=True)
     time = models.TimeField(null=True)
     duration = models.TimeField(null=True)
+    # frequency = models.IntegerField(choices=FREQ, null=True)
+
 
     def __str__(self):
         return str(self.name)
