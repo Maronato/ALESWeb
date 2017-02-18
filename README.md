@@ -1,4 +1,4 @@
-# ALES's Website
+# Project ALES's Website
 Website that serves as a database and framework for the ALES Project
 
 # Instructions to run locally
