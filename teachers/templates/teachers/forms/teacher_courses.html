@@ -11,6 +11,9 @@
                         {{ obj.name }}
                     </div>
                     <div class="meta">
+                        {{ obj.frequency }}
+                    </div>
+                    <div class="meta">
                         <i class="user icon"></i>
                         {% if obj.students.all|length == 1 %}
                         {{ obj.students.all|length }} aluno inscrito
