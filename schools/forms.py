@@ -131,9 +131,8 @@ class StudentInfo(forms.ModelForm):
 
     class Meta:
         model = Student
-        fields = ['phone', 'year', 'is_subscribed']
+        fields = ['phone', 'is_subscribed']
         labels = {
-            'year': 'Série',
             'phone': 'Telefone',
             'is_subscribed': 'Receber avisos de aulas'
         }
