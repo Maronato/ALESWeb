@@ -1,31 +1,141 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}
+
+{% block extend_style %}
+<style>
+    .google-maps {
+        position: relative;
+        padding-bottom: 30%; // This is the aspect ratio
+        height: 0;
+        overflow: hidden;
+    }
+    .google-maps iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+    }
+</style>
+{% endblock %}
+
 {% block masthead %}
 <!-- Masthead -->
 <div class="ui vertical inverted masthead center aligned segment">
     <div class="ui text container">
         <h1 class="ui inverted header">
-            Indo Além da Escola
+            Projeto Além da Escola
         </h1>
-        <h2>Explore um bom subtítulo</h2>
+        <h2>Aulas extracurriculares, de graça</h2>
         <a href="{% url 'enroll' %}"><div class="ui huge primary button">Inscreva-se<i class="right arrow icon"></i></div></a>
     </div>
 </div>
 {% endblock %}
 {% block content %}
 <div id='project' class="ui vertical stripe segment">
-    <div class="ui middle aligned stackable grid container">
+    <div class="ui stackable grid container">
+        <div class="row centered">
+            <h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/eq7Adzo4QAE?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+            </h2>
+        </div>
+        <div class="ui divider"></div>
+        <div class="row centered">
+            <h3 class="ui header">O que é esse projeto?</h3>
+        </div>
         <div class="row">
             <div class="eight wide column">
-                <h3 class="ui header">Título aqui</h3>
-                <p>Nós fazemos varias coisas e tal, bem bacana.</p>
-                <h3 class="ui header">Damos aula e pá</h3>
-                <p>yep, very fun</p>
+                <p>
+                    Acreditamos que a curiosidade e a vontade de aprender são essenciais na vida dos jovens, mas muitas vezes estes são suprimidos pela falta de acesso às informações corretas ou são desestimulados pelo sistema de ensino arcaico que ainda mantemos em nosso país.<br>Reconhecemos que a culpa disso não é das escolas. Muitas vezes faltam, em especial nas públicas, as ferramentas e oportunidades para abordar temas extra-curriculares, por mais importantes que eles sejam.
+                </p>
+                <p>
+                    Desta percepção nasceu o ALES, um projeto que tem como
+                    objetivo trazer complementos acadêmicos e intelectuais, fora das escolas, de forma gratuita aos alunos da comunidade de Barão Geraldo, Campinas.
+                </p>
             </div>
-            <div class="six wide right floated column">
-                <h2>
-                    Maybe a video here or something
-                </h2>
+            <div class="eight wide column">
+                <p>
+                    Os alunos que tiverem interesse em participar do projeto terão a oportunidade de crescer, se conhecer e aprender através do contato com conteúdos que dificilmente teriam acesso apenas através da rede pública de ensino.
+                </p>
+                <p>
+                    Nosso projeto, portanto, não é um substituto da escola. É uma ferramenta para expandir horizontes e inspirar alunos a fazerem algo novo.
+                </p>
+                <p>
+                    É a nossa vontade de mostrar para os alunos que conhecimento é muito mais do que as coisas que aprendem na escola e que eles também podem aprender, alcançar e criar coisas que antes eles pensavam, ou eram ditos, serem distantes demais de sua realidade.
+                </p>
+            </div>
+        </div>
+
+        <div class="ui divider"></div>
+        <div class="row centered">
+            <h3 class="ui header">O que vocês oferecem?</h3>
+        </div>
+        <div class="row centered">
+            <p>Oferecemos um vasto leque de aulas, palestras e oportunidades como:</p>
+        </div>
+        <div class="row">
+            <div class="ten wide column">
+                <p>Aulas regulares lecionadas por alunos e professores da Unicamp:</p>
+                <div class="ui list big bulleted">
+                    <div class="ui item"><strong>Dança Contemporânea</strong></div>
+                    <div class="ui item"><strong>Teatro</strong> e <strong>Oratória</strong></div>
+                    <div class="ui item"><strong>História do Cinema</strong></div>
+                    <div class="ui item"><strong>Astronomia</strong> para Olimpíada Brasileria de Astronomia</div>
+                    <div class="ui item"><strong>Programação</strong> para desenvolvimento de Jogos, Sites, Aplicativos de Celular e para a Olimpíada Brasileira de Informática</div>
+                    <div class="ui item"><strong>Matemática</strong> para Olimpíada Brasileria de Matemática das Escolas Públicas</div>
+                    <div class="ui item"><strong>Física</strong> para Olimpíada Brasileria de Física das Escolas Públicas</div>
+                    <div class="ui item"><strong>Química</strong> para Olimpíada Brasileria de Química Jr</div>
+                </div>
+            </div>
+            <div class="six wide column">
+                <p>
+                    Palestras e eventos ocasionais:
+                </p>
+                <div class="ui list big bulleted">
+                    <div class="ui item">Palestras de <strong>Professores da Unicamp</strong></div>
+                    <div class="ui item">Palestras de <strong>Pesquisadores e Alunos</strong></div>
+                    <div class="ui item">Visitas a <strong>Laboratórios da Unicamp</strong></div>
+                    <div class="ui item">Visitas a <strong>Centros de Pesquisa</strong></div>
+                    <div class="ui item">Participação em <strong>Eventos Universitários</strong></div>
+                    <div class="ui item">Monitoria de assuntos da <strong>Escola</strong> e do <strong>Vestibular</strong></div>
+                </div>
+            </div>
+        </div>
+        <div class="row centered">
+        <p>E muito mais!</p>
+        </div>
+    </div>
+</div>
+
+<div id="map" class="ui vertical stripe segment">
+    <div class="ui centered grid stackable container">
+        <div class="ui column aligned center">
+        <h1>Como chegar</h1>
+        <div class="google-maps">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3677.4947582210434!2d-47.06816748503585!3d-22.821177885055427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c8c6add63acaa3%3A0x67fbe511ef3568be!2sSchool+of+Electrical+and+Computer+Engineering!5e0!3m2!1sen!2sbr!4v1487393818014" width="600" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui vertical stripe segment">
+    <div class="ui equal width stackable grid">
+        <div class="center aligned row">
+            <div class="center aligned column">
+                <h1>
+                    Nós não somos os primeiros a fazer isso!
+                </h1>
+                <p>Temos muita experiência com projetos assim! Esses são alguns dos que já fizemos parte:</p>
+            </div>
+        </div>
+        <div class="center aligned row">
+            <div class="column">
+                <h3><a href="http://www.projetovoa.org/" target="_blank">Projeto VOA!</a></h3>
+                <p style="font-style: italic;">Projeto com mais de 5 anos de sucesso, que atende alunos da rede pública de São Paulo</p>
+            </div>
+            <div class="column">
+                <h3><a href="https://apole.com.br/" target="_blank">Projeto APOLE</a></h3>
+                <p style="font-style: italic;">3 anos influenciando a vida de muitos alunos de Vinhedo com sucesso em olimpíadas culturais</p>
             </div>
         </div>
     </div>
@@ -78,30 +188,6 @@
     </div>
 </div> -->
 
-<div class="ui vertical stripe quote segment">
-    <div class="ui equal width stackable grid">
-        <div class="center aligned row">
-            <div class="center aligned column">
-                <h1>
-                    Don't take our word for it
-                </h1>
-            </div>
-        </div>
-        <div class="center aligned row">
-            <div class="column">
-                <h3>"What a Project"</h3>
-                <p style="font-style: italic;">That is what they all say about us</p>
-            </div>
-            <div class="column">
-                <h3>"Changed my life"</h3>
-                <p style="font-style: italic;">
-                    Bill Gates
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div id='contact' class="ui vertical inverted black stripe segment">
     <div class="ui text container center aligned">
         <h3 class="ui inverted header">Contato</h3><p style="font-size: smaller; color: grey">projetoales.contato@gmail.com</p>
@@ -133,7 +219,7 @@
 
             <div style="text-align: center;">
                 <br>
-                <button class="ui big button green" type="submit">Enviar</button>
+                <button class="ui big button blue" type="submit">Enviar</button>
             </div>
         </form>
     </div>
