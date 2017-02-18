@@ -8,3 +8,4 @@ unidecode
 phonenumbers
 django-widget-tweaks
 pytz
+python-dateutil
