@@ -22,6 +22,9 @@ class CourseForm(forms.ModelForm):
         model = Course
         fields = ['name', 'description', 'day', 'time', 'duration', 'teachers', 'schools', 'years']
         widgets = {
+            'date': DateInput,
+            'time': TimeInput,
+            'duration': TimeInput,
             'schools': forms.widgets.CheckboxSelectMultiple(),
             'teachers': forms.widgets.CheckboxSelectMultiple(),
             'years': forms.widgets.CheckboxSelectMultiple()
