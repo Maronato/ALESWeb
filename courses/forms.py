@@ -7,6 +7,11 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
+class DateTimeInput(forms.DateTimeInput):
+    # Custom DateInput widget to use a custom input_type
+    input_type = 'datetime'
+
+
 class TimeInput(forms.TimeInput):
     # Custom TimeInput widget to use a custom input_type
     input_type = 'time'
@@ -20,7 +25,7 @@ class CourseForm(forms.ModelForm):
     class Meta:
 
         model = Course
-        fields = ['name', 'description', 'day', 'time', 'duration', 'teachers', 'schools', 'years']
+        fields = ['name', 'description', 'date', 'time', 'weeks_apart', 'months_apart', 'duration', 'teachers', 'schools', 'years']
         widgets = {
             'date': DateInput,
             'time': TimeInput,
@@ -35,8 +40,8 @@ class CourseForm(forms.ModelForm):
             'teachers': 'Professores',
             'schools': 'Escolas',
             'years': 'Séries',
-            'day': 'Dia',
             'time': 'Hora',
+            'date': 'Primeira Aula',
             'duration': 'Duração'
         }
 

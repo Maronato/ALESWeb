@@ -8,12 +8,12 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils import timezone
 import pytz
-now = timezone.now()
+now = timezone.localtime(timezone.now())
 
-DAYS = (
-    (1, 'Sábado'),
-    (2, 'Domingo')
-)
+DAYS = {
+    '1': 'Sábados',
+    '2': 'Domingos'
+}
 
 
 class Course(models.Model):
@@ -28,11 +28,43 @@ class Course(models.Model):
     schools = models.ManyToManyField(School, related_name="courses", blank=True)
     years = models.ManyToManyField(Year, related_name="courses", blank=True)
 
-    day = models.IntegerField(choices=DAYS, null=True)
-    time = models.TimeField(null=True)
     duration = models.TimeField(null=True)
-    # frequency = models.IntegerField(choices=FREQ, null=True)
 
+    date = models.CharField(max_length=20, null=True)
+    datetime = models.DateTimeField(default=datetime.strptime('1972-01-01', "%Y-%m-%d"))
+    time = models.TimeField(null=True)
+    weeks_apart = models.IntegerField(null=True)
+    months_apart = models.IntegerField(null=True)
+
+    @property
+    def day(self):
+        return self.begin.weekday() - 4
+
+    @property
+    def begin(self):
+        return self.datetime.replace(tzinfo=now.tzinfo)
+
+    @property
+    def frequency(self):
+        text = DAYS[str(self.day)]
+
+        if self.time.hour < 12:
+            text = text + ' de manhã'
+        else:
+            text = text + ' de tarde'
+
+        if self.weeks_apart == 1 and self.months_apart == 0:
+            text = text + ' semanalmente'
+        elif self.weeks_apart == 0 and self.months_apart == 1:
+            text = text + ' mensalmente'
+        elif self.weeks_apart > 0 and self.months_apart == 0:
+            text = text + ' a cada ' + str(self.weeks_apart) + ' semanas'
+        elif self.weeks_apart == 0 and self.months_apart > 0:
+            text = text + ' a cada ' + str(self.months_apart) + ' meses'
+        elif self.weeks_apart > 0 and self.months_apart > 0:
+            text = text + ' a cada ' + str(self.weeks_apart) + ' semanas e ' + str(self.months_apart) + ' meses'
+
+        return text
 
     def __str__(self):
         return str(self.name)
@@ -103,5 +135,9 @@ class Event(models.Model):
 # Apply datetime at save
 @receiver(pre_save, sender=Event, dispatch_uid="pre_save_event")
 def pre_save_event(sender, instance, **kwargs):
-    tz = pytz.timezone(timezone.get_default_timezone_name())
-    instance.datetime = tz.localize(datetime.strptime(instance.date, "%Y-%m-%d").replace(hour=instance.time.hour, minute=instance.time.minute))
+    instance.datetime = datetime.strptime(instance.date, "%Y-%m-%d").replace(hour=instance.time.hour, minute=instance.time.minute, tzinfo=now.tzinfo)
+
+
+@receiver(pre_save, sender=Course, dispatch_uid="pre_save_course")
+def pre_save_course(sender, instance, **kwargs):
+    instance.datetime = datetime.strptime(instance.date, "%Y-%m-%d").replace(hour=instance.time.hour, minute=instance.time.minute, tzinfo=now.tzinfo)

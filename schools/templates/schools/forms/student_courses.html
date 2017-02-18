@@ -11,6 +11,9 @@
                         {{ obj.name }}
                     </div>
                     <div class="meta">
+                        {{ obj.frequency }}
+                    </div>
+                    <div class="meta">
                         <i class="user icon"></i>
                         {% if obj.students.all|length == 1 %}
                         {{ obj.students.all|length }} aluno inscrito
@@ -19,6 +22,7 @@
                         {% endif %}
                     </div>
                     <div class="description">
+
                         {{ obj.description | linebreaksbr }}
                         <div class="ui horizontal divider" style="margin: 10px">
                              Professores

@@ -6,6 +6,7 @@ from courses.models import Course
 from django.db.models import Q
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from courses.date_comparisons import AllEvents
 
 
 class DateInput(forms.DateInput):
@@ -241,11 +242,14 @@ class ChangeCoursesStudentForm(forms.ModelForm):
     def clean_courses(self):
         courses = self.cleaned_data.get('courses').all()
         for course in courses:
+            gen_1 = AllEvents(course.begin, course.weeks_apart, course.months_apart)
             for kourse in courses:
-                if kourse != course and course.day == kourse.day and course.time == course.time:
-                    raise forms.ValidationError(
-                        "Você não pode se inscrever ao mesmo tempo em " + course.name + " e " + kourse.name
-                    )
+                if kourse != course:
+                    gen_2 = AllEvents(kourse.begin, kourse.weeks_apart, kourse.months_apart)
+                    if gen_1.compare(gen_2):
+                        raise forms.ValidationError(
+                            "Você não pode se inscrever ao mesmo tempo em " + course.name + " e " + kourse.name
+                        )
         return courses
 
     # Overriding save allows us to process the value of 'courses' field
