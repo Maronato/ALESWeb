@@ -29,6 +29,12 @@ def index(request, contactform=None):
     })
 
 
+def how_it_works(request):
+    # How it Works.
+
+    return render(request, 'main/how_it_works.html')
+
+
 def enroll(request):
     # Enrollment page
     return render(request, 'main/enroll.html')

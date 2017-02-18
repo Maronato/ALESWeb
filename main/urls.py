@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'contact/', views.contact, name='contact'),
     # Dashboard
     url(r'dashboard/', views.dashboard, name='dashboard'),
+    # How it works
+    url(r'como-funciona/', views.how_it_works, name='how_it_works'),
     # Enrollment page
     url(r'enroll/', views.enroll, name='enroll'),
     url(r'^login/$', views.login_user, name='login'),
