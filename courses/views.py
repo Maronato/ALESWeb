@@ -95,9 +95,13 @@ def update_event(request):
             # and save it
             form.save()
 
+            all_instances = [i.instance for i in form]
+            deleted = [i.instance for i in form.deleted_forms]
+
             # Save manually so pre_save is triggered
-            for item in form:
-                item.instance.save()
+            for item in all_instances:
+                if item not in deleted:
+                    item.save()
 
             messages.add_message(request, messages.SUCCESS, 'Eventos atualizados!')
 
