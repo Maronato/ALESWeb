@@ -3,16 +3,22 @@
 
 def is_teacher(user):
     # Checks whether the user is a teacher
+    if not user.is_authenticated:
+        return False
     return user.is_teacher
 
 
 def is_student(user):
     # Checks whether the user is a student
+    if not user.is_authenticated:
+        return False
     return user.is_student
 
 
 def is_admin(user):
     # Checks whether the user is an admin
+    if not user.is_authenticated:
+        return False
     return user.is_superuser
 
 
