@@ -135,7 +135,8 @@ class Event(models.Model):
 # Apply datetime at save
 @receiver(pre_save, sender=Event, dispatch_uid="pre_save_event")
 def pre_save_event(sender, instance, **kwargs):
-    instance.datetime = datetime.strptime(instance.date, "%Y-%m-%d").replace(hour=instance.time.hour, minute=instance.time.minute, tzinfo=now.tzinfo)
+    tz = pytz.timezone(timezone.get_default_timezone_name())
+    instance.datetime = tz.localize(datetime.strptime(instance.date, "%Y-%m-%d").replace(hour=instance.time.hour, minute=instance.time.minute))
 
 
 @receiver(pre_save, sender=Course, dispatch_uid="pre_save_course")
