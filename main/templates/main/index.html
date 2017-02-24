@@ -33,14 +33,14 @@
 {% endblock %}
 {% block content %}
 <div id='project' class="ui vertical stripe segment">
-    <div class="ui stackable grid container">
-        <div class="row centered">
-            <h2>
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/MpB56wtEqik?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-            </h2>
+    <div class="ui container">
+        <div class="row centered" style="max-width: 560px; max-height: 420px; margin: auto;">
+            <div style="margin: auto;" id="video" class="ui embed"></div>
         </div>
-        <div class="ui divider"></div>
+    </div>
+    <div class="ui grid stackable container">
         <div class="row centered">
+            <div class="ui divider"></div>
             <h3 class="ui header">O que é esse projeto?</h3>
         </div>
         <div class="row">
@@ -102,7 +102,7 @@
             </div>
         </div>
         <div class="row centered">
-        <p>E muito mais!</p>
+            <p>E muito mais!</p>
         </div>
     </div>
 </div>
@@ -133,11 +133,11 @@
 <div id="map" class="ui vertical inverted black stripe segment">
     <div class="ui centered grid stackable container">
         <div class="ui column aligned center">
-        <h1>Como chegar</h1>
-        <small style="color: grey">Faculdade de Engenharia Elétrica da Unicamp: Cidade Universitária Zeferino Vaz - Av. Albert Einstein, 400 - Distrito Barão Geraldo, Campinas - SP, 13083-852</small><br><br>
-        <div class="google-maps">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3677.4947582210434!2d-47.06816748503585!3d-22.821177885055427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c8c6add63acaa3%3A0x67fbe511ef3568be!2sSchool+of+Electrical+and+Computer+Engineering!5e0!3m2!1sen!2sbr!4v1487393818014" width="600" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
+            <h1>Como chegar</h1>
+            <small style="color: grey">E.E. Barão Geraldo de Rezende: Rua Jerônimo Páttaro, S/N - Barão Geraldo, Campinas - SP, 13084-110</small><br><br>
+            <div class="google-maps">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14709.608598813034!2d-47.0816956!3d-22.8246065!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5bd30fe91c0b65f9!2sEscola+Estadual+Bar%C3%A3o+Geraldo+de+Rezende!5e0!3m2!1sen!2sbr!4v1487953715362" width="600" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
         </div>
     </div>
 </div>
@@ -227,4 +227,16 @@
 </div>
 </div>
 </div>
+<script type="text/javascript">
+    $('#video').embed({
+        source      : 'youtube',
+        id          : 'MpB56wtEqik',
+        placeholder : 'https://img.youtube.com/vi/MpB56wtEqik/0.jpg',
+        parameters  : {
+            'rel': 0,
+            'controls': 0,
+            'showinfo': 0
+        }
+    });
+</script>
 {% endblock %}
