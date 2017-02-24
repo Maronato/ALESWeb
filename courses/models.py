@@ -111,7 +111,10 @@ class Event(models.Model):
     # Represents all the students that CAN attend the event. Students shown here will be notified of the event beforehand
     @property
     def students(self):
-        return Student.objects.filter(Q(school__events__in=[self]) & Q(courses__in=[self.course]))
+        students = Student.objects.filter(Q(school__events__in=[self]))
+        if self.course:
+            students = students.filter(Q(courses__in=[self.course]))
+        return students
 
     # True if the event is in the next 2 weeks, False otherwise
     @property
@@ -129,7 +132,9 @@ class Event(models.Model):
         return not (self.is_near_future or self.is_past)
 
     def __str__(self):
-        return str(self.name) + " de " + str(self.course.name)
+        if self.course:
+            return str(self.name) + " de " + str(self.course.name)
+        return str(self.name)
 
 
 # Apply datetime at save

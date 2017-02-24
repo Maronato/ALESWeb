@@ -133,7 +133,7 @@ def presence_list(request, event_id):
         return reverse('index')
 
     # Create a new formset with the right size
-    PresenceFormSet = formset_factory(StudentPresence, extra=(len(event.students) - 1))
+    PresenceFormSet = formset_factory(StudentPresence, extra=0)
 
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
