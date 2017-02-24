@@ -27,6 +27,7 @@ class Course(models.Model):
     students = models.ManyToManyField(Student, related_name="courses", blank=True)
     schools = models.ManyToManyField(School, related_name="courses", blank=True)
     years = models.ManyToManyField(Year, related_name="courses", blank=True)
+    limit = models.IntegerField(null=True)
 
     duration = models.TimeField(null=True)
 
@@ -65,6 +66,14 @@ class Course(models.Model):
             text = text + ' a cada ' + str(self.weeks_apart) + ' semanas e ' + str(self.months_apart) + ' meses'
 
         return text
+
+    @property
+    def spots_left(self):
+        return self.limit - len(self.students.all())
+
+    @property
+    def has_spots(self):
+        return self.spots_left > 0
 
     def __str__(self):
         return str(self.name)

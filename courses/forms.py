@@ -25,19 +25,19 @@ class CourseForm(forms.ModelForm):
     class Meta:
 
         model = Course
-        fields = ['name', 'description', 'date', 'time', 'weeks_apart', 'months_apart', 'duration', 'teachers', 'schools', 'years']
+        fields = ['name', 'description', 'date', 'time', 'limit', 'weeks_apart', 'months_apart', 'duration', 'schools', 'years']
         widgets = {
             'date': DateInput,
             'time': TimeInput,
             'duration': TimeInput,
             'schools': forms.widgets.CheckboxSelectMultiple(),
-            'teachers': forms.widgets.CheckboxSelectMultiple(),
+            # 'teachers': forms.widgets.CheckboxSelectMultiple(),
             'years': forms.widgets.CheckboxSelectMultiple()
         }
         labels = {
             'name': 'Nome',
             'description': 'Descrição',
-            'teachers': 'Professores',
+            # 'teachers': 'Professores',
             'schools': 'Escolas',
             'years': 'Séries',
             'time': 'Hora',

@@ -14,7 +14,14 @@
                         {{ obj.frequency }}
                     </div>
                     <div class="meta">
-                        <i class="user icon"></i>
+                        {% if obj.students.all|length >= obj.limit %}
+                        <i class="fa-ban fa"></i> LOTADO
+                        {% else %}
+                        <i class="fa-check fa"></i> {{ obj.limit }} vagas
+                        {% endif %}
+                    </div>
+                    <div class="meta">
+                        <i class="fa-user fa"></i>
                         {% if obj.students.all|length == 1 %}
                         {{ obj.students.all|length }} aluno inscrito
                         {% else %}

@@ -241,6 +241,10 @@ class ChangeCoursesStudentForm(forms.ModelForm):
     def clean_courses(self):
         courses = self.cleaned_data.get('courses').all()
         for course in courses:
+            if not course.has_spots:
+                raise forms.ValidationError(
+                    course.name + " já está lotada!"
+                )
             gen_1 = AllEvents(course.begin, course.weeks_apart, course.months_apart)
             for kourse in courses:
                 if kourse != course:
