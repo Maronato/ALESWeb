@@ -235,7 +235,7 @@ class ChangeCoursesStudentForm(forms.ModelForm):
         # The widget for a ModelMultipleChoiceField expects
         # a list of primary key for the selected data.
         self.initial['courses'] = [t.pk for t in self.instance.courses.all()]
-        self.fields['courses'].widget.attrs['class'] = "ui toggle checkbox"
+        self.fields['courses'].widget.attrs['class'] = "checkbox"
         self.fields['courses'].widget.attrs['onclick'] = "changeHandler($(this));"
 
     def clean_courses(self):

@@ -19,20 +19,63 @@
     <div class="ui middle aligned stackable grid container">
         <div class="row">
             <a href="{% url 'dashboard' %}"><button class="ui button large primary"><i class="icon arrow left"></i>Voltar</button></a>
-            <div class="center aligned twelve wide column">
+            <div class="center aligned sixteen wide column">
                 <h1>Matérias</h1>
                 <h2 style="color: red">{% for field in form %}{% for error in field.errors %}{{ error }}{% endfor %}{% endfor %}</h2>
+                <h4><a style="cursor: pointer;" onclick="$('#instructions').modal('show');"> Não sabe como fazer sua inscrição? Clique aqui para ler as instruções</a></h4>
             </div>
         </div>
-        <div class="ui divider"></div>
+        <div class="ui divider horizontal">Agenda</div>
         <div class="row">
             <div id="calendar"></div>
         </div>
-        <div class="ui divider"></div>
+        <div class="ui divider horizontal">Matérias</div>
     </div>
     <div class="ui one column stackable center aligned page grid">
 
         {% include "schools/forms/student_courses.html" %}
+    </div>
+</div>
+
+
+<div id="instructions" class="ui modal">
+    <div class="ui header">
+        <i class="help icon"></i>
+        Se inscrevendo
+    </div>
+    <div class="content">
+        <p>Aqui você pode se inscrever em qualquer matéria que tiver interesse, porém não poderá se inscrever em matérias que:</p>
+        <div class="ui bulleted list">
+            <div class="item">Acontecem no mesmo horário que outras matérias que você já tenha se inscrevido</div>
+            <div class="item">Estão lotadas</div>
+            <div class="item">Não estejam disponíveis para alunos do seu ano</div>
+        </div>
+        <h4>Agenda</h4>
+        <p>No começo da página você vai encontrar sua agenda de aulas. Nela você pode ver os horários e dias de cada matéria que você se inscreveu.</p>
+        <p>Sempre que você se inscrever em alguma matéria sua agenda será atualizada automaticamente, então só se inscreva em matérias que você tem certeza que poderá comparecer.</p>
+        <h4>Matérias</h4>
+        <p>Abaixo da agenda você encontrará uma lista com todas as matérias que oferecemos. Você também vai encontrar uma descrição da matéria, a lista de professores que vão lecionar e o horário e dia dela.</p>
+        <p>Para se inscrever em matérias, basta:</p>
+        <div class="ui ordered list">
+            <div class="item">Decidir quais matérias quer fazer</div>
+            <div class="item">Clicar em <div class="ui slider fitted read-only checkbox"><input type="checkbox"><label></label></div> na parte inferior das matérias que te interessam <br><small><i>Obs: Caso não esteja conseguindo ver a bolinha para se inscrever entre em contato conosco</i></small></div>
+            <div class="item">Assim que tiver marcado todas as matérias que te interessam, clique em <button style="cursor: default;" class="ui tiny blue button">Salvar alterações</button>para enviar sua inscrição</div>
+            <div class="item">
+            Olhe o topo da página e procure pelo resultado
+                <div class="list">
+                    <div class="item">Se houver algum texto em vermelho explicando um problema, altere sua inscrição pra corrigir e tente novamente</div>
+                    <div class="item">Se houver uma mensagem em azul dizendo que seus cursos foram atualizados, você terminou tudo!</div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="actions">
+        <div class="ui red cancel inverted button">
+            <i class="remove icon"></i>
+            Fechar
+        </div>
     </div>
 </div>
 

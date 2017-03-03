@@ -36,15 +36,15 @@
                     </div>
                 </div>
             </div>
-            <div class="extra content">
+            <div class="extra content ui inverted segment">
                 {% if obj.has_spots %}
-                <div class="ui toggle attached checkbox">
+                <div class="ui slider attached checkbox">
 
                     {{ choice.tag }}
                     <label>Se inscrever? ({{ obj.spots_left }} vagas restantes)</label>
                 </div>
                 {% else %}
-                <i class="fa-ban fa"></i> LOTADO
+                <i class="fa-ban fa"></i> Turma Lotada
                 {% endif %}
             </div>
         </div>
