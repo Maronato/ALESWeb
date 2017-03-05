@@ -1,0 +1,139 @@
+
+<!doctype html>
+<html>
+
+<head>
+    <!-- Load projects staticfiles -->
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"> -->
+    <meta name="description" content="Além da Escola!">
+
+    <title>Projeto ALES</title>
+
+    <!-- jQuery -->
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="{% static 'main/js/css_to_pdf.js' %}"></script>
+
+    <!-- Semantic-UI CSS -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.css">
+
+
+
+</head>
+
+<body>
+    <div class="ui raised padded segment">
+        <div class="ui three column grid">
+            <div class="column"> {% with event.id as id %}
+
+                <a href="{% url 'presence-list' event_id=event.id %}"><button class="ui button large primary"><i class="icon arrow left"></i>Voltar</button></a>
+                {% endwith %}
+            </div>
+            <div class="column center aligned">
+                <button class="ui button green huge" onclick="printDiv('table')"><i class="fa fa-print"></i> Imprimir</button>
+                <button class="ui button blue huge" onclick="generate_pdf();"><i class="fa fa-download"></i> Baixar PDF</button>
+            </div>
+            <div class="column">
+            </div>
+        </div>
+    </div>
+
+    <div id="table">
+        <pdfproperties style="display:none;">
+            <metainfo>
+            <prop name="author" value="Projeto ALES">
+
+            </prop>
+            <prop name="title" value="[Chamada] {{ event.name }}">
+
+            </prop>
+            <prop name="creator" value="Projeto ALES">
+
+            </prop>
+        </metainfo>
+    </pdfproperties>
+
+    <div class="ui basic segment">
+        <div class="ui middle aligned grid container">
+            <div class="row">
+            <div class="center aligned column">
+                    <img width="200px" src="https://raw.githubusercontent.com/ProjetoALES/ALESWeb/master/main/static/main/img/logo1.png">
+                    <h1>{{ event.name }}</h1>
+                    <h3>{{ event.course.name }}</h3>
+                    <h4>{{ event.description | linebreaksbr }}</h4>
+                    <h4>{{ event.datetime }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ab" class="ui basic segment">
+        <div id="ac" class="ui middle aligned container">
+            <table class="ui striped table">
+                <thead>
+                    <tr>
+                        <th width="5%">Presença</th>
+                        <th>Nome</th>
+                        <th>Série</th>
+                        <th>Escola</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in fevent %}
+                    <tr>
+                        <td style="text-align: center;">
+                            {% if student.status %}
+                            <i class="fa fa-check fa-lg" aria-hidden="true"></i>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ student.name }}
+                        </td>
+                        <td>
+                            {{ student.year }}
+                        </td>
+                        <td>
+                            {{ student.school }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+ }
+
+ function generate_pdf() {
+     $('#ab').attr('class', '');
+     $('#ac').attr('class', '');
+
+     var result = xepOnline.Formatter.Format('table', {'filename': '{{ event.name }}'});
+
+     $('#ab').attr('class', 'ui vertical stripe segment');
+     $('#ac').attr('class', 'ui middle aligned container');
+
+     return result
+ }
+</script>
+</body>
+</html>

@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .forms import TeacherFormSet, TeacherForm, ChangeCoursesTeacherForm, TeacherInfo
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from main.decorators import *
+from courses.models import Event
 # Create your views here.
 
 
@@ -69,3 +70,27 @@ def change_courses(request):
         form = ChangeCoursesTeacherForm(instance=request.user.teacher)
 
     return render(request, 'teachers/teacher_courses.html', {'form': form})
+
+
+def download_presence(request, event_id):
+    """Download Presence
+
+    returns the presence list for a given event in PDF form
+    """
+    event = get_object_or_404(Event, id=event_id)
+
+    fevent = []
+    for student in event.students.order_by('name'):
+        status = False
+        if student in event.students_attended.all():
+            status = True
+        fevent.append(
+            {
+                'name': student.name,
+                'year': student.year,
+                'school': student.school.name,
+                'status': status
+            }
+        )
+
+    return render(request, 'teachers/pdf_presence.html', {'fevent': fevent, 'event': event})

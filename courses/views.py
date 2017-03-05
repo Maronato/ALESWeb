@@ -161,7 +161,7 @@ def presence_list(request, event_id):
         present_students = event.students_attended.all()
 
         # Set all of the forms values to those of every student
-        for student in event.students:
+        for student in event.students.order_by('name'):
             values = {
                 'name': student.name,
                 'year': student.year.name,
