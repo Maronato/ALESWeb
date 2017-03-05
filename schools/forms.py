@@ -239,9 +239,10 @@ class ChangeCoursesStudentForm(forms.ModelForm):
         self.fields['courses'].widget.attrs['onclick'] = "changeHandler($(this));"
 
     def clean_courses(self):
+        instance = self.instance
         courses = self.cleaned_data.get('courses').all()
         for course in courses:
-            if not course.has_spots:
+            if course not in instance.courses.all() and not course.has_spots:
                 raise forms.ValidationError(
                     course.name + " já está lotada!"
                 )
