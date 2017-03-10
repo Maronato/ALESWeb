@@ -96,7 +96,7 @@ def quick_add_student(request):
         form = StudentForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Pronto! Peça que o aluno acesse seu email agora para confirmar a inscrição.')
+            messages.add_message(request, messages.SUCCESS, 'Pronto! Adicione mais alunos abaixo!')
 
         else:
             return render(request, 'schools/quick_add_student.html', {'form': form})
