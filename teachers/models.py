@@ -19,7 +19,7 @@ class Teacher(models.Model):
     )
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=200)
-    nickname = models.CharField(max_length=30, unique=True)
+    nickname = models.CharField(max_length=30, unique=False)
     email = models.EmailField(unique=True)
     emailmanager = models.OneToOneField(Email_Manager, null=True)
     is_subscribed = models.BooleanField(default=True)
