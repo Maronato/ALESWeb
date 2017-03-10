@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'update-schools/', views.update_school, name='update-schools'),
     url(r'update-years/', views.update_year, name='update-years'),
     url(r'update-students/(?P<school_id>\d+)', views.update_student, name='update-students'),
+    url(r'adicionar/', views.quick_add_student, name='quick-add-student'),
     url(r'student-info/$', views.student_info, name='student-info'),
     url(r'student-courses/$', views.change_courses, name='student-courses'),
 ]

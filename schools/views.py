@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 from .models import School
-from .forms import CityFormSet, SchoolFormSet, StudentFormSet, ChangeCoursesStudentForm, StudentInfo, YearFormSet
+from .forms import CityFormSet, SchoolFormSet, StudentFormSet, ChangeCoursesStudentForm, StudentInfo, YearFormSet, StudentForm
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from main.decorators import *
@@ -85,6 +85,24 @@ def update_student(request, school_id):
 
     form = StudentFormSet(queryset=School.objects.get(id=school_id).students.all())
     return render(request, 'schools/update_students.html', {'formset': form, 'school_id': school_id, 'school': School.objects.get(id=school_id).name})
+
+
+@user_passes_test(is_teacher)
+def quick_add_student(request):
+    """Quick add student
+    Allows for the quick creation of students
+    """
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Pronto! Peça que o aluno acesse seu email agora para confirmar a inscrição.')
+
+        else:
+            return render(request, 'schools/quick_add_student.html', {'form': form})
+
+    form = StudentForm()
+    return render(request, 'schools/quick_add_student.html', {'form': form})
 
 
 @user_passes_test(is_student)

@@ -1,0 +1,73 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="center aligned sixteen wide column">
+                <h1>Adicionar aluno</h1>
+                <p>Assim que adicionado, o aluno receberá um email com instruções para a criação de sua senha</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ui divider"></div>
+        </div>
+    </div>
+    <div class="ui one column stackable center aligned page grid">
+
+        {% load widget_tweaks %}
+        <form action="{% url 'quick-add-student' %}" method="post" class="ui form">
+            {% csrf_token %}
+            <!-- <h4 class="ui dividing header">Básico</h4> -->
+            <div class="two fields">
+                <div class="field {% if form.name.errors.as_text %}error{% endif %}">
+                    <label>{{ form.name.label}}</label>
+                    <span style="color: red" class="small">{{ form.name.errors.as_text }}</span>
+                    {{ form.name }}
+                </div>
+                <div class="field {% if form.born.errors.as_text %}error{% endif %}">
+                    <label>{{ form.born.label}}</label>
+                    <span style="color: red" class="small">{{ form.born.errors.as_text }}</span>
+                    {{ form.born }}
+                </div>
+            </div>
+            <h4 class="ui dividing header">Contato</h4>
+            <div class="two fields">
+                <div class="field {% if form.phone.errors.as_text %}error{% endif %}">
+                    <label>{{ form.phone.label}}</label>
+                    <span style="color: red" class="small">{{ form.phone.errors.as_text }}</span>
+                    {{ form.phone }}
+                </div>
+                <div class="field {% if form.email.errors.as_text %}error{% endif %}">
+                    <label>{{ form.email.label}}</label>
+                    <span style="color: red" class="small">{{ form.email.errors.as_text }}</span>
+                    {{ form.email }}
+                </div>
+            </div>
+            <h4 class="ui dividing header">Ensino</h4>
+            <div class="two fields">
+                <div class="field {% if form.school.errors.as_text %}error{% endif %}">
+                    <label>{{ form.school.label}}</label>
+                    <span style="color: red" class="small">{{ form.school.errors.as_text }}</span>
+                    {{ form.school }}
+                </div>
+                <div class="field {% if form.year.errors.as_text %}error{% endif %}">
+                    <label>{{ form.year.label}}</label>
+                    <span style="color: red" class="small">{{ form.year.errors.as_text }}</span>
+                    {{ form.year }}
+                </div>
+            </div>
+            <br>
+
+            {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+            {% endfor %}
+            <br>
+            <button class="ui button primary" type="submit">Adicionar!</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
