@@ -125,15 +125,21 @@ class Event(models.Model):
             students = students.filter(Q(courses__in=[self.course]))
         return students
 
-    # True if the event is in the next 2 weeks, False otherwise
     @property
-    def is_near_future(self):
-        return self.datetime > (now - timedelta(days=1)) and self.datetime < (now + timedelta(days=14))
+    def end(self):
+        time = datetime(hour=self.time.hour, minute=self.time.minute, year=2017, month=1, day=1) + timedelta(hours=self.duration.hour, minutes=self.duration.minute)
+        res = self.datetime
+        return res.replace(hour=time.hour, minute=time.minute)
 
     # True if the event is in the past, False otherwise
     @property
     def is_past(self):
-        return self.datetime <= (now - timedelta(days=1))
+        return now >= self.end
+
+    # True if the event is in the next 2 weeks, False otherwise
+    @property
+    def is_near_future(self):
+        return not self.is_past and self.datetime < (now + timedelta(days=14))
 
     # True if the event is more than 2 weeks in the future, False otherwise
     @property
