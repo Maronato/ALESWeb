@@ -78,7 +78,9 @@ class Course(models.Model):
     @property
     def next_event(self):
         from .date_comparisons import AllEvents
-        return next(AllEvents(course=self).generate())
+        for event in AllEvents(course=self).generate():
+            if event >= now:
+                return event
 
     def __str__(self):
         return str(self.name)
