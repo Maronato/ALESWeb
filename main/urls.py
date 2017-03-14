@@ -12,8 +12,10 @@ urlpatterns = [
     url(r'dashboard/', views.dashboard, name='dashboard'),
     # How it works
     url(r'como-funciona/', views.how_it_works, name='how_it_works'),
-    # Enrollment page
-    url(r'enroll/', views.enroll, name='enroll'),
+    # Simulation page
+    url(r'simulate/', views.enroll, name='enroll'),
+    url(r'simulation_check/', views.simulation_check, name='simulation_check'),
+    # login flow
     url(r'^login/$', views.login_user, name='login'),
     url(r'^logout/$', views.logout_user, name='logout'),
     # Receives a key and verifies the user if the key is valid. Also asks the user to create a password
