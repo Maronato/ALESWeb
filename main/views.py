@@ -41,7 +41,7 @@ def how_it_works(request):
 
 def enroll(request):
     # Enrollment page
-    return render(request, 'main/enroll.html', {'courses': Course.objects.all()})
+    return render(request, 'main/enroll.html', {'courses': Course.objects.all().order_by('name')})
 
 
 def simulation_check(request):
