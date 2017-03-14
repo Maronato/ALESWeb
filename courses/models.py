@@ -75,6 +75,11 @@ class Course(models.Model):
     def has_spots(self):
         return self.spots_left > 0
 
+    @property
+    def next_event(self):
+        from .date_comparisons import AllEvents
+        return next(AllEvents(course=self).generate())
+
     def __str__(self):
         return str(self.name)
 
