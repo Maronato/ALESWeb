@@ -43,7 +43,7 @@ class Course(models.Model):
 
     @property
     def begin(self):
-        return self.datetime.replace(tzinfo=now.tzinfo)
+        return self.datetime
 
     @property
     def frequency(self):
