@@ -2,24 +2,134 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}
 
+{% block extend_scripts %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+<script type="text/javascript" src="{% static 'main/js/initializeCalendar.js' %}"></script>
+<script type="text/javascript" src="{% static 'main/js/calendarFunctions.js' %}"></script>
+{% endblock %}
+
+{% block extend_style %}
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/calendar.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="ui vertical stripe segment">
     <div class="ui middle aligned stackable grid container">
         <div class="row">
-            <div class="sixteen wide center aligned column">
-                <h3 class="ui header">Inscreva-se para o ALES!</h3>
-                <p>É de graça! Basta preencher o formulário abaixo.</p>
+            <div class="center aligned sixteen wide column">
+                <h3>Simulação de Grade</h3>
+                <h2>Experimente adicionar matérias à sua grade!</h2>
+                <p>Se alguma matrícula não for válida ou os horários baterem, nós te avisaremos aqui em baixo!</p>
+                <div class="ui list massive" id="messages"></div>
             </div>
+        </div>
+        <div class="ui divider horizontal">Agenda</div>
+        <div class="row">
+            <div id="calendar"></div>
         </div>
     </div>
 </div>
 <div class="ui vertical stripe segment">
     <div class="ui middle aligned stackable grid container">
-        <div class="row">
-            <div class="sixteen wide center aligned column">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSea2pj9rj_R-mACCRd8Z2t-Ofhw3Q6pUTop86tzqxwzq4-ZOQ/viewform?embedded=true" width="100%" height="1930" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe>
-            </div>
+        <div class="center aligned sixteen wide column">
+            <p>Abaixo estão todas as turmas que oferecemos. Clique em "Adicionar Matéria" para adicioná-la à sua grade.</p>
         </div>
-    </div>
+        <div class="row">
+            <div class="sixteen wide column">
+                <div class="ui stackable three column grid">
+                    {% for course in courses %}
+                    <div class="column">
+                        <div class="ui fluid card">
+                            <div class="content">
+                                <div class="header">
+                                    {{ course.name }}
+                                </div>
+                                <div class="meta">
+                                    {{ course.frequency }}
+                                </div>
+                                <div class="description">
+
+                                    {{ course.description | linebreaksbr }}
+                                </div>
+                            </div>
+                            <div class="extra content ui inverted segment">
+
+                                {% if course.has_spots %}
+                                <div class="ui slider attached checkbox">
+                                    <input class="ui toggle checkbox user-success" name="courses" onclick="was_changed($(this));" type="checkbox" value="{{ course.id }}">
+
+                                    <label>Adicionar Matéria</label>
+                                </div>
+                                {% else %}
+                                <label>Turmas Lotadas</label>
+                                {% endif %}
+
+                            </div>
+                            <div class="extra content ui inverted segment">
+                                <div class="ui attached">
+                                    Próxima Aula:
+                                    {{ course.next_event }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <script type="text/javascript">
+                    options = {
+                        {% for course in courses %}
+                        '{{ course.id }}': {
+                            'name': '{{ course.name }}',
+                            'start': '{{ course.time }}',
+                            'duration': '{{ course.duration }}',
+                            'day': '{{ course.day }}',
+                            'status': false,
+                        },
+                        {% endfor %}
+                    };
+
+                    function was_changed(course) {
+                        var id = Number(course.attr('value'));
+
+                        if (course.is(':checked')) {
+                            options[id]['status'] = true;
+                        } else {
+                          options[id]['status'] = false;
+                      }
+                      $('#messages').empty();
+                        $("<div class='item ui' style='color: grey;'><div class='ui active medium inline loader'></div><br>Processando</div>").appendTo('#messages');
+                      $.ajax({
+                        url: '{% url "simulation_check" %}',
+                        type: 'post',
+                        data: {
+                            options,
+                            csrfmiddlewaretoken: '{{ csrf_token }}'
+                        },
+                        success: function(data) {
+                            $('#messages').empty();
+                            if (data['messages'][0]) {
+                                for (i in data['messages']) {
+                                    $("<div class='item ui' style='color: red;'>" + data['messages'][i] + "</div>").appendTo('#messages');
+                                }
+                            }
+                            else {
+                                $("<div class='item ui' style='color: green;'>Matrículas Válidas!</div>").appendTo('#messages');
+                            }
+                            changeHandler($(course));
+                        },
+                        error: function(data) {
+                            console.log("error");
+                        }
+                    });
+
+                  }
+              </script>
+
+          </div>
+      </div>
+  </div>
 </div>
 {% endblock %}
