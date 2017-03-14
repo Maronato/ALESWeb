@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.contrib.auth import login, logout, authenticate
 from .models import Email_Manager
 from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
@@ -6,8 +7,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from schools.models import School, Student
 from courses.models import Course
+from courses.date_comparisons import AllEvents
 from teachers.models import Teacher
 from .forms import ContactForm
+import re
+import json
 # Create your views here.
 
 
@@ -37,7 +41,27 @@ def how_it_works(request):
 
 def enroll(request):
     # Enrollment page
-    return render(request, 'main/enroll.html')
+    return render(request, 'main/enroll.html', {'courses': Course.objects.all()})
+
+
+def simulation_check(request):
+    options = dict(request.POST)
+    selected = []
+    for i in options:
+        id = re.findall(r'options\[(.+?)\]\[status\]', i)
+        if id and json.loads(options[i][0]):
+            selected.append(Course.objects.get(id=int(id[0])))
+
+    messages = []
+    for index, course in enumerate(selected):
+        if not course.has_spots:
+            messages.append(course.name + ' já está cheia!')
+        gen_1 = AllEvents(course=course)
+        for kourse in selected[index + 1:]:
+            gen_2 = AllEvents(course=kourse)
+            if gen_1.compare(gen_2):
+                messages.append("Você não pode se inscrever ao mesmo tempo em " + course.name + " e " + kourse.name)
+    return JsonResponse({'messages': messages})
 
 
 def contact(request):
