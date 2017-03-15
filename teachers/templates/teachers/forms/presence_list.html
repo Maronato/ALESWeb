@@ -22,8 +22,11 @@
                         {{ field|attr:"type:hidden" }}
                     </td>
                     {% elif field.label == 'Presença' %}
-                    <td width="10%">
+                    <td class='collapsing' width="10%">
+                    <div class='ui fitted slider checkbox'>
                         {{ field }}
+                        <label></label>
+                    </div>
                     </td>
                     {% endif %}
 

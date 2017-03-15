@@ -91,7 +91,7 @@ class StudentPresence(forms.Form):
     year = forms.CharField(label='Série')
     school = forms.CharField(label='Escola')
     id = forms.IntegerField(widget=forms.HiddenInput())
-    is_authorized = forms.CharField(label='is_authorized')
+    is_authorized = forms.CharField(label='is_authorized', required=False)
 
 
 class AddCoursesForm(forms.Form):

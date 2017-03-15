@@ -135,26 +135,7 @@ def presence_list(request, event_id):
     # Create a new formset with the right size
     PresenceFormSet = formset_factory(StudentPresence, extra=0)
 
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = PresenceFormSet(request.POST)
-
-        # check whether it's valid:
-        if form.is_valid():
-
-            # For every form in the formset
-            for item in form:
-
-                # if the form is not empty
-                if item['id'].value():
-                    # apply the changes to the students' presences
-                    update_presence(item['id'].value(), event.id, item['presence'].value())
-
-            # success message
-            messages.add_message(request, messages.SUCCESS, 'Lista de presença atualizada!')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
+    def new_form():
         current_list = []
 
         # Students that are present
@@ -177,6 +158,30 @@ def presence_list(request, event_id):
 
         # set the initial values
         form = PresenceFormSet(initial=current_list)
+        return form
+
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = PresenceFormSet(request.POST)
+
+        # check whether it's valid:
+        if form.is_valid():
+
+            # For every form in the formset
+            for item in form:
+
+                # if the form is not empty
+                if item['id'].value():
+                    # apply the changes to the students' presences
+                    update_presence(item['id'].value(), event.id, item['presence'].value())
+
+            # success message
+            messages.add_message(request, messages.SUCCESS, 'Lista de presença atualizada!')
+            form = new_form()
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = new_form()
 
     # Pass the event object to render some nice info
     return render(request, 'teachers/presence_list.html', {'formset': form, 'event': event})
