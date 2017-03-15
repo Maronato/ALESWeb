@@ -1,7 +1,8 @@
-from django.shortcuts import render, reverse
-from .models import School
+from django.shortcuts import render, reverse, get_object_or_404, HttpResponse
+from .models import School, Student
 from .forms import CityFormSet, SchoolFormSet, StudentFormSet, ChangeCoursesStudentForm, StudentInfo, YearFormSet, StudentForm
 from django.contrib import messages
+from django.http import JsonResponse
 from django.contrib.auth.decorators import user_passes_test
 from main.decorators import *
 # Create your views here.
@@ -103,6 +104,42 @@ def quick_add_student(request):
 
     form = StudentForm()
     return render(request, 'schools/quick_add_student.html', {'form': form})
+
+
+@user_passes_test(is_teacher)
+def student_update_auth(request):
+    return render(request, 'schools/update_student_authorization.html')
+
+
+@user_passes_test(is_teacher)
+def student_update_submit(request):
+    student = get_object_or_404(Student, id=request.POST['id'])
+    if request.POST['status'] == 'true':
+        student.is_authorized = True
+    else:
+        student.is_authorized = False
+    student.save()
+    return HttpResponse()
+
+
+@user_passes_test(is_teacher)
+def student_search(request):
+    name = request.POST['text']
+    if name:
+        students = Student.objects.filter(name__contains=name)
+    else:
+        students = []
+    results = []
+    for student in students:
+        entry = {
+            'name': student.name,
+            'year': student.year.name,
+            'school': student.school.name,
+            'id': student.pk,
+            'status': student.is_authorized
+        }
+        results.append(entry)
+    return JsonResponse({'students': results})
 
 
 @user_passes_test(is_student)

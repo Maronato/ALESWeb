@@ -3,7 +3,6 @@
 <form action="{% url 'presence-list' event_id=event.id %}" method="post" class="ui form">
     {% csrf_token %}
     {{ formset.management_form }}
-
     <table class="ui celled table">
         <thead>
             <tr><th>Presença</th>
@@ -13,15 +12,16 @@
             </tr></thead>
             <tbody>
                 {% for form in formset.forms %}
-                <tr>
+                <tr {% if not form.is_authorized.value %}class="disabled"{% endif %}>
+
                     {% for field in form.visible_fields %}
 
-                    {% if field.label != 'Presença' %}
+                    {% if field.label != 'Presença' and field.label != 'is_authorized' %}
                     <td>
                         {{ field.value }}
                         {{ field|attr:"type:hidden" }}
                     </td>
-                    {% else %}
+                    {% elif field.label == 'Presença' %}
                     <td width="10%">
                         {{ field }}
                     </td>
@@ -31,6 +31,7 @@
                     {% for hidden in form.hidden_fields %}
                     {{ hidden }}
                     {% endfor %}
+
                 </tr>
                 {% endfor %}
             </tbody>

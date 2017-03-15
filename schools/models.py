@@ -76,6 +76,8 @@ class Student(models.Model):
         related_name='students',
     )
 
+    is_authorized = models.BooleanField(default=False, blank=True)
+
     # Returns the events that the student should attend(only in the near future)
     @property
     def events(self):

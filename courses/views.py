@@ -167,7 +167,8 @@ def presence_list(request, event_id):
                 'year': student.year.name,
                 'school': student.school.name,
                 'presence': False,
-                'id': student.id
+                'id': student.id,
+                'is_authorized': student.is_authorized
             }
             # And set the presence as True for the students that are present
             if student in present_students:

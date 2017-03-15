@@ -58,6 +58,12 @@
                     {{ form.year }}
                 </div>
             </div>
+            <h4 class="ui dividing header">Autorização</h4>
+            <div class="field {% if form.is_authorized.errors.as_text %}error{% endif %}">
+                <label>{{ form.is_authorized.label}}</label>
+                <span style="color: red" class="small">{{ form.is_authorized.errors.as_text }}</span>
+                {{ form.is_authorized }}
+            </div>
             <br>
 
             {% for hidden in form.hidden_fields %}

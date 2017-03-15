@@ -1,0 +1,116 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="ui vertical basic stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="center aligned sixteen wide column">
+                <h1>Atualizar documentos dos alunos</h1>
+                <p>Pesquise alunos abaixo e marque aqueles que já trouxeram o documento</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ui divider"></div>
+        </div>
+    </div>
+    <div class="ui one column stackable center aligned page grid">
+        <div class="row">
+            <div class="ui input">
+                <input placeholder="Aluno da Silva..." type="text" name="query" id="query">
+            </div>
+            <button id="query-submit" type="submit" onclick="search();" class="ui button green"><i class="icon search"></i> Pesquisar</button>
+        </div>
+
+
+        <div class="row">
+            <div class="column ten wide">
+            <table class="ui striped table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nome</th>
+                        <th>Série</th>
+                        <th>Escola</th>
+                    </tr>
+                </thead>
+                <tbody id="students">
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#query").keyup(function(event){
+        if(event.keyCode == 13){
+            $("#query-submit").click();
+        }
+    });
+
+    function search() {
+        text = $('#query').val();
+        $.ajax({
+            url: '{% url "student_search" %}',
+            type: 'post',
+            data: {
+                text: text,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(data) {
+                $('#students').empty();
+                for (i in data['students']) {
+                    if (data['students'][i]['status']) {
+                        $("<tr>\
+                            <td class='collapsing'>\
+                            <div class='ui fitted slider checkbox'><input onclick='changed($(this));' id='" + data['students'][i]['id'] + "' checked type='checkbox'> <label></label>\
+                            </td>\
+                            <td>\
+                            " + data['students'][i]['name'] + "\
+                            </td>\
+                            <td>\
+                            " + data['students'][i]['year'] + "\
+                            </td>\
+                            <td>\
+                            " + data['students'][i]['school'] + "\
+                            </td>\
+                            </tr>").appendTo('#students');
+                    }
+                    else {
+                        $("<tr>\
+                            <td class='collapsing'>\
+                            <div class='ui fitted slider checkbox'><input onclick='changed($(this));' id='" + data['students'][i]['id'] + "' type='checkbox'> <label></label>\
+                            </td>\
+                            <td>\
+                            " + data['students'][i]['name'] + "\
+                            </td>\
+                            <td>\
+                            " + data['students'][i]['year'] + "\
+                            </td>\
+                            <td>\
+                            " + data['students'][i]['school'] + "\
+                            </td>\
+                            </tr>").appendTo('#students');
+                    }
+                }
+            }
+        });
+    }
+
+    function changed(self) {
+        var id = self.attr('id');
+        var status = self.is(':checked');
+
+        $.ajax({
+            url: '{% url "student_update_submit" %}',
+            type: 'post',
+            data: {
+                id: id,
+                status: status,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+        });
+    }
+</script>
+{% endblock %}
