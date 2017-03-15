@@ -54,6 +54,7 @@
 
     function search() {
         text = $('#query').val();
+        $("#query-submit").prop('disabled', true);
         $.ajax({
             url: '{% url "student_search" %}',
             type: 'post',
@@ -104,6 +105,7 @@
                     console.log("nothing");
                     $("<p style='text-align: center;'>Sem resultados</p>").appendTo("#errors");
                 }
+                $("#query-submit").prop('disabled', false);
 
             }
         });
