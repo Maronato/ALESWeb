@@ -3,7 +3,7 @@
 <form action="{% url 'presence-list' event_id=event.id %}" method="post" class="ui form">
     {% csrf_token %}
     {{ formset.management_form }}
-    <table class="ui celled table">
+    <table class="ui celled striped table">
         <thead>
             <tr><th>Presença</th>
                 <th>Nome</th>
