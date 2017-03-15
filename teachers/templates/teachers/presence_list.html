@@ -12,6 +12,9 @@
                 <h4>{{ event.description | linebreaksbr }}</h4>
                 <h4>{{ event.datetime }}</h4>
                 <a href="{% url 'download-presence' event_id=event.id %}" class="ui button green"><i class="icon download"></i>Imprimir/Baixar lista</a>
+                <div class="ui divider"></div>
+                <small>Obs: Os alunos que ainda não entregaram a autorização aparecem em cinza e não devem ter suas presenças contabilizadas.<br>
+                Para atualizar a documentação de um aluno, <a href="{% url 'student_update_auth' %}">clique aqui</a>.</small>
             </div>
 
         </div>

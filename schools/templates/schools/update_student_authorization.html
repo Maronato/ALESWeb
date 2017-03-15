@@ -25,19 +25,22 @@
 
         <div class="row">
             <div class="column ten wide">
-            <table class="ui striped table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Nome</th>
-                        <th>Série</th>
-                        <th>Escola</th>
-                    </tr>
-                </thead>
-                <tbody id="students">
-                </tbody>
-            </table>
-        </div>
+                <table class="ui striped table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nome</th>
+                            <th>Série</th>
+                            <th>Escola</th>
+                        </tr>
+                    </thead>
+                    <tbody id="students">
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            <div class="row">
+            <div class="ui center aligned" id="errors"></div>
         </div>
     </div>
 </div>
@@ -60,40 +63,48 @@
             },
             success: function(data) {
                 $('#students').empty();
-                for (i in data['students']) {
-                    if (data['students'][i]['status']) {
-                        $("<tr>\
-                            <td class='collapsing'>\
-                            <div class='ui fitted slider checkbox'><input onclick='changed($(this));' id='" + data['students'][i]['id'] + "' checked type='checkbox'> <label></label>\
-                            </td>\
-                            <td>\
-                            " + data['students'][i]['name'] + "\
-                            </td>\
-                            <td>\
-                            " + data['students'][i]['year'] + "\
-                            </td>\
-                            <td>\
-                            " + data['students'][i]['school'] + "\
-                            </td>\
-                            </tr>").appendTo('#students');
-                    }
-                    else {
-                        $("<tr>\
-                            <td class='collapsing'>\
-                            <div class='ui fitted slider checkbox'><input onclick='changed($(this));' id='" + data['students'][i]['id'] + "' type='checkbox'> <label></label>\
-                            </td>\
-                            <td>\
-                            " + data['students'][i]['name'] + "\
-                            </td>\
-                            <td>\
-                            " + data['students'][i]['year'] + "\
-                            </td>\
-                            <td>\
-                            " + data['students'][i]['school'] + "\
-                            </td>\
-                            </tr>").appendTo('#students');
+                $('#errors').empty();
+                if (data['students'][0]) {
+                    for (i in data['students']) {
+                        if (data['students'][i]['status']) {
+                            $("<tr>\
+                                <td class='collapsing'>\
+                                    <div class='ui fitted slider checkbox'><input onclick='changed($(this));' id='" + data['students'][i]['id'] + "' checked type='checkbox'> <label></label>\
+                                    </td>\
+                                    <td>\
+                                        " + data['students'][i]['name'] + "\
+                                    </td>\
+                                    <td>\
+                                        " + data['students'][i]['year'] + "\
+                                    </td>\
+                                    <td>\
+                                        " + data['students'][i]['school'] + "\
+                                    </td>\
+                                </tr>").appendTo('#students');
+                        }
+                        else {
+                            $("<tr>\
+                                <td class='collapsing'>\
+                                    <div class='ui fitted slider checkbox'><input onclick='changed($(this));' id='" + data['students'][i]['id'] + "' type='checkbox'> <label></label>\
+                                    </td>\
+                                    <td>\
+                                        " + data['students'][i]['name'] + "\
+                                    </td>\
+                                    <td>\
+                                        " + data['students'][i]['year'] + "\
+                                    </td>\
+                                    <td>\
+                                        " + data['students'][i]['school'] + "\
+                                    </td>\
+                                </tr>").appendTo('#students');
+                        }
                     }
                 }
+                else {
+                    console.log("nothing");
+                    $("<p style='text-align: center;'>Sem resultados</p>").appendTo("#errors");
+                }
+
             }
         });
     }
