@@ -54,8 +54,6 @@ def simulation_check(request):
 
     messages = []
     for index, course in enumerate(selected):
-        if not course.has_spots:
-            messages.append(course.name + ' já está cheia!')
         gen_1 = AllEvents(course=course)
         for kourse in selected[index + 1:]:
             gen_2 = AllEvents(course=kourse)
