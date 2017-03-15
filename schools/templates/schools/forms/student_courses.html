@@ -1,6 +1,6 @@
 <form method="post" action="{% url 'student-courses' %}">
     {% csrf_token %}
-    <input type="submit" class="ui big primary button" value="Salvar alterações" />
+    <input type="submit" class="ui big primary button submit-button" value="Salvar alterações" />
     <div class="ui divider"></div>
     <div class="ui stackable three column grid">
         {% for choice in form.courses %}
@@ -25,11 +25,11 @@
                     </div>
                     <div class="description">
 
-                     {{ obj.description | linebreaksbr }}
-                     <div class="ui horizontal divider" style="margin: 10px">
-                         Professores
-                     </div>
-                     <div class="ui list" style="margin-left: 20px">
+                       {{ obj.description | linebreaksbr }}
+                       <div class="ui horizontal divider" style="margin: 10px">
+                           Professores
+                       </div>
+                       <div class="ui list" style="margin-left: 20px">
                         {% for teacher in obj.teachers.all %}
                         <div class="item"><i class="student icon"></i>   {{ teacher.nickname }}</div>
                         {% endfor %}
@@ -50,7 +50,7 @@
     {% endfor %}
 </div>
 <div class="ui divider"></div>
-<input type="submit" class="ui big primary button" value="Salvar alterações" />
+<input type="submit" class="ui big primary button submit-button" value="Salvar alterações" />
 </form>
 
 <script type="text/javascript">
@@ -61,7 +61,62 @@
             'start': '{{ obj.time }}',
             'duration': '{{ obj.duration }}',
             'day': '{{ obj.day }}',
+            'status': false,
         },
         {% endfor %}
     };
+    $(document).ready(function() {
+        $(':input.checkbox').each(function() {
+            var course = $(this)
+            var id = Number(course.attr('value'));
+            if (course.is(':checked')) {
+                options[id]['status'] = true;
+            } else {
+                options[id]['status'] = false;
+            }
+        })
+        simulation_check(null);
+    });
+    function was_changed(course) {
+        var id = Number(course.attr('value'));
+
+        if (course.is(':checked')) {
+            options[id]['status'] = true;
+        } else {
+            options[id]['status'] = false;
+        }
+
+        simulation_check(course);
+    }
+
+    function simulation_check(course) {
+        $('#messages').empty();
+        $("<div class='item ui' style='color: grey;'><div class='ui active medium inline loader'></div><br>Processando</div>").appendTo('#messages');
+        $(".submit-button").prop('disabled', true);
+        $.ajax({
+            url: '{% url "simulation_check" %}',
+            type: 'post',
+            data: {
+                options,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(data) {
+                $('#messages').empty();
+                if (data['messages'][0]) {
+                    for (i in data['messages']) {
+                        $("<div class='item ui' style='color: red;'>" + data['messages'][i] + "</div>").appendTo('#messages');
+                    }
+                }
+                else {
+                    $("<div class='item ui' style='color: green;'>Matrículas Válidas!</div>").appendTo('#messages');
+                    $(".submit-button").prop('disabled', false);
+                }
+                changeHandler($(course));
+            },
+            error: function(data) {
+                console.log("error");
+                $(".submit-button").prop('disabled', false);
+            }
+        });
+    }
 </script>

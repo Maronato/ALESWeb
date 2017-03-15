@@ -236,7 +236,7 @@ class ChangeCoursesStudentForm(forms.ModelForm):
         # a list of primary key for the selected data.
         self.initial['courses'] = [t.pk for t in self.instance.courses.all()]
         self.fields['courses'].widget.attrs['class'] = "checkbox"
-        self.fields['courses'].widget.attrs['onclick'] = "changeHandler($(this));"
+        self.fields['courses'].widget.attrs['onclick'] = "was_changed($(this));"
 
     def clean_courses(self):
         instance = self.instance
@@ -246,10 +246,10 @@ class ChangeCoursesStudentForm(forms.ModelForm):
                 raise forms.ValidationError(
                     course.name + " já está lotada!"
                 )
-            gen_1 = AllEvents(course.begin, course.weeks_apart, course.months_apart)
+            gen_1 = AllEvents(course=course)
             for kourse in courses:
                 if kourse != course:
-                    gen_2 = AllEvents(kourse.begin, kourse.weeks_apart, kourse.months_apart)
+                    gen_2 = AllEvents(course=kourse)
                     if gen_1.compare(gen_2):
                         raise forms.ValidationError(
                             "Você não pode se inscrever ao mesmo tempo em " + course.name + " e " + kourse.name

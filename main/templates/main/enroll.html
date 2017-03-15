@@ -97,39 +97,39 @@
                         if (course.is(':checked')) {
                             options[id]['status'] = true;
                         } else {
-                          options[id]['status'] = false;
-                      }
-                      $('#messages').empty();
-                        $("<div class='item ui' style='color: grey;'><div class='ui active medium inline loader'></div><br>Processando</div>").appendTo('#messages');
-                      $.ajax({
-                        url: '{% url "simulation_check" %}',
-                        type: 'post',
-                        data: {
-                            options,
-                            csrfmiddlewaretoken: '{{ csrf_token }}'
-                        },
-                        success: function(data) {
-                            $('#messages').empty();
-                            if (data['messages'][0]) {
-                                for (i in data['messages']) {
-                                    $("<div class='item ui' style='color: red;'>" + data['messages'][i] + "</div>").appendTo('#messages');
-                                }
-                            }
-                            else {
-                                $("<div class='item ui' style='color: green;'>Matrículas Válidas!</div>").appendTo('#messages');
-                            }
-                            changeHandler($(course));
-                        },
-                        error: function(data) {
-                            console.log("error");
+                            options[id]['status'] = false;
                         }
-                    });
+                        $('#messages').empty();
+                        $("<div class='item ui' style='color: grey;'><div class='ui active medium inline loader'></div><br>Processando</div>").appendTo('#messages');
+                        $.ajax({
+                            url: '{% url "simulation_check" %}',
+                            type: 'post',
+                            data: {
+                                options,
+                                csrfmiddlewaretoken: '{{ csrf_token }}'
+                            },
+                            success: function(data) {
+                                $('#messages').empty();
+                                if (data['messages'][0]) {
+                                    for (i in data['messages']) {
+                                        $("<div class='item ui' style='color: red;'>" + data['messages'][i] + "</div>").appendTo('#messages');
+                                    }
+                                }
+                                else {
+                                    $("<div class='item ui' style='color: green;'>Matrículas Válidas!</div>").appendTo('#messages');
+                                }
+                                changeHandler($(course));
+                            },
+                            error: function(data) {
+                                console.log("error");
+                            }
+                        });
 
-                  }
-              </script>
+                    }
+                </script>
 
-          </div>
-      </div>
-  </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

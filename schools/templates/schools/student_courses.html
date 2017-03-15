@@ -22,7 +22,9 @@
             <div class="center aligned sixteen wide column">
                 <h1>Matérias</h1>
                 <h4>Atenção! Os horários das matérias estão sujeitos a alterações nos próximos dias!</h4>
-                <h2 style="color: red">{% for field in form %}{% for error in field.errors %}{{ error }}{% endfor %}{% endfor %}</h2>
+                <div class="ui list massive" id="messages">
+                    {% for field in form %}{% for error in field.errors %}<div class='item ui' style='color: red;'>{{ error }}</div>{% endfor %}{% endfor %}
+                </div>
                 <h4><a style="cursor: pointer;" onclick="$('#instructions').modal('show');"> Não sabe como fazer sua inscrição? Clique aqui para ler as instruções</a></h4>
             </div>
         </div>
