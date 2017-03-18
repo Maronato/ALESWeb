@@ -6,6 +6,11 @@ from main.models import Email_Manager
 from django.utils.crypto import get_random_string
 
 
+DOCUMENT_TYPE = (
+    ('RG', 'RG'),
+    ('CPF', 'CPF')
+)
+
 class City(models.Model):
     """City
     Model for the cities.
@@ -62,6 +67,8 @@ class Student(models.Model):
     name = models.CharField(max_length=200)
     born = models.CharField(max_length=20)
     email = models.EmailField(unique=True)
+    document = models.CharField(max_length=20, null=True, blank=True)
+    document_type = models.CharField(choices=DOCUMENT_TYPE, max_length=5, default='RG')
     emailmanager = models.OneToOneField(Email_Manager, null=True)
     is_subscribed = models.BooleanField(default=True)
     phone = models.CharField(max_length=20, unique=False)

@@ -58,6 +58,19 @@
                     {{ form.year }}
                 </div>
             </div>
+            <h4 class="ui dividing header">Documentos</h4>
+            <div class="two fields">
+                <div class="field {% if form.document.errors.as_text %}error{% endif %}">
+                    <label>{{ form.document.label}}</label>
+                    <span style="color: red" class="small">{{ form.document.errors.as_text }}</span>
+                    {{ form.document }}
+                </div>
+                <div class="field {% if form.document_type.errors.as_text %}error{% endif %}">
+                    <label>{{ form.document_type.label}}</label>
+                    <span style="color: red" class="small">{{ form.document_type.errors.as_text }}</span>
+                    {{ form.document_type }}
+                </div>
+            </div>
             <h4 class="ui dividing header">Autorização</h4>
             <div class="field {% if form.is_authorized.errors.as_text %}error{% endif %}">
                 <label>{{ form.is_authorized.label}}</label>

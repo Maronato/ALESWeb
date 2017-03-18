@@ -75,14 +75,16 @@ class StudentForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        fields = ['name', 'born', 'phone', 'email', 'school', 'year', 'is_authorized']
+        fields = ['name', 'born', 'phone', 'email', 'school', 'year', 'is_authorized', 'document', 'document_type']
         labels = {
             'name': 'Nome',
             'born': 'Data de Nascimento',
             'phone': 'Telefone',
             'school': 'Escola',
             'year': 'Série',
-            'is_authorized': 'Entregou autorização'
+            'is_authorized': 'Entregou autorização',
+            'document': 'Documento',
+            'document_type': 'Tipo do documento'
         }
         widgets = {
             'born': DateInput,
