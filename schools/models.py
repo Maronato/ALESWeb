@@ -64,7 +64,7 @@ class Student(models.Model):
     email = models.EmailField(unique=True)
     emailmanager = models.OneToOneField(Email_Manager, null=True)
     is_subscribed = models.BooleanField(default=True)
-    phone = models.CharField(max_length=20, unique=True)
+    phone = models.CharField(max_length=20, unique=False)
     school = models.ForeignKey(
         School,
         on_delete=models.CASCADE,
