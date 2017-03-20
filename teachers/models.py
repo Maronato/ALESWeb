@@ -49,12 +49,14 @@ class EmailList(models.Model):
     COLORS = (
         ('#7c8cff', 'Azul'),
         ('#03A9F4', 'Azul Claro'),
+        ('#2196F3', 'Outro Azul'),
         ('#ff2323', 'Vermelho'),
         ('#E91E63', 'Rosa'),
         ('#4CAF50', 'Verde'),
         ('#009688', 'Teal'),
         ('#FFEB3B', 'Amarelo'),
         ('#FF9800', 'Laranja'),
+        ('#795548', 'Marrom'),
         ('#607D8B', 'Cinza'),
     )
 
