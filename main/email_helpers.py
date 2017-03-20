@@ -147,6 +147,8 @@ def generic_message(instance, sent=0):
             msg_html = msg_html.replace('$$nome$$', student.name)
             msg_html = msg_html.replace('$$curso$$', course.name)
 
+            emails.append({'html': msg_html, 'plain': msg_plain, 'student': student})
+
     # get the smtp connection
     connection = mail.get_connection()
 
