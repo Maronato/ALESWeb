@@ -1,0 +1,172 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="ui vertical stripe segment basic">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <a href="{% url 'dashboard' %}"><button class="ui button large primary"><i class="icon arrow left"></i>Voltar</button></a>
+            <div class="center aligned sixteen wide column">
+                <h1>Listas de Emails</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ui divider"></div>
+        </div>
+    </div>
+    <div class="ui one column center aligned stackable page grid">
+        {% for i in emails %}
+
+        {% endfor %}
+
+        <div class="ui stackable three column grid">
+            {% for email in emails %}
+            <div class="column left aligned">
+                <div id="card_{{ email.id }}" class="ui blurring fluid card">
+                    <div id="card_dimmer_{{ email.id }}" class="ui dimmer">
+                        <div id="loader_{{ email.id }}" style="display: none;" class="indeterminate text ui loader">Processando<br>Não saia dessa página</div>
+                        <div class="content">
+                            <div class="center">
+                                <div id="header_{{ email.id }}" class="ui inverted header">
+                                    <h2>Tem certeza?</h2>
+                                    <small style="font-size: small;" class="ui inverted header">Pode demorar um pouco e você não poderá sair dessa página durante o processamento.</small>
+                                </div>
+                                <p>
+                                    <div onclick="pre_send({{ email.id }});" id="link1_{{ email.id }}" class="ui inverted button">Sim!</div>
+                                </p>
+                                <span id="cancel_{{ email.id }}"> <button class="ui button red" onclick="$('#card_{{ email.id }}').dimmer('hide')">Cancelar</button></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <div class="header">
+                            {{ email.subject }}
+                        </div>
+                        <div class="meta">
+                            Criada: {{ email.created }}
+                        </div>
+                        <div class="meta">
+                            Enviada:
+                            {% if not email.sent %}
+                            Nunca
+                            {% else %}
+                            {{ email.sent }}
+                            {% endif %}
+                        </div>
+                        <div class="description">
+                            <div class="ui divider"></div>
+                            Matérias:
+                            <div class="ui bulleted list">
+                                {% for course in email.courses.all %}
+                                <div class="item">{{ course.name }}</div>
+                                {% endfor %}
+                            </div>
+                            <br>
+                        </div>
+                        <div class="description center aligned">
+
+                            <a class="ui button green" onclick="preview({{ email.id }});" id="view_email"><i class="icon eye"></i> Prévia</a>
+                            <a class="ui button blue" href="{% url 'edit-email-list' email_id=email.id %}" id="edit_email"><i class="icon edit"></i> Editar</a>
+                        </div>
+                    </div>
+                    <div onclick="$('#card_{{ email.id }}').dimmer('show')" class="ui bottom attached button red">
+                        <i class="icon send"></i>Enviar
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var sending = {};
+
+    function preview(id) {
+        var w = window.open('about:blank', 'Prévia');
+        $.ajax({
+            url: '{% url "preview-email" %}',
+            type: 'post',
+            data: {
+                email_id: id,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(data) {
+
+                w.document.write(data);
+                w.document.close();
+            },
+        });
+    }
+
+    function pre_send(id) {
+        show_loader(id);
+        send(id, 0);
+        sending[id] = true;
+    }
+
+    function send(id, sent) {
+        $.ajax({
+            url: '{% url "send-email-list" %}' + id,
+            type: 'post',
+            data: {
+                'sent': sent,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(data) {
+                sent = data['sent'];
+                var total = data['total'];
+
+                if (sent < total) {
+                    $('#loader_' + id).text(sent / total * 100 + "% completo");
+                    send(id, sent);
+                }
+                else if (sent >= total) {
+                    $("#card_" + id).dimmer({
+                        closable: false
+                    });
+                    $("#card_" + id).dimmer('set active');
+                    $('#header_' + id).text(data['total'] + " emails enviados!");
+                    $('#link1_' + id).hide();
+                    $('#cancel_' + id).hide();
+                    hide_loader(id);
+
+                    sending[id] = false;
+                }
+            },
+            error: function(data) {
+                $('#header_' + id).text("Erro 500. Oops!");
+                $('#link1_' + id).hide();
+                $('#cancel_' + id).hide();
+                hide_loader(id);
+
+                sending[id] = false;
+            }
+        });
+    }
+
+    window.onbeforeunload = function() {
+        for (i in sending) {
+            if (sending[i] == true) {
+                return "Tem certeza de que quer interromper o envio da lista?";
+            }
+        }
+    }
+
+    function show_loader(id) {
+        $("#card_" + id).dimmer({
+            closable: false
+        });
+        $("#card_" + id).dimmer('set active');
+        $('#header_' + id).hide();
+        $('#link1_' + id).hide();
+        $('#cancel_' + id).hide();
+        $('#loader_' + id).show();
+    }
+    function hide_loader(id) {
+        $('#header_' + id).show();
+        $('#loader_' + id).hide();
+    }
+
+</script>
+{% endblock %}

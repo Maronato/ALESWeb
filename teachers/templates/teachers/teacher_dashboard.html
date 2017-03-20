@@ -1,0 +1,151 @@
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="six wide left floated column">
+                <h3>
+                    Configurações e inscrições
+                </h3>
+                <p>
+                    Aqui você pode alterar algumas informações básicas sobre você e se inscrever nas matérias que mais te interessam!
+                    <br>
+                    Clique no ícone para acessar!
+                </p>
+            </div>
+            <div class="eight wide column center aligned">
+                <h2 class="ui icon header">
+                    <a href="{% url 'teacher-info' %}"><i class="user icon"></i></a>
+                    <div class="content">
+                        Suas informações
+                        <div class="sub header">Altere e veja as suas informações.</div>
+                    </div>
+                </h2>
+                <h2 class="ui icon header">
+                    <a href="{% url 'teacher-courses' %}"><i class="book icon"></i></a>
+                    <div class="content">
+                        Suas matérias
+                        <div class="sub header">Quer começar a ensinar alguma matéria? Se inscreva aqui!
+                        </div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="six wide left floated column">
+                <h3>
+                    Aulas e Eventos
+                </h3>
+                <p>
+                    Aqui você pode criar e editar eventos e aulas.
+                    <br>
+                    Clique no ícone para acessar!
+                </p>
+            </div>
+            <div class="eight wide column center aligned">
+                <h2 class="ui icon header">
+                    <a href="{% url 'create-event' %}"><i class="add to calendar icon"></i></a>
+                    <div class="content">
+                        Criar evento ou aula
+                        <div class="sub header">Crie eventos ou aulas das matérias que você está inscrito.</div>
+                    </div>
+                </h2>
+                <h2 class="ui icon header">
+                    <a href="{% url 'update-events' %}"><i class="book icon"></i></a>
+                    <div class="content">
+                        Editar e apagar eventos
+                        <div class="sub header">Edite ou apague seus eventos aqui.</div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="six wide left floated column">
+                <h3>
+                    Listas de Chamada
+                </h3>
+                <p>
+                    Tem uma aula agora? Quer alterar uma lista de alguns dias atrás ou saber quantas pessoas vão comparecer no futuro? Cheque as listas de chamadas!
+                </p>
+            </div>
+            <div class="eight wide column center aligned">
+                <h2 class="ui icon header">
+                    <!-- <i class="user icon"></i> -->
+                    <div class="content">
+                        Listas do futuro póximo
+                        <div class="sub header">
+                            {% with "near_future" as type %}
+                            {% include 'schools/forms/teacher_event_selector.html' %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                </h2>
+                <div class="ui divider"></div>
+                <h2 class="ui icon header">
+                    <!-- <i class="book icon"></i> -->
+                    <div class="content">
+                        Listas passadas
+                        <div class="sub header">
+                            {% with "past" as type %}
+                            {% include 'schools/forms/teacher_event_selector.html' %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                </h2>
+                <div class="ui divider"></div>
+                <h2 class="ui icon header">
+                    <!-- <i class="book icon"></i> -->
+                    <div class="content">
+                        Listas do futuro distante
+                        <div class="sub header">
+                            {% with "far_future" as type %}
+                            {% include 'schools/forms/teacher_event_selector.html' %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="six wide left floated column">
+                <h3>
+                    Comunicação com os alunos
+                </h3>
+                <p>
+                    Tem que dar um aviso? Precisa falar com seus alunos? Crie listas de email e as envie para todos!
+                </p>
+            </div>
+            <div class="eight wide column center aligned">
+                <h2 class="ui icon header">
+                    <a href="{% url 'create-email-list' %}"><i class="add icon"></i></a>
+                    <div class="content">
+                        Criar lista
+                        <div class="sub header">
+                            Crie listas de emails para suas matérias aqui
+                        </div>
+                    </div>
+                </h2>
+                <div class="ui divider"></div>
+                <h2 class="ui icon header">
+                    <a href="{% url 'email-lists' %}"><i class="edit icon"></i></a>
+                    <div class="content">
+                        Editar e enviar listas
+                        <div class="sub header">
+                        Edite e envie seus emails aqui
+                        </div>
+                    </div>
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>

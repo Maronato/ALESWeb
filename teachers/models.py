@@ -44,6 +44,60 @@ class Teacher(models.Model):
         return str(self.name)
 
 
+class EmailList(models.Model):
+
+    COLORS = (
+        ('#7c8cff', 'Azul'),
+        ('#03A9F4', 'Azul Claro'),
+        ('#ff2323', 'Vermelho'),
+        ('#E91E63', 'Rosa'),
+        ('#4CAF50', 'Verde'),
+        ('#009688', 'Teal'),
+        ('#FFEB3B', 'Amarelo'),
+        ('#FF9800', 'Laranja'),
+        ('#607D8B', 'Cinza'),
+    )
+
+    GREETINGS = (
+        ('Love', 'Love'),
+        ('Atenciosamente', 'Atenciosamente'),
+        ('Cordialmente', 'Cordialmente'),
+        ('Saudações', 'Saudações'),
+        ('Regards', 'Regards'),
+        ('Yours truly', 'Yours truly'),
+        ('Sincerely', 'Sincerely'),
+        ('Abraço', 'Abraço'),
+        ('Obrigado', 'Obrigado'),
+        ('Obrigada', 'Obrigada'),
+        ('Obrigadx', 'Obrigadx'),
+        ('Beijos', 'Beijos'),
+        ('XOXO', 'XOXO'),
+        ('Vida longa e próspera', 'Vida longa e próspera')
+    )
+
+    from courses.models import Course
+
+    teacher = models.ForeignKey(
+        Teacher,
+        on_delete=models.CASCADE,
+        related_name='email_lists',
+        null=True
+    )
+
+    created = models.DateTimeField(auto_now_add=True)
+    sent = models.DateTimeField(default=None, null=True)
+
+    theme = models.CharField(choices=COLORS, default='#7c8cff', max_length=7)
+    greeting = models.CharField(choices=GREETINGS, default='Love', max_length=25)
+
+    courses = models.ManyToManyField(Course)
+
+    subject = models.CharField(max_length=30)
+    title = models.CharField(max_length=30)
+    message = models.TextField()
+    html = models.BooleanField(default=False)
+
+
 # Apply teacher changes
 @receiver(post_save, sender=Teacher, dispatch_uid="post_save_teacher")
 def post_save_teacher(sender, instance, **kwargs):

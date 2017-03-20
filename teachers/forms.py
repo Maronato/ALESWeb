@@ -1,5 +1,5 @@
 from django import forms
-from .models import Teacher
+from .models import Teacher, EmailList
 from courses.models import Course
 import phonenumbers
 from django.contrib.auth import authenticate, login
@@ -178,3 +178,26 @@ class TeacherInfo(forms.ModelForm):
 
             instance.emailmanager.change_email(self.cleaned_data.get('mail', ''))
             messages.add_message(request, messages.SUCCESS, 'Você receberá um email para confirmar a alteração de email.')
+
+
+class EmailListForm(forms.ModelForm):
+    """EmailListForm
+    Base form for the creation and editing of email lists
+    """
+
+    class Meta:
+        model = EmailList
+        fields = ['subject', 'message', 'courses', 'theme', 'greeting', 'title', 'html']
+        labels = {
+            'subject': 'Assunto',
+            'title': 'Título',
+            'message': 'Mensagem',
+            'courses': 'Matérias',
+            'theme': 'Tema',
+            'greeting': 'Despedida',
+            'html': 'A mensagem contém HTML?',
+        }
+
+        widgets = {
+            'courses': forms.widgets.CheckboxSelectMultiple(),
+        }

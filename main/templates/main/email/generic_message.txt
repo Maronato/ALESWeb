@@ -1,0 +1,8 @@
+{{ instance.title }}
+
+{{ instance.message | linebreaks }}
+
+{{ instance.greeting }},
+{{ instance.teacher.nickname }}
+
+{{ project_url }}

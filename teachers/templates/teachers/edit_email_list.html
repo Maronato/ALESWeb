@@ -1,0 +1,139 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <a href="{% url 'email-lists' %}"><button class="ui button large primary"><i class="icon arrow left"></i>Voltar</button></a>
+            <div class="center aligned sixteen wide column">
+                <h1>Editar lista</h1>
+                <h4><a href="#" onclick="$('#tips').modal('show');">Clique aqui para aprender sobre listas de emails</a></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ui divider"></div>
+        </div>
+    </div>
+    <div class="ui one column stackable center aligned page grid">
+
+        {% load widget_tweaks %}
+        <form action="{% url 'edit-email-list' email_id=id %}" method="post" class="ui form">
+            {% csrf_token %}
+            <div class="field {% if form.subject.errors.as_text %}error{% endif %}">
+                <label>{{ form.subject.label}}</label>
+                <span style="color: red" class="small">{{ form.subject.errors.as_text }}</span>
+                {{ form.subject }}
+            </div>
+            <div class="field {% if form.title.errors.as_text %}error{% endif %}">
+                <label>{{ form.title.label}}</label>
+                <span style="color: red" class="small">{{ form.title.errors.as_text }}</span>
+                {{ form.title }}
+            </div>
+            <div class="field {% if form.message.errors.as_text %}error{% endif %}">
+                <label>{{ form.message.label}}</label>
+                <span style="color: red" class="small">{{ form.message.errors.as_text }}</span>
+                {{ form.message }}
+            </div>
+            <div class="field {% if form.html.errors.as_text %}error{% endif %}">
+                <div class="ui slider checkbox">
+                    <span style="color: red" class="small">{{ form.html.errors.as_text }}</span>
+                    {{ form.html }}
+                    <label>{{ form.html.label}}</label>
+                </div>
+            </div>
+            <h4 class="ui dividing header">Enviar para</h4>
+            <div class="field {% if form.courses.errors.as_text %}error{% endif %}">
+                <label>{{ form.courses.label}}</label>
+                <span style="color: red" class="small">{{ form.courses.errors.as_text }}</span>
+                {% for option in form.courses %}
+                <div class="field">
+                    <div class="ui checkbox">
+                        {{ option.tag }}
+                        <label>{{ option.choice_label }}</label>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <h4 class="ui dividing header">Extras</h4>
+            <div class="two fields">
+                <div class="field {% if form.theme.errors.as_text %}error{% endif %}">
+                    <label>{{ form.theme.label}}</label>
+                    <span style="color: red" class="small">{{ form.theme.errors.as_text }}</span>
+                    {{ form.theme }}
+                </div>
+                <div class="field {% if form.greeting.errors.as_text %}error{% endif %}">
+                    <label>{{ form.greeting.label}}</label>
+                    <span style="color: red" class="small">{{ form.greeting.errors.as_text }}</span>
+                    {{ form.greeting }}
+                </div>
+            </div>
+
+            {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+            {% endfor %}
+            <div class="ui divider"></div>
+            <a class="ui button green" onclick="preview();" id="view_email"><i class="icon eye"></i> Ver prévia do email</a>
+            <div class="ui divider"></div>
+            <button class="ui button primary" type="submit"><i class="icon add"></i> Salvar lista</button>
+        </form>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function preview() {
+        var w = window.open('about:blank', 'Prévia');
+        $.ajax({
+            url: '{% url "preview-email" %}',
+            type: 'post',
+            data: {
+                message: $("#id_message").val(),
+                subject: $("#id_subject").val(),
+                title: $("#id_title").val(),
+                html: $("#id_html").is(':checked'),
+                theme: $("#id_theme option:selected").val(),
+                greeting: $("#id_greeting option:selected").val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success: function(data) {
+
+                w.document.write(data);
+                w.document.close();
+            },
+        });
+    }
+
+</script>
+
+<div id="tips" class="ui small modal">
+    <i class="close icon"></i>
+    <div class="header">
+        Listas de emails
+    </div>
+    <div class="content">
+        <div class="description">
+            <div class="ui header">Conecte-se e mantenha seus alunos informados.</div>
+            <p>Listas de emails são a melhor forma de enviar notificações e informações pros seus alunos e alunas.</p>
+            <p>Elas permitem que você crie emails personalizados, visualize-os e mande informações e avisos a todos os alunos das matérias que você leciona, de forma simples, rápida e fácil.</p>
+            <div class="ui header">Como funciona?</div>
+            <p>Nessa página você vai criar o corpo do seu email e vai definir pra quem ele vai ser enviado.</p>
+            <p>Basta escolher um assunto, um título (são coisas diferentes), a mensagem do texto e pra quem ele deve ser enviado.</p>
+            <p>Você também pode ir além de apenas um texto genérico pra todos os alunos e personalizar um pouco as coisas, como explicado na seção "Personalizando seus emails"</p>
+            <div class="ui header">Alguns avisos importantes</div>
+            <p><b>Ninguém gosta de recebem spam.</b> Envie emails apenas quando eles forem 100% necessários.</p>
+            <p><b>Não enrole.</b> Emails têm que ser direto ao ponto, então não desperdice espaço digitando bobagens.</p>
+            <p><b>Nem todos vão ler.</b> Lembre-se que nem todos vão ler seus emails, então se prepare pra repetir o aviso na sala.</p>
+            <div class="ui header">Personalizando seus emails</div>
+            <p><b>Adicione cores ao seu email</b> selecionando a cor tema dele!</p>
+            <p><b>Quer ser formal ou informal?</b> Escolha uma mensagem de despedida que te agrade pro seu email!</p>
+            <p><b>Textos simples são chatos?</b> A mensagem dos emails tem suporte completo pra HTML! Basta escrever o código e marcar a opção que indica que você usou HTML e pronto! Coloque links, cabeçalhos e tudo que vier à mente!</p>
+            <p><b>Quer ser ainda mais pessoal com os alunos?</b> As listas de email também têm suporte para tags personalizadas! Para que o nome do aluno apareça na mensagem ou no título (desabilitado no assunto), basta escrever $$nome$$.<br>
+            Para que o nome da matéria apareça, basta escrever $$curso$$.</p>
+            <p>Experimente!</p>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
