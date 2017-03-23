@@ -138,7 +138,7 @@ def student_update_submit(request):
 def student_search(request):
     name = request.POST['text']
     if name:
-        students = Student.objects.filter(name__contains=name).order_by('name')
+        students = Student.objects.filter(name__icontains=name).order_by('name')
     else:
         students = []
     results = []
