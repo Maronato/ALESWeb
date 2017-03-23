@@ -7,7 +7,7 @@
         <div class="row">
             <div class="center aligned sixteen wide column">
                 <h1>Atualizar documentos dos alunos</h1>
-                <p>Pesquise alunos abaixo e marque aqueles que já trouxeram o documento</p>
+                <p>Pesquise alunos abaixo e marque aqueles que já trouxeram a autorização e digite seu RG</p>
             </div>
         </div>
         <div class="row">
@@ -24,11 +24,12 @@
 
 
         <div class="row">
-            <div class="column ten wide">
+            <div class="column twelve wide">
                 <table class="ui striped table">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>Autorização</th>
+                            <th>RG</th>
                             <th>Nome</th>
                             <th>Série</th>
                             <th>Escola</th>
@@ -70,8 +71,12 @@
                         if (data['students'][i]['status']) {
                             $("<tr>\
                                 <td class='collapsing'>\
-                                    <div class='ui fitted slider checkbox'><input onclick='changed($(this));' id='" + data['students'][i]['id'] + "' checked type='checkbox'> <label></label>\
+                                    <div class='ui fitted slider checkbox'><input onclick='changed($(this));' id='" + data['students'][i]['id'] + "_auth' checked type='checkbox'> <label></label>\
                                     </td>\
+                                    <td>\
+                                        <div class='ui fluid input'>\
+                                        <input type='text' placeholder='RG dx alunx' class='' onchange='change_rg($(this));' id='" + data['students'][i]['id'] + "_rg' value='" + data['students'][i]['rg'] +"' name='rg'>\
+                                       </div>\
                                     <td>\
                                         " + data['students'][i]['name'] + "\
                                     </td>\
@@ -86,7 +91,12 @@
                         else {
                             $("<tr>\
                                 <td class='collapsing'>\
-                                    <div class='ui fitted slider checkbox'><input onclick='changed($(this));' id='" + data['students'][i]['id'] + "' type='checkbox'> <label></label>\
+                                    <div class='ui fitted slider checkbox'><input onclick='changed($(this));' id='" + data['students'][i]['id'] + "_auth' type='checkbox'> <label></label>\
+                                    </td>\
+                                    <td>\
+                                        <div class='ui fluid input'>\
+                                        <input type='text' placeholder='RG dx alunx' class='' onchange='change_rg($(this));' id='" + data['students'][i]['id'] + "_rg' value='" + data['students'][i]['rg'] +"' name='rg'>\
+                                       </div>\
                                     </td>\
                                     <td>\
                                         " + data['students'][i]['name'] + "\
@@ -111,7 +121,7 @@
     }
 
     function changed(self) {
-        var id = self.attr('id');
+        var id = self.attr('id').split('_')[0];
         var status = self.is(':checked');
 
         $.ajax({
@@ -120,6 +130,21 @@
             data: {
                 id: id,
                 status: status,
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+        });
+    }
+
+    function change_rg(self) {
+        var id = self.attr('id').split('_')[0];
+        var rg = self.val();
+
+        $.ajax({
+            url: '{% url "student_update_submit" %}',
+            type: 'post',
+            data: {
+                id: id,
+                rg: rg,
                 csrfmiddlewaretoken: '{{ csrf_token }}'
             },
         });
