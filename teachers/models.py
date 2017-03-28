@@ -99,6 +99,8 @@ class EmailList(models.Model):
     message = models.TextField()
     html = models.BooleanField(default=False)
 
+    is_conversation = models.BooleanField(default=True)
+
 
 # Apply teacher changes
 @receiver(post_save, sender=Teacher, dispatch_uid="post_save_teacher")

@@ -55,6 +55,13 @@
                 </div>
                 {% endfor %}
             </div>
+            <div class="field {% if form.is_conversation.errors.as_text %}error{% endif %}">
+                <div class="ui slider checkbox">
+                    <span style="color: red" class="small">{{ form.is_conversation.errors.as_text }}</span>
+                    {{ form.is_conversation }}
+                    <label>{{ form.is_conversation.label}}</label>
+                </div>
+            </div>
             <h4 class="ui dividing header">Extras</h4>
             <div class="two fields">
                 <div class="field {% if form.theme.errors.as_text %}error{% endif %}">
@@ -129,11 +136,11 @@
             <p><b>Quer ser formal ou informal?</b> Escolha uma mensagem de despedida que te agrade pro seu email!</p>
             <p><b>Textos simples são chatos?</b> A mensagem dos emails tem suporte completo pra HTML! Basta escrever o código e marcar a opção que indica que você usou HTML e pronto! Coloque links, cabeçalhos e tudo que vier à mente!</p>
             <p><b>Quer ser ainda mais pessoal com os alunos?</b> As listas de email também têm suporte para tags personalizadas! Para que o nome do aluno apareça na mensagem ou no título (desabilitado no assunto), basta escrever $$nome$$.<br>
-            Para que o nome da matéria apareça, basta escrever $$curso$$.</p>
-            <p>Experimente!</p>
+                Para que o nome da matéria apareça, basta escrever $$curso$$.</p>
+                <p>Experimente!</p>
+            </div>
         </div>
     </div>
-</div>
 
 
-{% endblock %}
+    {% endblock %}

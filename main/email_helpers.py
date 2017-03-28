@@ -122,10 +122,9 @@ def event_warning_teachers(data):
 
 
 def generic_message(instance, sent=0):
-    """Event Warning Teachers
-    Takes a list of dicts containing a Teacher, the html body of an email and the plain email body
-    and sends the emails to all of them using a single SMTP connection
-    Accessed through the teachers_event_reminder command
+    """Generic Message
+
+    Creates a generic message and sends it to all students within the selected courses
     """
 
     start_time = time.time()
@@ -156,17 +155,23 @@ def generic_message(instance, sent=0):
     connection.open()
 
     # From field
-    fr = str(settings.DEFAULT_FROM_EMAIL)
+    fr = instance.teacher.email
 
     # for each email in data
     for i, email in enumerate(emails[sent:]):
+
+        to = [email['student'].email, ]
+
+        # if the email is a conversation, send a copy to the teacher
+        if instance.is_conversation:
+            to.append(instance.teacher.email)
 
         # construct the message
         msg = EmailMultiAlternatives(
             instance.subject,
             email['plain'],
             fr,
-            [email['student'].email],
+            to,
         )
         # attach the html version
         msg.attach_alternative(email['html'], "text/html")

@@ -11,6 +11,7 @@ DOCUMENT_TYPE = (
     ('CPF', 'CPF')
 )
 
+
 class City(models.Model):
     """City
     Model for the cities.
