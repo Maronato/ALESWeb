@@ -25,10 +25,13 @@ urlpatterns = [
     url(r'^courses/', include('courses.urls')),
     url(r'^blog/', include('blog.urls')),
 
+    # Logo
+    url(r'^logo\.png', TemplateView.as_view(template_name='main/misc/logo.png', content_type='image/png')),
+
     # Google search verification
-    url(r'^google7db2e931cb4e4f1b\.html$', TemplateView.as_view(template_name='main/verification/google.html', content_type='text/plain')),
+    url(r'^google7db2e931cb4e4f1b\.html$', TemplateView.as_view(template_name='main/misc/google.html', content_type='text/plain')),
 
     # SSL verification
-    url(r'^\.well-known/acme-challenge/vteo4vSAsEH8oULL9cwcdo6WXxLgGIlkjIn7ndP8ZLI', TemplateView.as_view(template_name="main/verification/ssl.html")),
+    url(r'^\.well-known/acme-challenge/vteo4vSAsEH8oULL9cwcdo6WXxLgGIlkjIn7ndP8ZLI', TemplateView.as_view(template_name="main/misc/ssl.html")),
 ]
 urlpatterns += main.urls.urlpatterns
