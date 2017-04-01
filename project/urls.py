@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.generic.base import TemplateView
 import main.urls
 
 urlpatterns = [
@@ -23,5 +24,11 @@ urlpatterns = [
     url(r'^teachers/', include('teachers.urls')),
     url(r'^courses/', include('courses.urls')),
     url(r'^blog/', include('blog.urls')),
+
+    # Google search verification
+    url(r'^google7db2e931cb4e4f1b\.html$', TemplateView.as_view(template_name='main/google.html'), content_type='text/plain'),
+
+    # SSL verification
+    url(r'^\.well-known/acme-challenge/vteo4vSAsEH8oULL9cwcdo6WXxLgGIlkjIn7ndP8ZLI', TemplateView.as_view(template_name="main/ssl.html")),
 ]
 urlpatterns += main.urls.urlpatterns
