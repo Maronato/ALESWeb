@@ -10,6 +10,40 @@
 	<meta name="description" content="Além da Escola!">
 	<link rel="icon" href="{% static 'main/img/favicon.png' %}">
 
+	<!-- Facebook tags -->
+	<meta property="og:url"                content="https://www.projetoales.com.br/" />
+	<meta property="og:locale"               content="pt_BR" />
+	<meta property="og:title"              content="Projeto ALES" />
+	<meta property="og:description"        content="Projeto para ensinar matérias extracurriculares a alunos da rede pública de forma gratuita." />
+	<meta property="og:image"              content="https://www.projetoales.com.br/altlogo" />
+
+
+	<!-- Structured Data -->
+	<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "NGO",
+			"address": {
+				"@type": "PostalAddress",
+				"addressLocality": "Campinas",
+				"addressRegion": "SP",
+				"postalCode": "13084-110",
+				"streetAddress": "Rua Jerônimo Páttaro, S/N",
+				"addressCountry": "BR"
+			},
+			"url": "https://www.projetoales.com.br/",
+			"name": "Projeto ALES",
+			"alternateName": "Projeto Além da Escola",
+			"logo": "https://www.projetoales.com.br/logo",
+			"founder": {
+				"@type": "Person",
+				"name": "Gustavo Haanwinckel Maronato"
+			},
+			"foundingDate": "2017-02-01",
+			"description": "Projeto para ensinar matérias extracurriculares a alunos da rede pública de forma gratuita"
+		}
+	</script>
+
 	<title>Projeto ALES</title>
 
 	<!-- jQuery -->
@@ -78,7 +112,7 @@
 			<a href="{% url 'login' %}"><div class="ui green button">Login</div></a>
 		</div>
 		{% endif %}
-</div>
+	</div>
 
 
 	<!-- Page Contents -->

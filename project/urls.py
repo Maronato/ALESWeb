@@ -27,6 +27,8 @@ urlpatterns = [
 
     # Logo
     url(r'^logo$', TemplateView.as_view(template_name='main/misc/logo.html')),
+    # Alt Logo
+    url(r'^altlogo$', TemplateView.as_view(template_name='main/misc/altlogo.html')),
 
     # Google search verification
     url(r'^google7db2e931cb4e4f1b\.html$', TemplateView.as_view(template_name='main/misc/google.html', content_type='text/plain')),
