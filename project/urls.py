@@ -26,9 +26,9 @@ urlpatterns = [
     url(r'^blog/', include('blog.urls')),
 
     # Google search verification
-    url(r'^google7db2e931cb4e4f1b\.html$', TemplateView.as_view(template_name='main/google.html'), content_type='text/plain'),
+    url(r'^google7db2e931cb4e4f1b\.html$', TemplateView.as_view(template_name='main/verification/google.html'), content_type='text/plain'),
 
     # SSL verification
-    url(r'^\.well-known/acme-challenge/vteo4vSAsEH8oULL9cwcdo6WXxLgGIlkjIn7ndP8ZLI', TemplateView.as_view(template_name="main/ssl.html")),
+    url(r'^\.well-known/acme-challenge/vteo4vSAsEH8oULL9cwcdo6WXxLgGIlkjIn7ndP8ZLI', TemplateView.as_view(template_name="main/verification/ssl.html")),
 ]
 urlpatterns += main.urls.urlpatterns
