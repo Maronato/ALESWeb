@@ -209,3 +209,21 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'main/change_password.html', {'form': form})
+
+
+def redirect_to_sites(request):
+    """Redirect to Sites
+
+    Redirects to the Sites course github page
+    """
+
+    return redirect("https://github.com/ProjetoALES/AulasWeb")
+
+
+def redirect_to_games(request):
+    """Redirect to Games
+
+    Redirects to the Games course github page
+    """
+
+    return redirect("https://github.com/ProjetoALES/AulasGames")

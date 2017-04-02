@@ -32,3 +32,11 @@ urlpatterns = [
     url(r'^reset-password-complete/$', password_reset_complete, {'template_name': 'main/reset_password_complete.html'}, name='password_reset_complete'),
 
 ]
+
+
+redirects = [
+    url(r'sites/', views.redirect_to_sites),
+    url(r'jogos/', views.redirect_to_games),
+]
+
+urlpatterns += redirects
