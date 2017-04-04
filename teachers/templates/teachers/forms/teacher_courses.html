@@ -1,5 +1,7 @@
 <form method="post" action="{% url 'teacher-courses' %}">
     {% csrf_token %}
+    <input type="submit" class="ui big primary button" value="Salvar alterações" />
+    <div class="ui divider"></div>
     <div class="ui stackable three column grid">
         {% for choice in form.courses %}
         {% for obj in form.courses.field.queryset %}
