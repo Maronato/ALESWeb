@@ -130,23 +130,36 @@ def generic_message(instance, sent=0):
     start_time = time.time()
 
     emails = []
-    for course in instance.courses.all():
-        for student in course.students.all():
+    students = []
 
-            context = {
-                'instance': instance,
-                'project_url': settings.SITE_URL
-            }
+    # if to_all, send to all students
+    if instance.to_all:
+        from schools.models import Student
+        students = Student.objects.all()
 
-            msg_plain = render_to_string('main/email/generic_message.txt', context)
-            msg_html = render_to_string('main/email/generic_message.html', context)
+    # If not, just send to the students in the courses
+    else:
+        for course in instance.courses.all():
+            for student in course.students.all():
+                students.append(student)
 
-            msg_plain = msg_plain.replace('$$nome$$', student.name)
+    for student in students:
+        context = {
+            'instance': instance,
+            'project_url': settings.SITE_URL
+        }
+
+        msg_plain = render_to_string('main/email/generic_message.txt', context)
+        msg_html = render_to_string('main/email/generic_message.html', context)
+
+        msg_plain = msg_plain.replace('$$nome$$', student.name)
+        msg_html = msg_html.replace('$$nome$$', student.name)
+
+        if not instance.to_all:
             msg_plain = msg_plain.replace('$$curso$$', course.name)
-            msg_html = msg_html.replace('$$nome$$', student.name)
             msg_html = msg_html.replace('$$curso$$', course.name)
 
-            emails.append({'html': msg_html, 'plain': msg_plain, 'student': student})
+        emails.append({'html': msg_html, 'plain': msg_plain, 'student': student})
 
     # get the smtp connection
     connection = mail.get_connection()

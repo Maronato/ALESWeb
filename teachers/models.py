@@ -92,7 +92,7 @@ class EmailList(models.Model):
     theme = models.CharField(choices=COLORS, default='#7c8cff', max_length=7)
     greeting = models.CharField(choices=GREETINGS, default='Love', max_length=25)
 
-    courses = models.ManyToManyField(Course)
+    courses = models.ManyToManyField(Course, blank=True)
 
     subject = models.CharField(max_length=30)
     title = models.CharField(max_length=30)
@@ -100,6 +100,7 @@ class EmailList(models.Model):
     html = models.BooleanField(default=False)
 
     is_conversation = models.BooleanField(default=True)
+    to_all = models.BooleanField(default=False)
 
 
 # Apply teacher changes

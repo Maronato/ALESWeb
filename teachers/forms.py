@@ -187,7 +187,7 @@ class EmailListForm(forms.ModelForm):
 
     class Meta:
         model = EmailList
-        fields = ['subject', 'message', 'courses', 'theme', 'greeting', 'title', 'html', 'is_conversation']
+        fields = ['subject', 'message', 'courses', 'theme', 'greeting', 'title', 'html', 'is_conversation', 'to_all']
         labels = {
             'subject': 'Assunto',
             'title': 'Título',
@@ -196,7 +196,8 @@ class EmailListForm(forms.ModelForm):
             'theme': 'Tema',
             'greeting': 'Despedida',
             'html': 'A mensagem contém HTML?',
-            'is_conversation': 'Alunos devem responder esse email'
+            'is_conversation': 'Alunos devem responder esse email',
+            'to_all': 'Enviar para todos os alunos do projeto'
         }
 
         widgets = {
