@@ -55,7 +55,7 @@
                 </div>
                 {% endfor %}
             </div>
-            {% if user.is_admin %}
+            {% if user.is_superuser %}
             <div class="field {% if form.to_all.errors.as_text %}error{% endif %}">
                 <div class="ui slider checkbox">
                     <span style="color: red" class="small">{{ form.to_all.errors.as_text }}</span>
