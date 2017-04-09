@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .forms import TeacherFormSet, TeacherForm, ChangeCoursesTeacherForm, TeacherInfo, EmailListForm
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
@@ -127,6 +127,7 @@ def create_email_list(request):
             new.save()
             messages.add_message(request, messages.SUCCESS, 'Lista Criada!')
             form = EmailListForm()
+            return redirect('email-lists')
     else:
         form = EmailListForm()
 
@@ -154,6 +155,7 @@ def edit_email_list(request, email_id):
             new.save()
             messages.add_message(request, messages.SUCCESS, 'Lista editada!')
             form = EmailListForm(instance=instance)
+            return redirect("email-lists")
     else:
         form = EmailListForm(instance=instance)
 
