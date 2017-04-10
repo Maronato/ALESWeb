@@ -82,7 +82,7 @@ def login_user(request):
     context = {}
     if request.method == 'POST':
         # Recover username and password
-        username = request.POST['username']
+        username = request.POST['username'].lower()
         password = request.POST['password']
         # Authenticates them
         user = authenticate(username=username, password=password)

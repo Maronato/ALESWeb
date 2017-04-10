@@ -115,7 +115,7 @@ class Email_Manager(models.Model):
                 # Other_email already being used by someone
                 return False
             # Other email is not being used by anybody else, make it the active one
-            manager.user.email = manager.other_email
+            manager.user.email = manager.other_email.lower()
             manager.user.user.is_active = True
             manager.user.user.save()
             manager.user.save()
@@ -135,7 +135,7 @@ class Email_Manager(models.Model):
         Allows users to change their email, gerating a key
         """
         self.active = False
-        self.other_email = email
+        self.other_email = email.lower()
         self.key = Email_Manager.generate_key()
         self.save()
 
@@ -145,7 +145,7 @@ class Email_Manager(models.Model):
     def email_used(email):
         # True if user exists and is active (email taken and being used)
         try:
-            user = User.objects.get(username=email)
+            user = User.objects.get(username=email.lower())
             if not user.is_active:
                 return False
             return True

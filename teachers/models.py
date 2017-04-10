@@ -30,11 +30,11 @@ class Teacher(models.Model):
     def update_teacher(self):
         try:
             self.user.id
-            self.user.username = self.email
-            self.user.email = self.email
+            self.user.username = self.email.lower()
+            self.user.email = self.email.lower()
             self.user.save()
         except:
-            user = User.objects.create_user(self.email, self.email, get_random_string())
+            user = User.objects.create_user(self.email.lower(), self.email.lower(), get_random_string())
             user.teacher = self
             user.is_active = False
             user.save()
