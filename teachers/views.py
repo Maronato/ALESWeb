@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from .forms import TeacherFormSet, TeacherForm, ChangeCoursesTeacherForm, TeacherInfo, EmailListForm
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
@@ -215,3 +215,26 @@ def send_email_list(request, email_id):
     instance.save()
 
     return JsonResponse({'sent': sent, 'total': total})
+
+
+@user_passes_test(is_admin)
+def quick_add_teacher(request):
+    """Quick add student
+    Allows for the quick creation of students
+    """
+    if request.method == 'POST':
+        form = TeacherForm(request.POST)
+        if form.is_valid():
+            student = form.save()
+            url = form.apply_facebook(student)
+            if url:
+                url = settings.SITE_URL + reverse('custom_auth:confirm_facebook', kwargs={"key": url})
+                messages.add_message(request, messages.SUCCESS, 'Dê esse link para x professorx se matricular:<br><span id="copy_url">{}</span>'.format(url))
+            else:
+                messages.add_message(request, messages.SUCCESS, 'Pronto! Adicione mais professores abaixo')
+
+        else:
+            return render(request, 'teachers/quick_add_teacher.html', {'form': form})
+
+    form = TeacherForm()
+    return render(request, 'teachers/quick_add_teacher.html', {'form': form})

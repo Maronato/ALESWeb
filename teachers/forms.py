@@ -4,6 +4,8 @@ from courses.models import Course
 import phonenumbers
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.utils.crypto import get_random_string
+from schools.models import Student
 
 
 class TeacherForm(forms.ModelForm):
@@ -13,12 +15,13 @@ class TeacherForm(forms.ModelForm):
 
     class Meta:
         model = Teacher
-        fields = ['name', 'nickname', 'email', 'phone', 'schools']
+        fields = ['name', 'nickname', 'email', 'phone', 'schools', 'has_facebook']
         labels = {
             'name': 'Nome',
             'nickname': 'Apelido',
             'phone': 'Telefone',
             'schools': 'Escolas',
+            'has_facebook': 'Tem Facebook'
         }
 
         widgets = {
@@ -38,6 +41,18 @@ class TeacherForm(forms.ModelForm):
                 "Número de telefone inválido"
             )
         return data
+
+    def apply_facebook(self, student):
+        if self.cleaned_data.get('has_facebook', False) and not student.facebookuser:
+            # get a unique random string for the url
+            url = get_random_string(length=5)
+            while Student.objects.filter(facebook_create_url=url).exists() or Teacher.objects.filter(facebook_create_url=url).exists():
+                url = get_random_string(length=5)
+            student.facebook_create_url = url
+            student.save()
+        else:
+            url = False
+        return url
 
 
 # TeacherFormSet for the creation and editing of teacher
