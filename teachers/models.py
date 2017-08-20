@@ -6,6 +6,8 @@ from django.dispatch import receiver
 from main.models import Email_Manager
 from django.utils.crypto import get_random_string
 
+from custom_auth.models import FacebookUser
+
 
 class Teacher(models.Model):
     """Teacher
@@ -25,6 +27,15 @@ class Teacher(models.Model):
     is_subscribed = models.BooleanField(default=True)
     phone = models.CharField(max_length=20, unique=True)
     schools = models.ManyToManyField(School, related_name="teachers")
+
+    # Facebook stuff
+    has_facebook = models.BooleanField(default=False, blank=True)
+    facebook_create_url = models.CharField(max_length=20, blank=True)
+    facebookuser = models.OneToOneField(
+        FacebookUser,
+        blank=True,
+        null=True
+    )
 
     # Method that updates the teacher, used when updated through the admin page
     def update_teacher(self):

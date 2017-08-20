@@ -5,7 +5,7 @@ def is_teacher(user):
     # Checks whether the user is a teacher
     if not user.is_authenticated:
         return False
-    return user.is_teacher
+    return user.is_teacher or user.is_superuser
 
 
 def is_student(user):

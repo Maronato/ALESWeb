@@ -161,7 +161,7 @@
 			<div class="ui message blue {{ message.tags }}" style="margin: 0px; text-align: center;">
 				<i class="close icon" style="text-align: right;"></i>
 
-				{{ message }}
+				{{ message | safe }}
 				<script type="text/javascript">
 					$('.message .close')
 					.on('click', function() {
@@ -206,6 +206,16 @@
 		</div> -->
 
 
-
+		<script type="text/javascript">
+			function copy_to_clip(element) {
+				var $temp = $("<input>");
+				$("body").append($temp);
+				$temp.val($(element).text()).select();
+				document.execCommand("copy");
+				$temp.remove();
+				$(element).popup({title: "Copiado!", position: "bottom center", on: "manual"});
+				$(element).popup('show');
+			}
+		</script>
 
 	</body></html>

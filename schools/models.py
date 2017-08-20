@@ -4,11 +4,13 @@ from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 from main.models import Email_Manager
 from django.utils.crypto import get_random_string
+from custom_auth.models import FacebookUser
 
 
 DOCUMENT_TYPE = (
     ('RG', 'RG'),
-    ('CPF', 'CPF')
+    ('CPF', 'CPF'),
+    ('RA', 'RA')
 )
 
 
@@ -85,6 +87,15 @@ class Student(models.Model):
     )
 
     is_authorized = models.BooleanField(default=False, blank=True)
+
+    # Facebook stuff
+    has_facebook = models.BooleanField(default=False, blank=True)
+    facebook_create_url = models.CharField(max_length=20, blank=True)
+    facebookuser = models.OneToOneField(
+        FacebookUser,
+        blank=True,
+        null=True
+    )
 
     # Returns the events that the student should attend(only in the near future)
     @property

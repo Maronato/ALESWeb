@@ -15,9 +15,13 @@
                     Olá, {{ user.username }}, como vai você?
                     {% endif %}
                 </h3>
-                {% if user.is_teacher %}
+                {% if user.is_teacher or user.is_superuser %}
                 <a class="ui button green huge" href="{% url 'quick-add-student' %}"><i class="icon plus"></i> Inscrever Alunos</a>
                 <a class="ui button blue huge" href="{% url 'student_update_auth' %}"><i class="icon write"></i> Atualizar Documentos</a>
+                {% endif %}
+                {% if user.is_superuser %}
+                <div class="ui horizontal divider"></div>
+                <a class="ui button green huge" href="{% url 'quick-add-teacher' %}"><i class="icon plus"></i> Inscrever Professores</a>
                 {% endif %}
             </div>
         </div>

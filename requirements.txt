@@ -10,3 +10,4 @@ django-widget-tweaks
 pytz
 python-dateutil
 datetime
+facebook-sdk

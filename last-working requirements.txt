@@ -14,3 +14,4 @@ six==1.10.0
 Unidecode==0.4.20
 whitenoise==3.3.0
 zope.interface==4.3.3
+facebook-sdk==2.0.0

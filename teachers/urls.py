@@ -6,7 +6,7 @@ urlpatterns = [
     url(r'^profile/', views.update_info, name='teacher-info'),
     url(r'^change-courses/$', views.change_courses, name='teacher-courses'),
     url(r'^download-presence/(?P<event_id>\d+)', views.download_presence, name='download-presence'),
-
+    url(r'adicionar/', views.quick_add_teacher, name='quick-add-teacher'),
     url(r'^email-lists/', views.email_lists, name='email-lists'),
     url(r'^create-email-list/', views.create_email_list, name='create-email-list'),
     url(r'^edit-email-list/(?P<email_id>\d+)', views.edit_email_list, name='edit-email-list'),

@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^teachers/', include('teachers.urls')),
     url(r'^courses/', include('courses.urls')),
     url(r'^blog/', include('blog.urls')),
+    url(r'^auth/', include('custom_auth.urls', namespace='custom_auth')),
 
     # Logo
     url(r'^logo$', TemplateView.as_view(template_name='main/misc/logo.html')),
