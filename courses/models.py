@@ -1,6 +1,6 @@
 from django.db import models
 from project.choices import *
-from schools.models import School, Student, Year
+from schools.models import City, Student, Year
 from teachers.models import Teacher
 from django.db.models import Q
 from datetime import datetime, timedelta
@@ -25,7 +25,7 @@ class Course(models.Model):
     description = models.TextField()
     teachers = models.ManyToManyField(Teacher, related_name="courses", blank=True)
     students = models.ManyToManyField(Student, related_name="courses", blank=True)
-    schools = models.ManyToManyField(School, related_name="courses", blank=True)
+    city = models.ForeignKey(City, related_name="courses", null=True)
     years = models.ManyToManyField(Year, related_name="courses", blank=True)
     limit = models.IntegerField(null=True)
 
@@ -105,12 +105,11 @@ class Event(models.Model):
         blank=True,
         null=True,
     )
-    schools = models.ManyToManyField(School, related_name="events")
+    city = models.ForeignKey(City, related_name="events", null=True)
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
         related_name='events',
-        blank=True,
         null=True,
     )
 
@@ -127,14 +126,15 @@ class Event(models.Model):
     # Represents all the students that CAN attend the event. Students shown here will be notified of the event beforehand
     @property
     def students(self):
-        students = Student.objects.filter(Q(school__events__in=[self]))
+
+        students = Student.objects.filter(school__city=self.city)
         if self.course:
             students = students.filter(Q(courses__in=[self.course]))
         return students
 
     @property
     def end(self):
-        time = datetime(hour=self.time.hour, minute=self.time.minute, year=2017, month=1, day=1) + timedelta(hours=self.duration.hour, minutes=self.duration.minute)
+        time = datetime(hour=self.time.hour, minute=self.time.minute, year=now.year, month=1, day=1) + timedelta(hours=self.duration.hour, minutes=self.duration.minute)
         res = self.datetime
         return res.replace(hour=time.hour, minute=time.minute)
 
@@ -164,6 +164,7 @@ class Event(models.Model):
 def pre_save_event(sender, instance, **kwargs):
     tz = pytz.timezone(timezone.get_default_timezone_name())
     instance.datetime = tz.localize(datetime.strptime(instance.date, "%Y-%m-%d").replace(hour=instance.time.hour, minute=instance.time.minute))
+    instance.city = instance.course.city if instance.course.city else None
 
 
 @receiver(pre_save, sender=Course, dispatch_uid="pre_save_course")

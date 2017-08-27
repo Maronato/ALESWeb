@@ -15,17 +15,17 @@ class TeacherForm(forms.ModelForm):
 
     class Meta:
         model = Teacher
-        fields = ['name', 'nickname', 'email', 'phone', 'schools', 'has_facebook']
+        fields = ['name', 'nickname', 'email', 'phone', 'cities', 'has_facebook']
         labels = {
             'name': 'Nome',
             'nickname': 'Apelido',
             'phone': 'Telefone',
-            'schools': 'Escolas',
+            'cities': 'Cidades',
             'has_facebook': 'Tem Facebook'
         }
 
         widgets = {
-            'schools': forms.widgets.CheckboxSelectMultiple(),
+            'cities': forms.widgets.CheckboxSelectMultiple(),
         }
 
     def clean_phone(self):
@@ -76,7 +76,7 @@ class ChangeCoursesTeacherForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ChangeCoursesTeacherForm, self).__init__(*args, **kwargs)
 
-        self.fields['courses'].queryset = Course.objects.filter(schools__in=self.instance.schools.all()).distinct().order_by('name')
+        self.fields['courses'].queryset = Course.objects.filter(city__in=self.instance.cities.all()).distinct().order_by('name')
         # The widget for a ModelMultipleChoiceField expects
         # a list of primary key for the selected data.
         self.initial['courses'] = [t.pk for t in self.instance.courses.all()]
@@ -116,16 +116,16 @@ class TeacherInfo(forms.ModelForm):
 
     class Meta:
         model = Teacher
-        fields = ['nickname', 'phone', 'schools', 'is_subscribed']
+        fields = ['nickname', 'phone', 'cities', 'is_subscribed']
         labels = {
             'nickname': 'Apelido',
             'phone': 'Telefone',
-            'schools': 'Escolas',
+            'cities': 'Cidades',
             'is_subscribed': 'Receber avisos de aulas'
         }
 
         widgets = {
-            'schools': forms.widgets.CheckboxSelectMultiple(),
+            'cities': forms.widgets.CheckboxSelectMultiple(),
         }
 
     def __init__(self, *args, **kwargs):
