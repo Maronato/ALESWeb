@@ -34,7 +34,8 @@ class Teacher(models.Model):
     facebookuser = models.OneToOneField(
         FacebookUser,
         blank=True,
-        null=True
+        null=True,
+        on_delete=models.DO_NOTHING
     )
 
     # Method that updates the teacher, used when updated through the admin page
