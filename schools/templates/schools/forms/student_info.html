@@ -1,4 +1,5 @@
 {% load widget_tweaks %}
+{% load staticfiles %}
 <form action="{% url 'student-info' %}" method="post" class="ui form">
     {% csrf_token %}
     <h4 class="ui dividing header">Informações básicas</h4>
@@ -40,6 +41,15 @@
             {{ form.password2 }}
         </div>
     </div>
+    <br>
+    <h4 class="ui dividing header">Facebook</h4>
+    {% if user.student.has_facebook %}
+    <p><small>Sua conta está vinculada ao Facebook de <a href="http://facebook.com/{{ user.student.facebookuser.social_id }}">{{ user.student.facebookuser.first_name }}</a>. Você pode desvincular ela clicando no botão abaixo:</small></p>
+    <a href="{% url 'custom_auth:remove_facebook' %}"><button class="ui button danger" type="button">Desvincular Facebook</button></a>
+    {% else %}
+    <p><small>Sua conta não está vinculada ao Facebook.<br>Vincular sua conta ao Facebook te permite fazer o login sem digitar sua senha</small></p>
+    <a href="{% url 'custom_auth:add_facebook' %}"><img style="max-height: 50px;" src="{% static 'main/img/login.png' %}"></a>
+    {% endif %}
     <br>
     <h4 class="ui dividing header">Inscrições</h4>
     <div class="field {% if form.mail.errors.as_text %}error{% endif %}">
