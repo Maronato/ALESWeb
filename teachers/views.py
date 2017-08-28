@@ -169,6 +169,21 @@ def edit_email_list(request, email_id):
 
 
 @user_passes_test(is_teacher)
+def delete_email_list(request, email_id):
+    """Create email lists view
+    """
+    instance = get_object_or_404(EmailList, id=email_id)
+
+    if instance not in request.user.teacher.email_lists.all():
+        raise Http404
+
+    instance.delete()
+    messages.add_message(request, messages.SUCCESS, "Lista apagada")
+
+    return redirect('email-lists')
+
+
+@user_passes_test(is_teacher)
 def preview_email_list(request):
     """Preview email list
     """

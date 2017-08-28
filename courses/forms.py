@@ -60,7 +60,7 @@ class EventForm(forms.ModelForm):
         labels = {
             'name': 'Nome',
             'description': 'Descrição (Assuntos)',
-            'file': 'URL da lista',
+            'file': 'URL da lista ou anexo',
             'date': 'Data',
             'time': 'Hora',
             'duration': 'Duração',

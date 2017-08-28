@@ -6,6 +6,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.core import mail
 import time
 
+from .notification import student_or_teacher_reminder, student_notification
+
 
 # https://github.com/mailgun/transactional-email-templates
 def welcome_email(user):
@@ -81,6 +83,9 @@ def event_warning_students(data):
         # email away
         msg.send()
 
+        # Send Facebook Notification
+        student_or_teacher_reminder(email['student'], email['events'], email['days'])
+
     # close the connection
     connection.close()
 
@@ -117,6 +122,9 @@ def event_warning_teachers(data):
         # email away
         msg.send()
 
+        # Send Facebook Notification
+        student_or_teacher_reminder(email['teacher'], email['events'], email['days'])
+
     # close the connection
     connection.close()
 
@@ -129,37 +137,7 @@ def generic_message(instance, sent=0):
 
     start_time = time.time()
 
-    emails = []
-    students = []
-
-    # if to_all, send to all students
-    if instance.to_all:
-        from schools.models import Student
-        students = Student.objects.all()
-
-    # If not, just send to the students in the courses
-    else:
-        for course in instance.courses.all():
-            for student in course.students.all():
-                students.append(student)
-
-    for student in students:
-        context = {
-            'instance': instance,
-            'project_url': settings.SITE_URL
-        }
-
-        msg_plain = render_to_string('main/email/generic_message.txt', context)
-        msg_html = render_to_string('main/email/generic_message.html', context)
-
-        msg_plain = msg_plain.replace('$$nome$$', student.name)
-        msg_html = msg_html.replace('$$nome$$', student.name)
-
-        if not instance.to_all:
-            msg_plain = msg_plain.replace('$$curso$$', course.name)
-            msg_html = msg_html.replace('$$curso$$', course.name)
-
-        emails.append({'html': msg_html, 'plain': msg_plain, 'student': student})
+    emails = render_messages(instance)
 
     # get the smtp connection
     connection = mail.get_connection()
@@ -192,6 +170,9 @@ def generic_message(instance, sent=0):
         # email away
         msg.send()
 
+        # Send Facebook Notification
+        student_notification(instance, email['student'], email['course'])
+
         # Mind timeouts
         if time.time() - start_time >= 25:
 
@@ -204,3 +185,46 @@ def generic_message(instance, sent=0):
     connection.close()
 
     return len(emails), len(emails)
+
+
+def render_messages(instance):
+    emails = []
+    students = []
+
+    # if to_all, send to all students
+    if instance.to_all:
+        from schools.models import Student
+        students = Student.objects.all()
+
+    # If not, just send to the students in the courses
+    else:
+        for course in instance.courses.all():
+            for student in course.students.all():
+                students.append(student)
+
+    for student in students:
+        if instance.to_all:
+            course = None
+        email = render_message(instance, student, course)
+        emails.append(email)
+
+    return emails
+
+
+def render_message(instance, student, course):
+    context = {
+        'instance': instance,
+        'project_url': settings.SITE_URL
+    }
+
+    msg_plain = render_to_string('main/email/generic_message.txt', context)
+    msg_html = render_to_string('main/email/generic_message.html', context)
+
+    msg_plain = msg_plain.replace('$$nome$$', student.name)
+    msg_html = msg_html.replace('$$nome$$', student.name)
+
+    if not instance.to_all:
+        msg_plain = msg_plain.replace('$$curso$$', course.name)
+        msg_html = msg_html.replace('$$curso$$', course.name)
+
+    return {'html': msg_html, 'plain': msg_plain, 'student': student, 'course': course}

@@ -67,6 +67,7 @@
 
                             <a class="ui button green" onclick="preview({{ email.id }});" id="view_email"><i class="icon eye"></i> Prévia</a>
                             <a class="ui button blue" href="{% url 'edit-email-list' email_id=email.id %}" id="edit_email"><i class="icon edit"></i> Editar</a>
+                            <a class="ui button yellow" href="{% url 'delete-email-list' email_id=email.id %}" id="delete_email"><i class="icon delete"></i> Apagar</a>
                         </div>
                     </div>
                     <div onclick="$('#card_{{ email.id }}').dimmer('show')" class="ui bottom attached button red">

@@ -32,6 +32,9 @@ urlpatterns = [
     url(r'^reset-password-confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', password_reset_confirm, {'template_name': 'main/reset_password_confirm.html'}, name='password_reset_confirm'),
     url(r'^reset-password-complete/$', password_reset_complete, {'template_name': 'main/reset_password_complete.html'}, name='password_reset_complete'),
 
+    # Render email notification for facebook
+    url(r'^notification/(?P<instance>[\w]+)/(?P<student>[\w]+)/(?P<course>[\w]+)', views.render_notification, name='render_notification'),
+    url(r'^notification/render_redirect/$', views.render_redirect, name='render_redirect'),
 ]
 
 

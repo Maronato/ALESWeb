@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.http import JsonResponse
 from django.contrib.auth import login, logout, authenticate
 from .models import Email_Manager
@@ -8,12 +8,14 @@ from django.contrib import messages
 from schools.models import School, Student, City
 from courses.models import Course
 from courses.date_comparisons import AllEvents
-from teachers.models import Teacher
+from teachers.models import Teacher, EmailList
 from .forms import ContactForm
+from .email_helpers import render_message
 import re
 import json
+from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
-
 
 def index(request, contactform=None):
     # Index page
@@ -212,6 +214,31 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'main/change_password.html', {'form': form})
+
+
+@xframe_options_exempt
+@csrf_exempt
+def render_notification(request, instance, student, course):
+    """Render notification that was sent to student
+
+    Used to render message within facebook
+    """
+
+    instance = get_object_or_404(EmailList, id=instance)
+    student = get_object_or_404(Student, id=student)
+    course = get_object_or_404(Course, id=course) if int(course) > 0 else None
+
+    email = render_message(instance, student, course)
+
+    return HttpResponse(email['html'])
+
+
+@xframe_options_exempt
+@csrf_exempt
+def render_redirect(request):
+    """Renders a redirect button to redirect from notifications
+    """
+    return render(request, 'main/redirect_button.html')
 
 
 def redirect_to_sites(request):
