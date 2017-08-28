@@ -18,6 +18,9 @@ from django.contrib import admin
 from django.views.generic.base import TemplateView
 import main.urls
 
+handler404 = 'main.views.handler404'
+handler500 = 'main.views.handler500'
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^school/', include('schools.urls')),

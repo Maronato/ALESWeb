@@ -17,6 +17,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
+
 def index(request, contactform=None):
     # Index page
 
@@ -43,9 +44,8 @@ def how_it_works(request):
 
 def enroll(request, city='CP'):
     # Enrollment page
-    cities = City.objects.all()
-    city = City.objects.get(short=city)
-    print(city)
+    cities = City.objects.all().exclude(short='TS')
+    city = get_object_or_404(City, short=city)
     return render(request, 'main/enroll.html', {'courses': Course.objects.filter(city__short=city.short).order_by('name'), 'city': city, 'cities': cities})
 
 
@@ -257,3 +257,11 @@ def redirect_to_games(request):
     """
 
     return redirect("https://github.com/ProjetoALES/AulasGames")
+
+
+def handler404(request):
+    return render(request, 'main/404.html', status=404)
+
+
+def handler500(request):
+    return render(request, 'main/500.html', status=500)
