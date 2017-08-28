@@ -66,8 +66,10 @@ def remove_facebook(request):
         return redirect('dashboard')
     if obj.has_facebook:
         obj.has_facebook = False
+        fb = obj.facebookuser
+        obj.facebookuser = None
         obj.save()
-        obj.facebookuser.delete()
+        fb.delete()
         messages.add_message(request, messages.SUCCESS, 'Facebook desvinculado com sucesso!')
         return redirect('dashboard')
     messages.add_message(request, messages.ERROR, 'Usuário tem que ter associado o Facebook')
