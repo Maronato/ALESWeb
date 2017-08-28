@@ -42,14 +42,14 @@ class TeacherForm(forms.ModelForm):
             )
         return data
 
-    def apply_facebook(self, student):
-        if self.cleaned_data.get('has_facebook', False) and not student.facebookuser:
+    def apply_facebook(self, teacher):
+        if self.cleaned_data.get('has_facebook', False) and not teacher.facebookuser:
             # get a unique random string for the url
             url = get_random_string(length=5)
             while Student.objects.filter(facebook_create_url=url).exists() or Teacher.objects.filter(facebook_create_url=url).exists():
                 url = get_random_string(length=5)
-            student.facebook_create_url = url
-            student.save()
+            teacher.facebook_create_url = url
+            teacher.save()
         else:
             url = False
         return url
