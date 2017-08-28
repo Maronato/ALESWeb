@@ -5,7 +5,7 @@ from .models import Email_Manager
 from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from schools.models import School, Student
+from schools.models import School, Student, City
 from courses.models import Course
 from courses.date_comparisons import AllEvents
 from teachers.models import Teacher
@@ -39,9 +39,12 @@ def how_it_works(request):
     return render(request, 'main/how_it_works.html')
 
 
-def enroll(request):
+def enroll(request, city='CP'):
     # Enrollment page
-    return render(request, 'main/enroll.html', {'courses': Course.objects.all().order_by('name')})
+    cities = City.objects.all()
+    city = City.objects.get(short=city)
+    print(city)
+    return render(request, 'main/enroll.html', {'courses': Course.objects.filter(city__short=city.short).order_by('name'), 'city': city, 'cities': cities})
 
 
 def simulation_check(request):

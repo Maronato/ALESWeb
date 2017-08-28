@@ -110,6 +110,7 @@ def quick_add_student(request):
             return render(request, 'schools/quick_add_student.html', {'form': form})
 
     form = StudentForm()
+    form.fields['school'].queryset = request.user.teacher.schools
     return render(request, 'schools/quick_add_student.html', {'form': form})
 
 

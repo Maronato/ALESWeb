@@ -43,21 +43,6 @@
         </div>
     </div>
     <br>
-    <h4 class="ui dividing header">Disponibilidade<br><small>Se em dúvida, marque todas</small></h4>
-
-    <div class="field {% if form.schools.errors.as_text %}error{% endif %}">
-        <label>{{ form.schools.label}}</label>
-        <span style="color: red" class="small">{{ form.schools.errors.as_text }}</span>
-        {% for option in form.schools %}
-        <div class="field">
-            <div class="ui checkbox">
-                {{ option.tag }}
-                <label>{{ option.choice_label }}</label>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    <br>
     <h4 class="ui dividing header">Lista de exercícios (opcional)</h4>
     <div class="field {% if form.file.errors.as_text %}error{% endif %}">
         <label>{{ form.file.label}}</label>

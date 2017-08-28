@@ -1,5 +1,5 @@
 from django.db import models
-from schools.models import School
+from schools.models import City
 from django.contrib.auth.models import User
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
@@ -26,7 +26,7 @@ class Teacher(models.Model):
     emailmanager = models.OneToOneField(Email_Manager, null=True)
     is_subscribed = models.BooleanField(default=True)
     phone = models.CharField(max_length=20, unique=True)
-    schools = models.ManyToManyField(School, related_name="teachers")
+    cities = models.ManyToManyField(City, related_name="teachers")
 
     # Facebook stuff
     has_facebook = models.BooleanField(default=False, blank=True)
@@ -34,7 +34,8 @@ class Teacher(models.Model):
     facebookuser = models.OneToOneField(
         FacebookUser,
         blank=True,
-        null=True
+        null=True,
+        on_delete=models.DO_NOTHING
     )
 
     # Method that updates the teacher, used when updated through the admin page
@@ -53,6 +54,13 @@ class Teacher(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+    @property
+    def schools(self):
+        res = self.cities.all()[0].schools.all()
+        for city in self.cities.all()[1:]:
+            res = res | city.schools.all()
+        return res.order_by('name')
 
 
 class EmailList(models.Model):

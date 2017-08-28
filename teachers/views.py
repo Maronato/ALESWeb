@@ -74,6 +74,10 @@ def change_courses(request):
             messages.add_message(request, messages.SUCCESS, 'Cursos atualizados!')
     else:
         form = ChangeCoursesTeacherForm(instance=request.user.teacher)
+        res = request.user.teacher.cities.all()[0].courses.all()
+        for city in request.user.teacher.cities.all()[1:]:
+            res = res | city.courses.all()
+        form.fields["courses"].queryset = res.order_by('name')
 
     return render(request, 'teachers/teacher_courses.html', {'form': form})
 

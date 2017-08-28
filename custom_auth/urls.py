@@ -22,6 +22,9 @@ urlpatterns = [
     # Receives a key and verifies the user if the key is valid. Redirects to facebook login screen
     url(r'^fb/(?P<key>[\w]+)', views.confirm_facebook, name='confirm_facebook'),
 
+    url(r'facebook/remove_facebook/$', views.remove_facebook, name='remove_facebook'),
+    url(r'facebook/add_facebook/$', views.add_facebook, name='add_facebook'),
+
     url(r'facebook/login/$', views.facebook_login, name='facebook_login'),
     url(r'facebook/login/(?P<key>\w+)$', views.facebook_login, name='facebook_login'),
     url(r'facebook/login_response/$', views.facebook_login_response, name='facebook_login_response'),

@@ -101,4 +101,12 @@ class FacebookUser(models.Model):
             user.save()
             print('USER CREATED')
         obj.save()
+
+        # Hotfix: link user.teacher.facebookuser or student to this
+        user = obj.user.teacher_or_student
+        if user is not None:
+            user.facebookuser = obj
+            user.has_facebook = True
+            user.save()
+
         return obj

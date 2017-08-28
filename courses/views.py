@@ -73,8 +73,7 @@ def create_event(request):
     else:
         form = EventForm()
 
-    # Teachers can only select certain schools and courses(the ones they are enrolled in)
-    form.fields["schools"].queryset = request.user.teacher.schools.all()
+    # Teachers can only select certain courses(the ones they are enrolled in)
     form.fields["course"].queryset = request.user.teacher.courses.all()
 
     return render(request, 'teachers/create_event.html', {'form': form})
@@ -107,12 +106,10 @@ def update_event(request):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = EventFormSet()
         form = EventFormSet(queryset=request.user.teacher.events.filter(datetime__gte=timezone.now() - timedelta(hours=3)).order_by('-datetime'))
     # for every form in the formset
     for item in form:
-        # Teachers can only select certain schools and courses(the ones they are enrolled in)
-        item.fields["schools"].queryset = request.user.teacher.schools.all()
+        # Teachers can only select certain courses(the ones they are enrolled in)
         item.fields["course"].queryset = request.user.teacher.courses.all()
 
     return render(request, 'teachers/update_events.html', {'formset': form})

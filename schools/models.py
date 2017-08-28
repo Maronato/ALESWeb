@@ -94,7 +94,8 @@ class Student(models.Model):
     facebookuser = models.OneToOneField(
         FacebookUser,
         blank=True,
-        null=True
+        null=True,
+        on_delete=models.DO_NOTHING
     )
 
     # Returns the events that the student should attend(only in the near future)

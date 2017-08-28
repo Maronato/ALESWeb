@@ -25,20 +25,18 @@ class CourseForm(forms.ModelForm):
     class Meta:
 
         model = Course
-        fields = ['name', 'description', 'date', 'time', 'limit', 'weeks_apart', 'months_apart', 'duration', 'schools', 'years']
+        fields = ['name', 'description', 'date', 'time', 'limit', 'weeks_apart', 'months_apart', 'duration', 'city', 'years']
         widgets = {
             'date': DateInput,
             'time': TimeInput,
             'duration': TimeInput,
-            'schools': forms.widgets.CheckboxSelectMultiple(),
-            # 'teachers': forms.widgets.CheckboxSelectMultiple(),
             'years': forms.widgets.CheckboxSelectMultiple()
         }
         labels = {
             'name': 'Nome',
             'description': 'Descrição',
             # 'teachers': 'Professores',
-            'schools': 'Escolas',
+            'city': 'Cidade',
             'years': 'Séries',
             'time': 'Hora',
             'date': 'Primeira Aula',
@@ -58,7 +56,7 @@ class EventForm(forms.ModelForm):
     class Meta:
 
         model = Event
-        fields = ['name', 'description', 'file', 'date', 'time', 'duration', 'schools', 'course', 'category']
+        fields = ['name', 'description', 'file', 'date', 'time', 'duration', 'course', 'category']
         labels = {
             'name': 'Nome',
             'description': 'Descrição (Assuntos)',
@@ -66,7 +64,6 @@ class EventForm(forms.ModelForm):
             'date': 'Data',
             'time': 'Hora',
             'duration': 'Duração',
-            'schools': 'Escolas',
             'course': 'Matéria',
             'category': 'Tipo',
         }
@@ -74,7 +71,6 @@ class EventForm(forms.ModelForm):
             'date': DateInput,
             'time': TimeInput,
             'duration': TimeInput,
-            'schools': forms.widgets.CheckboxSelectMultiple(),
         }
 
 

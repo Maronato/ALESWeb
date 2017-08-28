@@ -249,7 +249,7 @@ class ChangeCoursesStudentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ChangeCoursesStudentForm, self).__init__(*args, **kwargs)
 
-        self.fields['courses'].queryset = Course.objects.filter(Q(schools__in=[self.instance.school]) & Q(years__in=[self.instance.year])).order_by('name')
+        self.fields['courses'].queryset = Course.objects.filter(Q(city=self.instance.school.city) & Q(years__in=[self.instance.year])).order_by('name')
         # The widget for a ModelMultipleChoiceField expects
         # a list of primary key for the selected data.
         self.initial['courses'] = [t.pk for t in self.instance.courses.all()]
