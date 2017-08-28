@@ -12,7 +12,8 @@ urlpatterns = [
     # How it works
     url(r'como-funciona/', views.how_it_works, name='how_it_works'),
     # Simulation page
-    url(r'simulate/', views.enroll, name='enroll'),
+    url(r'simulate/$', views.enroll, name='enroll'),
+    url(r'simulate/(?P<city>[\w]+)', views.enroll, name='enroll'),
     url(r'simulation_check/', views.simulation_check, name='simulation_check'),
     # login flow
     url(r'^login/$', views.login_user, name='login'),
