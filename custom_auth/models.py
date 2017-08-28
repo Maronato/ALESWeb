@@ -110,3 +110,6 @@ class FacebookUser(models.Model):
             user.save()
 
         return obj
+
+    def __str__(self):
+        return self.name
