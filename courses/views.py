@@ -45,7 +45,7 @@ def update_course(request):
             return render(request, 'schools/update_courses.html', {'formset': form})
 
     # If GET, generate an unmodified form
-    form = CourseFormSet()
+    form = CourseFormSet(queryset=Course.objects.order_by('city', 'time'))
     for course in form:
         course.fields['teachers'].queryset = Teacher.objects.filter(cities__in=[course.instance.city])
         course.fields['coordinators'].queryset = Teacher.objects.filter(Q(courses__in=[course.instance]) | Q(coordinated_courses__in=[course.instance])).distinct()
