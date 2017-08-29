@@ -1,7 +1,9 @@
 from django.shortcuts import render, reverse
 from .models import Event, Course
 from schools.models import Student
+from teachers.models import Teacher
 from .forms import CourseFormSet, EventForm, StudentPresence, EventFormSet
+from django.db.models import Q
 from django.forms import formset_factory
 from django.contrib.auth.decorators import user_passes_test
 from main.decorators import *
@@ -44,6 +46,9 @@ def update_course(request):
 
     # If GET, generate an unmodified form
     form = CourseFormSet()
+    for course in form:
+        course.fields['teachers'].queryset = Teacher.objects.filter(cities__in=[course.instance.city])
+        course.fields['coordinators'].queryset = Teacher.objects.filter(Q(courses__in=[course.instance]) | Q(coordinated_courses__in=[course.instance])).distinct()
     return render(request, 'schools/update_courses.html', {'formset': form})
 
 

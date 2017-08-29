@@ -25,23 +25,29 @@ class CourseForm(forms.ModelForm):
     class Meta:
 
         model = Course
-        fields = ['name', 'description', 'date', 'time', 'limit', 'weeks_apart', 'months_apart', 'duration', 'city', 'years', 'prevent_enrollments']
+        fields = ['name', 'description', 'date', 'time', 'limit', 'weeks_apart', 'months_apart', 'duration', 'city', 'years', 'prevent_enrollments', 'teachers', 'coordinators']
         widgets = {
             'date': DateInput,
             'time': TimeInput,
             'duration': TimeInput,
-            'years': forms.widgets.CheckboxSelectMultiple()
+            'years': forms.widgets.CheckboxSelectMultiple(),
+            'coordinators': forms.widgets.CheckboxSelectMultiple(),
+            'teachers': forms.widgets.CheckboxSelectMultiple(),
         }
         labels = {
             'name': 'Nome',
             'description': 'Descrição',
-            # 'teachers': 'Professores',
+            'teachers': 'Professores',
             'city': 'Cidade',
+            'limit': 'Limite de alunos',
+            'weeks_apart': 'A cada "n" semanas',
+            'months_apart': 'A cada "n" meses',
             'years': 'Séries',
             'time': 'Hora',
             'date': 'Primeira Aula',
             'duration': 'Duração',
-            'prevent_enrollments': 'Bloquear inscrições'
+            'prevent_enrollments': 'Bloquear inscrições',
+            'coordinators': 'Coordenadores',
         }
 
 

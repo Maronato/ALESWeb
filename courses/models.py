@@ -24,6 +24,9 @@ class Course(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
     teachers = models.ManyToManyField(Teacher, related_name="courses", blank=True)
+
+    coordinators = models.ManyToManyField(Teacher, related_name="coordinated_courses", blank=True)
+
     students = models.ManyToManyField(Student, related_name="courses", blank=True)
     city = models.ForeignKey(City, related_name="courses", null=True)
     years = models.ManyToManyField(Year, related_name="courses", blank=True)

@@ -3,13 +3,16 @@ from .forms import TeacherFormSet, TeacherForm, ChangeCoursesTeacherForm, Teache
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from main.decorators import *
-from courses.models import Event
-from teachers.models import EmailList
+from courses.models import Event, Course
+from courses.forms import CourseForm
+from django.db.models import Q
+from teachers.models import EmailList, Teacher
 from django.conf import settings
 from django.http import Http404, JsonResponse
 from django.utils.datastructures import MultiValueDictKeyError
 from main.email_helpers import generic_message
 from django.utils import timezone
+from django import forms
 # Create your views here.
 
 
@@ -80,6 +83,35 @@ def change_courses(request):
         form.fields["courses"].queryset = res.order_by('name')
 
     return render(request, 'teachers/teacher_courses.html', {'form': form})
+
+
+@user_passes_test(is_teacher)
+def coordinate_courses(request):
+    """Coordinate Courses
+    Teacher only
+    Allows for the coordination of courses
+    """
+    CourseFormSet = forms.modelformset_factory(Course, form=CourseForm, can_delete=False, extra=0)
+
+    if request.method == 'POST':
+        # gather post data into form
+        form = CourseFormSet(request.POST)
+
+        # If the form is valid, save the changes and render message
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Cursos atualizados!')
+
+        # If the form is invalid, reload page with form errors
+        else:
+            return render(request, 'teachers/update_coordinated_courses.html', {'formset': form})
+
+    # If GET, generate an unmodified form
+    form = CourseFormSet(queryset=request.user.teacher.coordinated_courses.all())
+    for course in form:
+        course.fields['teachers'].queryset = Teacher.objects.filter(cities__in=[course.instance.city])
+        course.fields['coordinators'].queryset = Teacher.objects.filter(Q(courses__in=[course.instance]) | Q(coordinated_courses__in=[course.instance])).distinct()
+    return render(request, 'teachers/update_coordinated_courses.html', {'formset': form})
 
 
 def download_presence(request, event_id):
