@@ -40,7 +40,8 @@
                 <div class="ui slider attached checkbox">
 
                     {{ choice.tag }}
-                    <label>{% if obj.has_spots %}Se inscrever?  ({{ obj.spots_left }} vagas restantes) {% else %} Turma Lotada {% endif %}</label>
+
+                    <label>{% if obj.has_spots and not obj.prevent_enrollments %}Se inscrever?  ({{ obj.spots_left }} vagas restantes) {% else %} Turma Lotada {% endif %}</label>
                 </div>
             </div>
         </div>

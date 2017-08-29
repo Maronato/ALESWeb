@@ -260,7 +260,7 @@ class ChangeCoursesStudentForm(forms.ModelForm):
         instance = self.instance
         courses = self.cleaned_data.get('courses').all()
         for course in courses:
-            if course not in instance.courses.all() and not course.has_spots:
+            if course not in instance.courses.all() and (not course.has_spots or course.prevent_enrollments):
                 raise forms.ValidationError(
                     course.name + " já está lotada!"
                 )

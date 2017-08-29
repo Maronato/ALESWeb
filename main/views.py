@@ -59,6 +59,9 @@ def simulation_check(request):
 
     messages = []
     for index, course in enumerate(selected):
+        if request.user.is_authenticated() and request.user.is_student:
+            if course not in request.user.student.courses.all() and (not course.has_spots or course.prevent_enrollments):
+                messages.append("{} já está lotada!".format(course.name))
         gen_1 = AllEvents(course=course)
         for kourse in selected[index + 1:]:
             gen_2 = AllEvents(course=kourse)
