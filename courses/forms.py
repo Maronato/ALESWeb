@@ -25,7 +25,7 @@ class CourseForm(forms.ModelForm):
     class Meta:
 
         model = Course
-        fields = ['name', 'description', 'date', 'time', 'limit', 'weeks_apart', 'months_apart', 'duration', 'city', 'years']
+        fields = ['name', 'description', 'date', 'time', 'limit', 'weeks_apart', 'months_apart', 'duration', 'city', 'years', 'prevent_enrollments']
         widgets = {
             'date': DateInput,
             'time': TimeInput,
@@ -40,7 +40,8 @@ class CourseForm(forms.ModelForm):
             'years': 'Séries',
             'time': 'Hora',
             'date': 'Primeira Aula',
-            'duration': 'Duração'
+            'duration': 'Duração',
+            'prevent_enrollments': 'Bloquear inscrições'
         }
 
 

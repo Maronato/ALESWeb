@@ -37,6 +37,8 @@ class Course(models.Model):
     weeks_apart = models.IntegerField(null=True)
     months_apart = models.IntegerField(null=True)
 
+    prevent_enrollments = models.BooleanField(default=False)
+
     @property
     def day(self):
         return self.begin.weekday() - 4
