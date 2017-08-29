@@ -189,24 +189,18 @@ def generic_message(instance, sent=0):
 
 def render_messages(instance):
     emails = []
-    students = []
 
-    # if to_all, send to all students
-    if instance.to_all:
-        from schools.models import Student
-        students = Student.objects.all()
-
-    # If not, just send to the students in the courses
-    else:
-        for course in instance.courses.all():
-            for student in course.students.all():
-                students.append(student)
+    students = instance.students
 
     for student in students:
         if instance.to_all:
             course = None
-        email = render_message(instance, student, course)
-        emails.append(email)
+            email = render_message(instance, student, course)
+            emails.append(email)
+        else:
+            for course in student.courses.filter(id__in=[x.id for x in instance.courses.all()]):
+                email = render_message(instance, student, course)
+                emails.append(email)
 
     return emails
 

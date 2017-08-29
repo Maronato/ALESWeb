@@ -121,6 +121,11 @@ class EmailList(models.Model):
     is_conversation = models.BooleanField(default=True)
     to_all = models.BooleanField(default=False)
 
+    @property
+    def students(self):
+        from schools.models import Student
+        return Student.objects.filter(courses__in=self.courses.all()).distinct() if not self.to_all else Student.objects.all()
+
 
 # Apply teacher changes
 @receiver(post_save, sender=Teacher, dispatch_uid="post_save_teacher")

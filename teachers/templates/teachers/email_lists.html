@@ -53,6 +53,9 @@
                             {{ email.sent }}
                             {% endif %}
                         </div>
+                        <div class="meta">
+                            Alunos: {{ email.students | length }}<br>
+                        </div>
                         <div class="description">
                             <div class="ui divider"></div>
                             Matérias:
