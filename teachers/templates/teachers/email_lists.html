@@ -58,12 +58,16 @@
                         </div>
                         <div class="description">
                             <div class="ui divider"></div>
+                            {% if not email.to_all %}
                             Matérias:
                             <div class="ui bulleted list">
                                 {% for course in email.courses.all %}
                                 <div class="item">{{ course.name }}</div>
                                 {% endfor %}
                             </div>
+                            {% else %}
+                            <p>Para todos os alunos</p>
+                            {% endif %}
                             <br>
                         </div>
                         <div class="description center aligned">
