@@ -9,6 +9,6 @@ def exception_email(request, e):
     subject = e.message.replace('\n', '\\n').replace('\r', '\\r')[:989]
     message = reporter.get_traceback_text()
     mail.mail_admins(
-        subject, message, fail_silently=True,
+        subject, message, fail_silently=False,
         html_message=reporter.get_traceback_html()
     )
