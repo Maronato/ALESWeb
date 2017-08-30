@@ -141,11 +141,10 @@ class EmailList(models.Model):
 
     @property
     def last_sent_total(self):
-        if self.total_to_be_sent > self.sent_amount:
-            return self.sent_amount
-        else:
+        if self.total_to_be_sent <= self.sent_amount:
             self.sent_amount = 0
             self.save()
+        return self.sent_amount
 
 
 # Apply teacher changes
