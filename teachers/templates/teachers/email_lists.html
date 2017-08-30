@@ -54,8 +54,13 @@
                             {% endif %}
                         </div>
                         <div class="meta">
-                            Alunos: {{ email.students | length }} ({{ email.last_sent_total }} já enviados)<br>
+                            Alunos: {{ email.students | length }}<br>
                         </div>
+                        {% if email.last_sent_total != 0 %}
+                        <div class="meta">
+                            {{ email.last_sent_total }} de {{ email.total_to_be_sent }} emails já enviados
+                        </div>
+                        {% endif %}
                         <div class="description">
                             <div class="ui divider"></div>
                             {% if not email.to_all %}
