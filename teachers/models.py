@@ -121,10 +121,31 @@ class EmailList(models.Model):
     is_conversation = models.BooleanField(default=True)
     to_all = models.BooleanField(default=False)
 
+    sent_amount = models.IntegerField(default=0)
+
     @property
     def students(self):
         from schools.models import Student
         return Student.objects.filter(courses__in=self.courses.all()).distinct() if not self.to_all else Student.objects.all()
+
+    @property
+    def total_to_be_sent(self):
+        if self.to_all:
+            from schools.models import Student
+            return len(Student.objects.all())
+        else:
+            counter = 0
+            for student in self.students:
+                counter += len(student.courses.filter(id__in=[x.id for x in self.courses.all()]))
+            return counter
+
+    @property
+    def last_sent_total(self):
+        if self.total_to_be_sent > self.sent_amount:
+            return self.sent_amount
+        else:
+            self.sent_amount = 0
+            self.save()
 
 
 # Apply teacher changes

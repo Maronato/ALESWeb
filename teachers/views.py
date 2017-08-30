@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import user_passes_test
 from main.decorators import *
 from courses.models import Event, Course
 from courses.forms import CourseForm
+from project.manual_error_report import exception_email
 from django.db.models import Q
 from teachers.models import EmailList, Teacher
 from django.conf import settings
@@ -254,16 +255,20 @@ def preview_email_list(request):
 def send_email_list(request, email_id):
     """Send email list
     """
-    instance = get_object_or_404(EmailList, id=email_id)
-    sent = int(request.POST['sent'])
+    try:
+        instance = get_object_or_404(EmailList, id=email_id)
+        sent = int(request.POST['sent'])
 
-    if instance not in request.user.teacher.email_lists.all():
-        raise Http404
+        if instance not in request.user.teacher.email_lists.all():
+            raise Http404
 
-    sent, total = generic_message(instance, sent)
+        sent, total = generic_message(instance, sent)
 
-    instance.sent = timezone.localtime(timezone.now())
-    instance.save()
+        instance.sent = timezone.localtime(timezone.now())
+        instance.save()
+    except Exception as e:
+        exception_email(request, e)
+        raise e
 
     return JsonResponse({'sent': sent, 'total': total})
 

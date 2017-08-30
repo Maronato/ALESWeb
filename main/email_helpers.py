@@ -135,6 +135,10 @@ def generic_message(instance, sent=0):
     Creates a generic message and sends it to all students within the selected courses
     """
 
+    # Reset counter if fatal failure before
+    if sent == 0:
+        sent = instance.last_sent_total
+
     start_time = time.time()
 
     emails = render_messages(instance)
@@ -172,6 +176,10 @@ def generic_message(instance, sent=0):
 
         # Send Facebook Notification
         student_notification(instance, email['student'], email['course'])
+
+        # Update sent amount
+        instance.sent_amount += 1
+        instance.save()
 
         # Mind timeouts
         if time.time() - start_time >= 25:
