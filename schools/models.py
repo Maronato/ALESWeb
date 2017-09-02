@@ -24,6 +24,15 @@ class City(models.Model):
 
     verbose_name = "Cidade"
 
+    @property
+    def students(self):
+        if self.schools.count() == 0:
+            return None
+        stud = self.schools.first().students.all()
+        for school in self.schools.all()[1:]:
+            stud = stud | school.students.all()
+        return stud
+
     def __str__(self):
         return str(self.name)
 
@@ -103,6 +112,10 @@ class Student(models.Model):
     def events(self):
         from courses.models import Event
         return [event for event in Event.objects.all() if self in event.students and event.is_near_future]
+
+    @property
+    def city(self):
+        return self.school.city
 
     # Method that updates the student, used when updated through the admin page
     def update_student(self):

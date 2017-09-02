@@ -63,6 +63,18 @@
                     <label>{{ form.to_all.label}}</label>
                 </div>
             </div>
+            <div class="field {% if form.cities.errors.as_text %}error{% endif %}">
+                <label>{{ form.cities.label}}</label>
+                <span style="color: red" class="small">{{ form.cities.errors.as_text }}</span>
+                {% for option in form.cities %}
+                <div class="field">
+                    <div class="ui checkbox">
+                        {{ option.tag }}
+                        <label>{{ option.choice_label }}</label>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
             {% endif %}
             <div class="field {% if form.is_conversation.errors.as_text %}error{% endif %}">
                 <div class="ui slider checkbox">

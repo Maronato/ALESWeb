@@ -201,7 +201,7 @@ def render_messages(instance):
     students = instance.students
 
     for student in students:
-        if instance.to_all:
+        if instance.to_all or instance.to_city:
             course = None
             email = render_message(instance, student, course)
             emails.append(email)
@@ -225,7 +225,7 @@ def render_message(instance, student, course):
     msg_plain = msg_plain.replace('$$nome$$', student.name)
     msg_html = msg_html.replace('$$nome$$', student.name)
 
-    if not instance.to_all:
+    if course is not None:
         msg_plain = msg_plain.replace('$$curso$$', course.name)
         msg_html = msg_html.replace('$$curso$$', course.name)
 

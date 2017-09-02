@@ -5,6 +5,7 @@ from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 from main.models import Email_Manager
 from django.utils.crypto import get_random_string
+from schools.models import City, Student
 
 from custom_auth.models import FacebookUser
 
@@ -120,24 +121,35 @@ class EmailList(models.Model):
 
     is_conversation = models.BooleanField(default=True)
     to_all = models.BooleanField(default=False)
+    cities = models.ManyToManyField(City, blank=True)
 
     sent_amount = models.IntegerField(default=0)
 
     @property
+    def to_city(self):
+        return True if self.cities.count() > 0 else False
+
+    @property
     def students(self):
-        from schools.models import Student
-        return Student.objects.filter(courses__in=self.courses.all()).distinct() if not self.to_all else Student.objects.all()
+        if self.to_all:
+            return Student.objects.all()
+        elif self.to_city:
+            students = self.cities.first().students.all()
+            for city in self.cities.all()[1:]:
+                students = students | city.students.all() if city.students else students
+            return students
+        else:
+            return Student.objects.filter(courses__in=self.courses.all()).distinct()
 
     @property
     def total_to_be_sent(self):
-        if self.to_all:
-            from schools.models import Student
-            return len(Student.objects.all())
-        else:
+        if not self.to_all and not self.to_city:
             counter = 0
             for student in self.students:
                 counter += len(student.courses.filter(id__in=[x.id for x in self.courses.all()]))
             return counter
+        else:
+            return len(self.students)
 
     @property
     def last_sent_total(self):

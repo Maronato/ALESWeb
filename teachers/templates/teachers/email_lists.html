@@ -63,15 +63,22 @@
                         {% endif %}
                         <div class="description">
                             <div class="ui divider"></div>
-                            {% if not email.to_all %}
+                            {% if email.to_all %}
+                            <p>Para todos os alunos</p>
+                            {% elif email.to_city %}
+                            Cidades:
+                            <div class="ui bulleted list">
+                                {% for city in email.cities.all %}
+                                <div class="item">{{ city.name }}</div>
+                                {% endfor %}
+                            </div>
+                            {% else %}
                             Matérias:
                             <div class="ui bulleted list">
                                 {% for course in email.courses.all %}
                                 <div class="item">{{ course.name }}</div>
                                 {% endfor %}
                             </div>
-                            {% else %}
-                            <p>Para todos os alunos</p>
                             {% endif %}
                             <br>
                         </div>
