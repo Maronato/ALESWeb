@@ -147,7 +147,7 @@ class EmailList(models.Model):
 
     @property
     def total_to_be_sent(self):
-        if not self.to_all and not self.to_city:
+        if not self.to_all and not self.to_city and not self.test_list:
             counter = 0
             for student in self.students:
                 counter += len(student.courses.filter(id__in=[x.id for x in self.courses.all()]))
