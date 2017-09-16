@@ -204,7 +204,7 @@ def render_messages(instance):
     students = instance.students
 
     for student in students:
-        if instance.to_all or instance.to_city:
+        if instance.to_all or instance.to_city or instance.test_list:
             course = None
             email = render_message(instance, student, course)
             emails.append(email)
