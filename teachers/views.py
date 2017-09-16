@@ -255,8 +255,9 @@ def preview_email_list(request):
 def send_email_list(request, email_id):
     """Send email list
     """
+    instance = get_object_or_404(EmailList, id=email_id)
+
     try:
-        instance = get_object_or_404(EmailList, id=email_id)
         sent = int(request.POST['sent'])
 
         if instance not in request.user.teacher.email_lists.all():
@@ -272,7 +273,7 @@ def send_email_list(request, email_id):
         subject = e.message.replace('\n', '\\n').replace('\r', '\\r')[:989] if getattr(e, 'message', False) else 'Erro não identificado'
         msg = str(e) + " " + subject
         sent = 0
-        total = 0
+        total = instance.total_to_be_sent
         try:
             exception_email(request, e)
         except:
