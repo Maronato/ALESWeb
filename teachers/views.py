@@ -14,6 +14,9 @@ from django.utils.datastructures import MultiValueDictKeyError
 from main.email_helpers import generic_message
 from django.utils import timezone
 from django import forms
+import time
+import sys
+from smtplib import SMTPSenderRefused
 # Create your views here.
 
 
@@ -256,7 +259,9 @@ def send_email_list(request, email_id):
     """Send email list
     """
     instance = get_object_or_404(EmailList, id=email_id)
-
+    sent = 0
+    total = instance.total_to_be_sent
+    t1 = time.time()
     try:
         sent = int(request.POST['sent'])
 
@@ -269,17 +274,19 @@ def send_email_list(request, email_id):
         instance.save()
 
         msg = "{}% concluído".format(round(sent / total * 100, 1))
+    except SMTPSenderRefused:
+        # Sleep for some seconds to avoid flooding the server
+        time.sleep(abs(26 - (time.time() - t1)))
+        msg = "Reconectando..."
     except Exception as e:
-        import sys
+        # Sleep for some seconds to avoid flooding the server
+        time.sleep(abs(26 - (time.time() - t1)))
         exc_type, exc_obj, exc_tb = sys.exc_info()
-        msg = str([exc_type, exc_obj, exc_tb])
-        sent = 0
-        total = instance.total_to_be_sent
+        msg = "Oops! Reporte isso para o adm: " + str([exc_type, exc_obj])
         try:
             exception_email(request, e)
-        except:
+        except Exception as ee:
             pass
-        # msg = "Reconectando..."
 
     return JsonResponse({'sent': sent, 'total': total, 'msg': msg})
 
