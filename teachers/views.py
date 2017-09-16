@@ -255,6 +255,7 @@ def preview_email_list(request):
 def send_email_list(request, email_id):
     """Send email list
     """
+    msg = "None"
     try:
         instance = get_object_or_404(EmailList, id=email_id)
         sent = int(request.POST['sent'])
