@@ -256,6 +256,8 @@ def send_email_list(request, email_id):
     """Send email list
     """
     msg = "None"
+    sent = 0
+    total = 0
     try:
         instance = get_object_or_404(EmailList, id=email_id)
         sent = int(request.POST['sent'])
