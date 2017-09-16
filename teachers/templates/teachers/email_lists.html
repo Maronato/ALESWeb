@@ -138,7 +138,7 @@
                 var total = data['total'];
 
                 if (sent < total) {
-                    $('#loader_' + id).text(sent / total * 100 + "% completo");
+                    $('#loader_' + id).text(data['msg']);
                     send(id, sent);
                 }
                 else if (sent >= total) {
@@ -155,7 +155,7 @@
                 }
             },
             error: function(data) {
-                $('#header_' + id).text("Erro 500. Oops!");
+                $('#header_' + id).text("Erro 500. Tente novamente!");
                 $('#link1_' + id).hide();
                 $('#cancel_' + id).hide();
                 hide_loader(id);

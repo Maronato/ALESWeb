@@ -56,6 +56,13 @@
                 {% endfor %}
             </div>
             {% if user.is_superuser %}
+            <div class="field {% if form.test_list.errors.as_text %}error{% endif %}">
+                <div class="ui slider checkbox">
+                    <span style="color: red" class="small">{{ form.test_list.errors.as_text }}</span>
+                    {{ form.test_list }}
+                    <label>{{ form.test_list.label}}</label>
+                </div>
+            </div>
             <div class="field {% if form.to_all.errors.as_text %}error{% endif %}">
                 <div class="ui slider checkbox">
                     <span style="color: red" class="small">{{ form.to_all.errors.as_text }}</span>

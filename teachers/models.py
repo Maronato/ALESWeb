@@ -123,6 +123,8 @@ class EmailList(models.Model):
     to_all = models.BooleanField(default=False)
     cities = models.ManyToManyField(City, blank=True)
 
+    test_list = models.BooleanField(default=False)
+
     sent_amount = models.IntegerField(default=0)
 
     @property
@@ -138,6 +140,8 @@ class EmailList(models.Model):
             for city in self.cities.all()[1:]:
                 students = students | city.students.all() if city.students else students
             return students
+        elif self.test_list:
+            return [Student.objects.get(email="gugumaron@gmail.com")] * Student.objects.count()
         else:
             return Student.objects.filter(courses__in=self.courses.all()).distinct()
 
