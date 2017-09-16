@@ -255,9 +255,6 @@ def preview_email_list(request):
 def send_email_list(request, email_id):
     """Send email list
     """
-    msg = "None"
-    sent = 0
-    total = 0
     try:
         instance = get_object_or_404(EmailList, id=email_id)
         sent = int(request.POST['sent'])
@@ -272,20 +269,15 @@ def send_email_list(request, email_id):
 
         msg = "{}% concluído".format(round(sent / total * 100, 1))
     except Exception as e:
-        from django.core.mail import send_mail
-        from django.conf import settings
-        send_mail(
-            'Really Unexpected Error',
-            '"' + "t" + '"',
-            str(settings.DEFAULT_FROM_EMAIL),
-            [str(settings.ADMINS[0][1])],
-            fail_silently=False
-        )
+        subject = e.message.replace('\n', '\\n').replace('\r', '\\r')[:989] if getattr(e, 'message', False) else 'Erro não identificado'
+        msg = str(e) + " " + subject
+        sent = 0
+        total = 0
         try:
             exception_email(request, e)
         except:
             pass
-        msg = "Reconectando..."
+        # msg = "Reconectando..."
 
     return JsonResponse({'sent': sent, 'total': total, 'msg': msg})
 
