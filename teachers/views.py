@@ -269,6 +269,15 @@ def send_email_list(request, email_id):
 
         msg = "{}% concluído".format(round(sent / total * 100, 1))
     except Exception as e:
+        from django.core.mail import send_mail
+        from django.conf import settings
+        send_mail(
+            'Really Unexpected Error',
+            '"' + "t" + '"',
+            str(settings.DEFAULT_FROM_EMAIL),
+            [str(settings.ADMINS[0][1])],
+            fail_silently=False
+        )
         try:
             exception_email(request, e)
         except:

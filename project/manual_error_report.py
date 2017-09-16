@@ -6,6 +6,12 @@ from django.conf import settings
 
 
 def exception_email(request, e):
+    send_mail(
+        'Really Unexpected Error',
+        '"' + e + '"',
+        str(settings.DEFAULT_FROM_EMAIL),
+        [str(settings.ADMINS[0][1])],
+    )
     try:
         exc_info = sys.exc_info()
         reporter = ExceptionReporter(request, is_email=True, *exc_info)
