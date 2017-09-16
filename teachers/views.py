@@ -269,7 +269,10 @@ def send_email_list(request, email_id):
 
         msg = "{}% concluído".format(round(sent / total * 100, 1))
     except Exception as e:
-        exception_email(request, e)
+        try:
+            exception_email(request, e)
+        except:
+            pass
         msg = "Reconectando..."
 
     return JsonResponse({'sent': sent, 'total': total, 'msg': msg})
