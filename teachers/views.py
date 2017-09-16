@@ -270,8 +270,9 @@ def send_email_list(request, email_id):
 
         msg = "{}% concluído".format(round(sent / total * 100, 1))
     except Exception as e:
-        subject = e.message.replace('\n', '\\n').replace('\r', '\\r')[:989] if getattr(e, 'message', False) else 'Erro não identificado'
-        msg = str(e) + " " + subject
+        import sys
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        msg = str([exc_type, exc_obj, exc_tb])
         sent = 0
         total = instance.total_to_be_sent
         try:
