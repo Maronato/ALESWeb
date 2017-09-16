@@ -138,8 +138,7 @@ def generic_message(instance, sent=0):
     """
 
     # Reset counter if fatal failure before
-    if sent == 0:
-        sent = instance.last_sent_total
+    sent = sent or instance.last_sent_total
 
     start_time = time.time()
 
