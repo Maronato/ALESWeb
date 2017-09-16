@@ -76,6 +76,7 @@ def event_warning_students(data):
             email['plain'],
             fr,
             [email['student'].email],
+            connection=connection,
         )
         # attach the html version
         msg.attach_alternative(email['html'], "text/html")
@@ -115,6 +116,7 @@ def event_warning_teachers(data):
             email['plain'],
             fr,
             [email['teacher'].email],
+            connection=connection,
         )
         # attach the html version
         msg.attach_alternative(email['html'], "text/html")
@@ -167,6 +169,7 @@ def generic_message(instance, sent=0):
             email['plain'],
             fr,
             to,
+            connection=connection,
         )
         # attach the html version
         msg.attach_alternative(email['html'], "text/html")
