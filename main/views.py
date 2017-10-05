@@ -1,17 +1,20 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.http import JsonResponse
 from django.contrib.auth import login, logout, authenticate
 from .models import Email_Manager
 from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from schools.models import School, Student
+from schools.models import School, Student, City
 from courses.models import Course
 from courses.date_comparisons import AllEvents
-from teachers.models import Teacher
+from teachers.models import Teacher, EmailList
 from .forms import ContactForm
+from .email_helpers import render_message
 import re
 import json
+from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 
@@ -39,9 +42,11 @@ def how_it_works(request):
     return render(request, 'main/how_it_works.html')
 
 
-def enroll(request):
+def enroll(request, city='CP'):
     # Enrollment page
-    return render(request, 'main/enroll.html', {'courses': Course.objects.all().order_by('name')})
+    cities = City.objects.all().exclude(short='TS')
+    city = get_object_or_404(City, short=city)
+    return render(request, 'main/enroll.html', {'courses': Course.objects.filter(city__short=city.short).order_by('name'), 'city': city, 'cities': cities})
 
 
 def simulation_check(request):
@@ -54,6 +59,9 @@ def simulation_check(request):
 
     messages = []
     for index, course in enumerate(selected):
+        if request.user.is_authenticated() and request.user.is_student:
+            if course not in request.user.student.courses.all() and (not course.has_spots or course.prevent_enrollments):
+                messages.append("{} já está lotada!".format(course.name))
         gen_1 = AllEvents(course=course)
         for kourse in selected[index + 1:]:
             gen_2 = AllEvents(course=kourse)
@@ -211,6 +219,31 @@ def change_password(request):
     return render(request, 'main/change_password.html', {'form': form})
 
 
+@xframe_options_exempt
+@csrf_exempt
+def render_notification(request, instance, student, course):
+    """Render notification that was sent to student
+
+    Used to render message within facebook
+    """
+
+    instance = get_object_or_404(EmailList, id=instance)
+    student = get_object_or_404(Student, id=student)
+    course = get_object_or_404(Course, id=course) if int(course) > 0 else None
+
+    email = render_message(instance, student, course)
+
+    return HttpResponse(email['html'])
+
+
+@xframe_options_exempt
+@csrf_exempt
+def render_redirect(request):
+    """Renders a redirect button to redirect from notifications
+    """
+    return render(request, 'main/redirect_button.html')
+
+
 def redirect_to_sites(request):
     """Redirect to Sites
 
@@ -227,3 +260,11 @@ def redirect_to_games(request):
     """
 
     return redirect("https://github.com/ProjetoALES/AulasGames")
+
+
+def handler404(request):
+    return render(request, 'main/404.html', status=404)
+
+
+def handler500(request):
+    return render(request, 'main/500.html', status=500)

@@ -18,12 +18,16 @@ from django.contrib import admin
 from django.views.generic.base import TemplateView
 import main.urls
 
+handler404 = 'main.views.handler404'
+handler500 = 'main.views.handler500'
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^school/', include('schools.urls')),
     url(r'^teachers/', include('teachers.urls')),
     url(r'^courses/', include('courses.urls')),
     url(r'^blog/', include('blog.urls')),
+    url(r'^auth/', include('custom_auth.urls', namespace='custom_auth')),
 
     # Logo
     url(r'^logo$', TemplateView.as_view(template_name='main/misc/logo.html')),

@@ -61,7 +61,7 @@ class Command(BaseCommand):
                     plain = render_to_string('main/email/student_event_single.txt', {'txt': plain, 'student': student, 'days': days, 'unsubscribe': unsubscribe, 'dashboard': dashboard})
 
                     # append the data to a list of emails
-                    data.append({'student': student, 'html': html, 'plain': plain})
+                    data.append({'student': student, 'html': html, 'plain': plain, 'days': days, 'events': len(events)})
 
         # email away
         event_warning_students(data)

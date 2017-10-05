@@ -25,24 +25,29 @@ class CourseForm(forms.ModelForm):
     class Meta:
 
         model = Course
-        fields = ['name', 'description', 'date', 'time', 'limit', 'weeks_apart', 'months_apart', 'duration', 'schools', 'years']
+        fields = ['name', 'description', 'date', 'time', 'limit', 'weeks_apart', 'months_apart', 'duration', 'city', 'years', 'prevent_enrollments', 'teachers', 'coordinators']
         widgets = {
             'date': DateInput,
             'time': TimeInput,
             'duration': TimeInput,
-            'schools': forms.widgets.CheckboxSelectMultiple(),
-            # 'teachers': forms.widgets.CheckboxSelectMultiple(),
-            'years': forms.widgets.CheckboxSelectMultiple()
+            'years': forms.widgets.CheckboxSelectMultiple(),
+            'coordinators': forms.widgets.CheckboxSelectMultiple(),
+            'teachers': forms.widgets.CheckboxSelectMultiple(),
         }
         labels = {
             'name': 'Nome',
             'description': 'Descrição',
-            # 'teachers': 'Professores',
-            'schools': 'Escolas',
+            'teachers': 'Professores',
+            'city': 'Cidade',
+            'limit': 'Limite de alunos',
+            'weeks_apart': 'A cada "n" semanas',
+            'months_apart': 'A cada "n" meses',
             'years': 'Séries',
             'time': 'Hora',
             'date': 'Primeira Aula',
-            'duration': 'Duração'
+            'duration': 'Duração',
+            'prevent_enrollments': 'Bloquear inscrições',
+            'coordinators': 'Coordenadores',
         }
 
 
@@ -58,15 +63,14 @@ class EventForm(forms.ModelForm):
     class Meta:
 
         model = Event
-        fields = ['name', 'description', 'file', 'date', 'time', 'duration', 'schools', 'course', 'category']
+        fields = ['name', 'description', 'file', 'date', 'time', 'duration', 'course', 'category']
         labels = {
             'name': 'Nome',
             'description': 'Descrição (Assuntos)',
-            'file': 'URL da lista',
+            'file': 'URL da lista ou anexo',
             'date': 'Data',
             'time': 'Hora',
             'duration': 'Duração',
-            'schools': 'Escolas',
             'course': 'Matéria',
             'category': 'Tipo',
         }
@@ -74,7 +78,6 @@ class EventForm(forms.ModelForm):
             'date': DateInput,
             'time': TimeInput,
             'duration': TimeInput,
-            'schools': forms.widgets.CheckboxSelectMultiple(),
         }
 
 

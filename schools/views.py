@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, HttpResponse
+from django.shortcuts import render, get_object_or_404, HttpResponse, reverse
 from .models import School, Student
 from .forms import CityFormSet, SchoolFormSet, StudentFormSet, ChangeCoursesStudentForm, StudentInfo, YearFormSet, StudentForm
 from django.contrib import messages
@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.datastructures import MultiValueDictKeyError
 from main.decorators import *
+from django.conf import settings
 # Create your views here.
 
 
@@ -97,13 +98,19 @@ def quick_add_student(request):
     if request.method == 'POST':
         form = StudentForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.add_message(request, messages.SUCCESS, 'Pronto! Adicione mais alunos abaixo!')
+            student = form.save()
+            url = form.apply_facebook(student)
+            if url:
+                url = settings.SITE_URL + reverse('custom_auth:confirm_facebook', kwargs={"key": url})
+                messages.add_message(request, messages.SUCCESS, 'Dê esse link para x alunx se matricular:<br><span id="copy_url">{}</span>'.format(url))
+            else:
+                messages.add_message(request, messages.SUCCESS, 'Pronto! Adicione mais alunos abaixo')
 
         else:
             return render(request, 'schools/quick_add_student.html', {'form': form})
 
     form = StudentForm()
+    form.fields['school'].queryset = request.user.teacher.schools
     return render(request, 'schools/quick_add_student.html', {'form': form})
 
 

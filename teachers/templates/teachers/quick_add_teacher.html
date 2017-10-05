@@ -1,0 +1,82 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="center aligned sixteen wide column">
+                <h1>Adicionar professor</h1>
+                <p>Assim que adicionado, o professor receberá um email com instruções para a criação de sua senha</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ui divider"></div>
+        </div>
+    </div>
+    <div class="ui one column stackable center aligned page grid">
+
+        {% load widget_tweaks %}
+        <form action="{% url 'quick-add-teacher' %}" method="post" class="ui form">
+            {% csrf_token %}
+            <!-- <h4 class="ui dividing header">Básico</h4> -->
+            <div class="two fields">
+                <div class="field {% if form.name.errors.as_text %}error{% endif %}">
+                    <label>{{ form.name.label}}</label>
+                    <span style="color: red" class="small">{{ form.name.errors.as_text }}</span>
+                    {{ form.name }}
+                </div>
+                <div class="field {% if form.nickname.errors.as_text %}error{% endif %}">
+                    <label>{{ form.nickname.label}}</label>
+                    <span style="color: red" class="small">{{ form.nickname.errors.as_text }}</span>
+                    {{ form.nickname }}
+                </div>
+            </div>
+            <h4 class="ui dividing header">Contato</h4>
+            <div class="two fields">
+                <div class="field {% if form.phone.errors.as_text %}error{% endif %}">
+                    <label>{{ form.phone.label}}</label>
+                    <span style="color: red" class="small">{{ form.phone.errors.as_text }}</span>
+                    {{ form.phone }}
+                </div>
+                <div class="field {% if form.email.errors.as_text %}error{% endif %}">
+                    <label>{{ form.email.label}}</label>
+                    <span style="color: red" class="small">{{ form.email.errors.as_text }}</span>
+                    {{ form.email }}
+                </div>
+            </div>
+            <h4 class="ui dividing header">Ensino</h4>
+            <div class="one field">
+                <div class="field {% if form.cities.errors.as_text %}error{% endif %}">
+                    <label>{{ form.cities.label}}</label>
+                    <span style="color: red" class="small">{{ form.cities.errors.as_text }}</span>
+                    {{ form.cities }}
+                </div>
+            </div>
+            <h4 class="ui dividing header">Facebook</h4>
+            <div class="field ui toggle checkbox {% if form.has_facebook.errors.as_text %}error{% endif %}">
+                <span style="color: red" class="small">{{ form.has_facebook.errors.as_text }}</span>
+                {{ form.has_facebook }}
+                <label>{{ form.has_facebook.label}}</label>
+            </div>
+
+            {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+            {% endfor %}
+            <br>
+            <button class="ui button primary" type="submit">Adicionar!</button>
+        </form>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#copy_url').popup({
+        html: "<h4><a href='#' onclick=copy_to_clip($('#copy_url'))><i class='icon clipboard'></i> Clique para copiar!</a></h4>",
+        position: "bottom center",
+        on: "manual",
+    });
+    $('#copy_url').popup('show');
+</script>
+
+{% endblock %}

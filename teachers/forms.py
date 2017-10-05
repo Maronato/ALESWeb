@@ -4,6 +4,8 @@ from courses.models import Course
 import phonenumbers
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.utils.crypto import get_random_string
+from schools.models import Student
 
 
 class TeacherForm(forms.ModelForm):
@@ -13,16 +15,17 @@ class TeacherForm(forms.ModelForm):
 
     class Meta:
         model = Teacher
-        fields = ['name', 'nickname', 'email', 'phone', 'schools']
+        fields = ['name', 'nickname', 'email', 'phone', 'cities', 'has_facebook']
         labels = {
             'name': 'Nome',
             'nickname': 'Apelido',
             'phone': 'Telefone',
-            'schools': 'Escolas',
+            'cities': 'Cidades',
+            'has_facebook': 'Tem Facebook'
         }
 
         widgets = {
-            'schools': forms.widgets.CheckboxSelectMultiple(),
+            'cities': forms.widgets.CheckboxSelectMultiple(),
         }
 
     def clean_phone(self):
@@ -38,6 +41,18 @@ class TeacherForm(forms.ModelForm):
                 "Número de telefone inválido"
             )
         return data
+
+    def apply_facebook(self, teacher):
+        if self.cleaned_data.get('has_facebook', False) and not teacher.facebookuser:
+            # get a unique random string for the url
+            url = get_random_string(length=5)
+            while Student.objects.filter(facebook_create_url=url).exists() or Teacher.objects.filter(facebook_create_url=url).exists():
+                url = get_random_string(length=5)
+            teacher.facebook_create_url = url
+            teacher.save()
+        else:
+            url = False
+        return url
 
 
 # TeacherFormSet for the creation and editing of teacher
@@ -61,7 +76,7 @@ class ChangeCoursesTeacherForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ChangeCoursesTeacherForm, self).__init__(*args, **kwargs)
 
-        self.fields['courses'].queryset = Course.objects.filter(schools__in=self.instance.schools.all()).distinct().order_by('name')
+        self.fields['courses'].queryset = Course.objects.filter(city__in=self.instance.cities.all()).distinct().order_by('name')
         # The widget for a ModelMultipleChoiceField expects
         # a list of primary key for the selected data.
         self.initial['courses'] = [t.pk for t in self.instance.courses.all()]
@@ -101,16 +116,16 @@ class TeacherInfo(forms.ModelForm):
 
     class Meta:
         model = Teacher
-        fields = ['nickname', 'phone', 'schools', 'is_subscribed']
+        fields = ['nickname', 'phone', 'cities', 'is_subscribed']
         labels = {
             'nickname': 'Apelido',
             'phone': 'Telefone',
-            'schools': 'Escolas',
+            'cities': 'Cidades',
             'is_subscribed': 'Receber avisos de aulas'
         }
 
         widgets = {
-            'schools': forms.widgets.CheckboxSelectMultiple(),
+            'cities': forms.widgets.CheckboxSelectMultiple(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -187,7 +202,7 @@ class EmailListForm(forms.ModelForm):
 
     class Meta:
         model = EmailList
-        fields = ['subject', 'message', 'courses', 'theme', 'greeting', 'title', 'html', 'is_conversation', 'to_all']
+        fields = ['subject', 'message', 'courses', 'theme', 'greeting', 'title', 'html', 'is_conversation', 'to_all', 'test_list', 'cities']
         labels = {
             'subject': 'Assunto',
             'title': 'Título',
@@ -197,9 +212,12 @@ class EmailListForm(forms.ModelForm):
             'greeting': 'Despedida',
             'html': 'A mensagem contém HTML?',
             'is_conversation': 'Alunos devem responder esse email',
-            'to_all': 'Enviar para todos os alunos do projeto'
+            'to_all': 'Enviar para todos os alunos do projeto',
+            'cities': 'Cidades',
+            'test_list': 'Lista de Teste',
         }
 
         widgets = {
             'courses': forms.widgets.CheckboxSelectMultiple(),
+            'cities': forms.widgets.CheckboxSelectMultiple(),
         }

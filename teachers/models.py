@@ -1,10 +1,13 @@
 from django.db import models
-from schools.models import School
+from schools.models import City
 from django.contrib.auth.models import User
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 from main.models import Email_Manager
 from django.utils.crypto import get_random_string
+from schools.models import City, Student
+
+from custom_auth.models import FacebookUser
 
 
 class Teacher(models.Model):
@@ -24,7 +27,17 @@ class Teacher(models.Model):
     emailmanager = models.OneToOneField(Email_Manager, null=True)
     is_subscribed = models.BooleanField(default=True)
     phone = models.CharField(max_length=20, unique=True)
-    schools = models.ManyToManyField(School, related_name="teachers")
+    cities = models.ManyToManyField(City, related_name="teachers")
+
+    # Facebook stuff
+    has_facebook = models.BooleanField(default=False, blank=True)
+    facebook_create_url = models.CharField(max_length=20, blank=True)
+    facebookuser = models.OneToOneField(
+        FacebookUser,
+        blank=True,
+        null=True,
+        on_delete=models.DO_NOTHING
+    )
 
     # Method that updates the teacher, used when updated through the admin page
     def update_teacher(self):
@@ -42,6 +55,13 @@ class Teacher(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+    @property
+    def schools(self):
+        res = self.cities.all()[0].schools.all()
+        for city in self.cities.all()[1:]:
+            res = res | city.schools.all()
+        return res.order_by('name')
 
 
 class EmailList(models.Model):
@@ -101,6 +121,46 @@ class EmailList(models.Model):
 
     is_conversation = models.BooleanField(default=True)
     to_all = models.BooleanField(default=False)
+    cities = models.ManyToManyField(City, blank=True)
+
+    test_list = models.BooleanField(default=False)
+
+    sent_amount = models.IntegerField(default=0)
+
+    @property
+    def to_city(self):
+        return True if self.cities.count() > 0 else False
+
+    @property
+    def students(self):
+        if self.to_all:
+            return Student.objects.all()
+        elif self.to_city:
+            students = self.cities.first().students.all()
+            for city in self.cities.all()[1:]:
+                students = students | city.students.all() if city.students else students
+            return students
+        elif self.test_list:
+            return [Student.objects.get(email="gugumaron@gmail.com")] * Student.objects.count()
+        else:
+            return Student.objects.filter(courses__in=self.courses.all()).distinct()
+
+    @property
+    def total_to_be_sent(self):
+        if not self.to_all and not self.to_city and not self.test_list:
+            counter = 0
+            for student in self.students:
+                counter += len(student.courses.filter(id__in=[x.id for x in self.courses.all()]))
+            return counter
+        else:
+            return len(self.students)
+
+    @property
+    def last_sent_total(self):
+        if self.total_to_be_sent <= self.sent_amount:
+            self.sent_amount = 0
+            self.save()
+        return self.sent_amount
 
 
 # Apply teacher changes

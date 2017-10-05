@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'schools',
     'teachers',
     'courses',
-    'blog'
+    'blog',
+    'custom_auth',
 ]
 
 MIDDLEWARE = [
@@ -167,3 +168,10 @@ EMAIL_PORT = 587
 SERVER_EMAIL = str(os.environ.get('EMAIL_ACCOUNT'))
 
 ADMINS = [('Admin', str(os.environ.get('ADMIN_ACCOUNT'))), ]
+
+
+# Facebook Stuff
+FACEBOOK_KEY = os.environ.get('FACEBOOK_KEY')
+FACEBOOK_SECRET = os.environ.get('FACEBOOK_SECRET')
+FACEBOOK_PAGE_TOKEN = os.environ.get('FACEBOOK_PAGE_TOKEN')
+FACEBOOK_PERMISSIONS = []

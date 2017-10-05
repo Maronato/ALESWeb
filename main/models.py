@@ -29,9 +29,20 @@ def is_student(self):
         return False
 
 
+@property
+def teacher_or_student(self):
+    if self.is_teacher:
+        return self.teacher
+    elif self.is_student:
+        return self.student
+    else:
+        return None
+
+
 # Monkeypatch the properties
 auth.models.User.add_to_class('is_teacher', is_teacher)
 auth.models.User.add_to_class('is_student', is_student)
+auth.models.User.add_to_class('teacher_or_student', teacher_or_student)
 
 
 class Email_Manager(models.Model):

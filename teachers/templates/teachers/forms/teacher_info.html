@@ -14,10 +14,10 @@
             {{ form.phone }}
         </div>
     </div>
-    <div class="field {% if form.schools.errors.as_text %}error{% endif %}">
-        <label>{{ form.schools.label}}</label>
-        <span style="color: red" class="small">{{ form.schools.errors.as_text }}</span>
-        {% for option in form.schools %}
+    <div class="field {% if form.cities.errors.as_text %}error{% endif %}">
+        <label>{{ form.cities.label}}</label>
+        <span style="color: red" class="small">{{ form.cities.errors.as_text }}</span>
+        {% for option in form.cities %}
         <div class="field">
             <div class="ui checkbox">
                 {{ option.tag }}
@@ -52,6 +52,17 @@
             {{ form.password2 }}
         </div>
     </div>
+    <br>
+    <h4 class="ui dividing header">Facebook</h4>
+    {% if user.teacher.has_facebook %}
+    <small>Sua conta está vinculada ao Facebook de <a href="http://facebook.com/{{ user.teacher.facebookuser.social_id }}">{{ user.teacher.facebookuser.first_name }}</a>. Você pode desvincular ela clicando no botão abaixo:</small>
+    <br>
+    <a href="{% url 'custom_auth:remove_facebook' %}"><button class="ui button danger" type="button">Desvincular Facebook</button></a>
+    {% else %}
+    <small>Sua conta não está vinculada ao Facebook. Você pode vincular ela clicando no botão abaixo:</small>
+    <br>
+    <a href="{% url 'custom_auth:add_facebook' %}"><button class="ui button primary" type="button">Vincular Facebook</button></a>
+    {% endif %}
     <br>
     <h4 class="ui dividing header">Inscrições</h4>
     <div class="field {% if form.mail.errors.as_text %}error{% endif %}">

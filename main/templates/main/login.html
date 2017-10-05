@@ -62,9 +62,34 @@
 
     <div class="ui middle aligned center aligned grid">
         <div class="column">
-            <form method="post" action="{% url 'login' %}" class="ui large form">
-                {% csrf_token %}
-                <div class="ui stacked segment">
+            <div class="ui stacked segment">
+            <img style="max-height: 100px;" src="{% static 'main/img/logosimple.png' %}">
+                <div class="ui horizontal divider"></div>
+                <a href="{% url 'custom_auth:facebook_login' %}">
+                    <img style="max-height: 50px;" src="{% static 'main/img/login.png' %}">
+                </a>
+                <div class="ui horizontal divider">
+                    OU
+                </div>
+
+                {% if messages %}
+                <div class="ui message error message">
+                    <i class="close icon" style="text-align: right;"></i>
+                    {% for message in messages %}
+                    {{ message }}
+                    {% endfor %}
+                    <script type="text/javascript">
+                        $('.message .close')
+                        .on('click', function() {
+                            $(this)
+                            .closest('.message')
+                            .transition('fade');
+                        });
+                    </script>
+                </div>
+                {% endif %}
+                <form method="post" action="{% url 'login' %}" class="ui large form">
+                    {% csrf_token %}
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
@@ -77,27 +102,11 @@
                             <input type="password" name="password" placeholder="Senha">
                         </div>
                     </div>
-                    <button type="submit" class="ui fluid large teal submit button">Entrar</button>
+                    <button type="submit" class="ui fluid large teal submit button">Entrar com email</button>
                     <div class="ui divider"></div>
                     <a href="{% url 'password_reset' %}">Esqueceu sua senha?</a>
                 </div>
             </form>
-            {% if messages %}
-            <div class="ui message error message">
-                <i class="close icon" style="text-align: right;"></i>
-                {% for message in messages %}
-                {{ message }}
-                {% endfor %}
-                <script type="text/javascript">
-                    $('.message .close')
-                    .on('click', function() {
-                        $(this)
-                        .closest('.message')
-                        .transition('fade');
-                    });
-                </script>
-            </div>
-            {% endif %}
         </div>
     </div>
 

@@ -27,6 +27,16 @@
                         </div>
                     </div>
                 </h2>
+                {% if user.teacher.coordinated_courses.all %}
+                <h2 class="ui icon header">
+                    <a href="{% url 'coordinate-courses' %}"><i class="law icon"></i></a>
+                    <div class="content">
+                        Matérias que você coordena
+                        <div class="sub header">Coordene suas matérias aqui
+                        </div>
+                    </div>
+                </h2>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -78,7 +88,7 @@
                 <h2 class="ui icon header">
                     <!-- <i class="user icon"></i> -->
                     <div class="content">
-                        Listas do futuro póximo
+                        Listas do futuro próximo
                         <div class="sub header">
                             {% with "near_future" as type %}
                             {% include 'schools/forms/teacher_event_selector.html' %}

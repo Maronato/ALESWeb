@@ -1,5 +1,5 @@
 dj-database-url
-Django
+Django==1.10.5
 gunicorn
 psycopg2
 whitenoise
@@ -10,3 +10,4 @@ django-widget-tweaks
 pytz
 python-dateutil
 datetime
+facebook-sdk

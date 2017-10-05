@@ -4,11 +4,13 @@ from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 from main.models import Email_Manager
 from django.utils.crypto import get_random_string
+from custom_auth.models import FacebookUser
 
 
 DOCUMENT_TYPE = (
     ('RG', 'RG'),
-    ('CPF', 'CPF')
+    ('CPF', 'CPF'),
+    ('RA', 'RA')
 )
 
 
@@ -21,6 +23,15 @@ class City(models.Model):
     short = models.CharField(max_length=2, unique=True)
 
     verbose_name = "Cidade"
+
+    @property
+    def students(self):
+        if self.schools.count() == 0:
+            return None
+        stud = self.schools.first().students.all()
+        for school in self.schools.all()[1:]:
+            stud = stud | school.students.all()
+        return stud
 
     def __str__(self):
         return str(self.name)
@@ -86,11 +97,25 @@ class Student(models.Model):
 
     is_authorized = models.BooleanField(default=False, blank=True)
 
+    # Facebook stuff
+    has_facebook = models.BooleanField(default=False, blank=True)
+    facebook_create_url = models.CharField(max_length=20, blank=True)
+    facebookuser = models.OneToOneField(
+        FacebookUser,
+        blank=True,
+        null=True,
+        on_delete=models.DO_NOTHING
+    )
+
     # Returns the events that the student should attend(only in the near future)
     @property
     def events(self):
         from courses.models import Event
         return [event for event in Event.objects.all() if self in event.students and event.is_near_future]
+
+    @property
+    def city(self):
+        return self.school.city
 
     # Method that updates the student, used when updated through the admin page
     def update_student(self):

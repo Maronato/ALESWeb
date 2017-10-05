@@ -1,5 +1,6 @@
 from django import forms
 from .models import City, School, Student, Year
+from teachers.models import Teacher
 import phonenumbers
 import datetime
 from courses.models import Course
@@ -7,6 +8,7 @@ from django.db.models import Q
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from courses.date_comparisons import AllEvents
+from django.utils.crypto import get_random_string
 
 
 class DateInput(forms.DateInput):
@@ -75,7 +77,7 @@ class StudentForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        fields = ['name', 'born', 'phone', 'email', 'school', 'year', 'is_authorized', 'document', 'document_type']
+        fields = ['name', 'born', 'phone', 'email', 'has_facebook', 'school', 'year', 'is_authorized', 'document', 'document_type']
         labels = {
             'name': 'Nome',
             'born': 'Data de Nascimento',
@@ -84,7 +86,8 @@ class StudentForm(forms.ModelForm):
             'year': 'Série',
             'is_authorized': 'Entregou autorização',
             'document': 'Documento',
-            'document_type': 'Tipo do documento'
+            'document_type': 'Tipo do documento',
+            'has_facebook': 'Tem Facebook'
         }
         widgets = {
             'born': DateInput,
@@ -116,6 +119,18 @@ class StudentForm(forms.ModelForm):
                 "Data inválida"
             )
         return data
+
+    def apply_facebook(self, student):
+        if self.cleaned_data.get('has_facebook', False) and not student.facebookuser:
+            # get a unique random string for the url
+            url = get_random_string(length=5)
+            while Student.objects.filter(facebook_create_url=url).exists() or Teacher.objects.filter(facebook_create_url=url).exists():
+                url = get_random_string(length=5)
+            student.facebook_create_url = url
+            student.save()
+        else:
+            url = False
+        return url
 
 
 # StudentFormSet for the creation and editing of students
@@ -234,7 +249,7 @@ class ChangeCoursesStudentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ChangeCoursesStudentForm, self).__init__(*args, **kwargs)
 
-        self.fields['courses'].queryset = Course.objects.filter(Q(schools__in=[self.instance.school]) & Q(years__in=[self.instance.year])).order_by('name')
+        self.fields['courses'].queryset = Course.objects.filter(Q(city=self.instance.school.city) & Q(years__in=[self.instance.year])).order_by('name')
         # The widget for a ModelMultipleChoiceField expects
         # a list of primary key for the selected data.
         self.initial['courses'] = [t.pk for t in self.instance.courses.all()]
@@ -245,7 +260,7 @@ class ChangeCoursesStudentForm(forms.ModelForm):
         instance = self.instance
         courses = self.cleaned_data.get('courses').all()
         for course in courses:
-            if course not in instance.courses.all() and not course.has_spots:
+            if course not in instance.courses.all() and (not course.has_spots or course.prevent_enrollments):
                 raise forms.ValidationError(
                     course.name + " já está lotada!"
                 )

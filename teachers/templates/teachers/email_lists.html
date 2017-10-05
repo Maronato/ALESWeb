@@ -53,20 +53,40 @@
                             {{ email.sent }}
                             {% endif %}
                         </div>
+                        <div class="meta">
+                            Alunos: {{ email.students | length }}<br>
+                        </div>
+                        {% if email.last_sent_total != 0 %}
+                        <div class="meta">
+                            {{ email.last_sent_total }} de {{ email.total_to_be_sent }} emails já enviados
+                        </div>
+                        {% endif %}
                         <div class="description">
                             <div class="ui divider"></div>
+                            {% if email.to_all %}
+                            <p>Para todos os alunos</p>
+                            {% elif email.to_city %}
+                            Cidades:
+                            <div class="ui bulleted list">
+                                {% for city in email.cities.all %}
+                                <div class="item">{{ city.name }}</div>
+                                {% endfor %}
+                            </div>
+                            {% else %}
                             Matérias:
                             <div class="ui bulleted list">
                                 {% for course in email.courses.all %}
                                 <div class="item">{{ course.name }}</div>
                                 {% endfor %}
                             </div>
+                            {% endif %}
                             <br>
                         </div>
                         <div class="description center aligned">
 
                             <a class="ui button green" onclick="preview({{ email.id }});" id="view_email"><i class="icon eye"></i> Prévia</a>
                             <a class="ui button blue" href="{% url 'edit-email-list' email_id=email.id %}" id="edit_email"><i class="icon edit"></i> Editar</a>
+                            <a class="ui button yellow" href="{% url 'delete-email-list' email_id=email.id %}" id="delete_email"><i class="icon delete"></i> Apagar</a>
                         </div>
                     </div>
                     <div onclick="$('#card_{{ email.id }}').dimmer('show')" class="ui bottom attached button red">
@@ -118,7 +138,7 @@
                 var total = data['total'];
 
                 if (sent < total) {
-                    $('#loader_' + id).text(sent / total * 100 + "% completo");
+                    $('#loader_' + id).text(data['msg']);
                     send(id, sent);
                 }
                 else if (sent >= total) {
@@ -135,7 +155,7 @@
                 }
             },
             error: function(data) {
-                $('#header_' + id).text("Erro 500. Oops!");
+                $('#header_' + id).text("Erro 500. Tente novamente!");
                 $('#link1_' + id).hide();
                 $('#cancel_' + id).hide();
                 hide_loader(id);

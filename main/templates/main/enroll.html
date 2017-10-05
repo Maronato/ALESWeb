@@ -33,6 +33,23 @@
 </div>
 <div class="ui vertical stripe segment">
     <div class="ui middle aligned stackable grid container">
+        <div class="row center aligned">
+            <div class="center aligned sixteen wide column">
+                <div class="field">
+                    <h3>Selecione uma cidade</h3>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="gender">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">{{ city.name }}</div>
+                        <div class="menu">
+                            {% for cit in cities %}
+                            <div class="item" data-value="{{ cit.short }}">{{ cit.name }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="center aligned sixteen wide column">
             <p>Abaixo estão todas as turmas que oferecemos. Clique em "Adicionar Matéria" para adicioná-la à sua grade.</p>
         </div>
@@ -79,6 +96,10 @@
                 </div>
 
                 <script type="text/javascript">
+                    $('.ui.dropdown').dropdown({action: function(text, value) {
+                        window.location.href = "{% url 'enroll' %}" + value
+                    }});
+
                     options = {
                         {% for course in courses %}
                         '{{ course.id }}': {
