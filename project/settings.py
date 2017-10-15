@@ -158,7 +158,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 
-DEFAULT_CONTACT_EMAIL = [str(os.environ.get('CONTACT_EMAIL'))]
+DEFAULT_CONTACT_EMAIL = str(os.environ.get('CONTACT_EMAIL'))
 DEFAULT_FROM_EMAIL = str(os.environ.get('EMAIL_ACCOUNT'))
 EMAIL_HOST_USER = str(os.environ.get('EMAIL_ACCOUNT'))
 EMAIL_HOST_PASSWORD = str(os.environ.get('EMAIL_PASSWORD'))
