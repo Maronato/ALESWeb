@@ -38,6 +38,6 @@ urlpatterns = [
     url(r'^google7db2e931cb4e4f1b\.html$', TemplateView.as_view(template_name='main/misc/google.html', content_type='text/plain')),
 
     # SSL verification
-    url(r'^\.well-known/acme-challenge/tPXbhjbssL5beGD79YBLsRluqAL6qs1nappMAQ1TkC0', TemplateView.as_view(template_name="main/misc/ssl.html")),
+    url(r'^\.well-known/acme-challenge/xtCko2G6DyrAKxyo_uBouEi3ZB1PvkFSbdy2ZPf_O-E', TemplateView.as_view(template_name="main/misc/ssl.html")),
 ]
 urlpatterns += main.urls.urlpatterns
