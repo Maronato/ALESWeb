@@ -42,6 +42,12 @@ def how_it_works(request):
     return render(request, 'main/how_it_works.html')
 
 
+def volunteers(request):
+    # Volunteer signup
+
+    return render(request, 'main/volunteer_signup.html')
+
+
 def enroll(request, city='CP'):
     # Enrollment page
     cities = City.objects.all().exclude(short='TS')

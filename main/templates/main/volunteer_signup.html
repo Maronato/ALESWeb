@@ -1,0 +1,29 @@
+
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% block extend_style %}
+<link rel="stylesheet" type="text/css" href="{% static 'main/css/googleform.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="ui vertical stripe">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div class="sixteen wide center aligned column">
+                <h3 class="ui header">Quer se voluntariar?</h3>
+                <p>Maravilha :)</p>
+                <p>Para participar, basta preencher o formulário abaixo!</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+        <div class="row">
+            <div style="padding: 0px !important;" class="sixteen wide center aligned column">
+            <iframe class="googleform" src="https://docs.google.com/forms/d/e/1FAIpQLScqOR-YTHrWJe1_I7TOYqmNnXocRUQTxzt83Tts9tXuESXj-Q/viewform?embedded=true" width="375" height="1500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
