@@ -20,5 +20,5 @@ class ContactForm(forms.Form):
             subject,
             name + ', ' + email + ', usou o site do ALES para contato:\n\n---------\n' + text + '\n---------\n\nLove,\nALES Bot.',
             email,
-            settings.DEFAULT_CONTACT_EMAIL
+            [settings.DEFAULT_CONTACT_EMAIL]
         )
