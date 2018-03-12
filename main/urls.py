@@ -12,7 +12,7 @@ urlpatterns = [
     # How it works
     url(r'como-funciona/', views.how_it_works, name='how_it_works'),
     # Volunteer signup page
-    url(r'voluntarios/', views.volunteers, name='volunteers'),
+    # url(r'voluntarios/', views.volunteers, name='volunteers'),
     # Simulation page
     url(r'simulate/$', views.enroll, name='enroll'),
     url(r'simulate/(?P<city>[\w]+)', views.enroll, name='enroll'),
