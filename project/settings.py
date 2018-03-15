@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'schools',
     'teachers',
     'courses',
-    'blog',
     'custom_auth',
 ]
 
