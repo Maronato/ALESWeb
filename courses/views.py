@@ -14,8 +14,9 @@ from django.utils import timezone
 # Create your views here.
 
 
-def course_view(request, course_id):
-    course = get_object_or_404(Course, pk=course_id)
+def course_view(request, course_slug):
+    print(course_slug)
+    course = get_object_or_404(Course, slug=course_slug)
     return render(request, 'courses/course_view.html', {'course': course})
 
 

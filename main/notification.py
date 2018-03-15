@@ -15,7 +15,6 @@ def student_notification(email_list, student, course):
     template = email_list.subject
     href = reverse('render_notification', kwargs={'instance': email_list.id, 'student': student.id, 'course': course.id if course is not None else 0})
     userid = student.facebookuser.social_id
-
     app_graph().put_object(parent_object=userid, connection_name="notifications", href=href, template=template)
 
 

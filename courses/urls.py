@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     # Public view that shows the course's info
-    url(r'course/(?P<course_id>\d+)', views.course_view, name='course-view'),
+    url(r'course/(?P<course_slug>[\w-]+)/$', views.course_view, name='course-view'),
     # Public view that shows the event's info
     url(r'event/(?P<event_id>\d+)', views.event_view, name='event-view'),
     # Admin view, update and add courses

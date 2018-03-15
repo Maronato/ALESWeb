@@ -6,7 +6,7 @@ from django.db.models import Q
 from datetime import datetime, timedelta
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from django.utils import timezone
+from django.utils import timezone, text
 import pytz
 now = timezone.localtime(timezone.now())
 
@@ -22,6 +22,7 @@ class Course(models.Model):
     """
 
     name = models.CharField(max_length=200)
+    slug = models.SlugField()
     description = models.TextField()
     teachers = models.ManyToManyField(Teacher, related_name="courses", blank=True)
 
@@ -174,4 +175,5 @@ def pre_save_event(sender, instance, **kwargs):
 
 @receiver(pre_save, sender=Course, dispatch_uid="pre_save_course")
 def pre_save_course(sender, instance, **kwargs):
+    instance.slug = text.slugify("{} {}".format(instance.city.short, instance.name))
     instance.datetime = datetime.strptime(instance.date, "%Y-%m-%d").replace(hour=instance.time.hour, minute=instance.time.minute, tzinfo=now.tzinfo)

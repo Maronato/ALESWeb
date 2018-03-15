@@ -1,20 +1,16 @@
 {% extends "main/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<div class="ui vertical stripe ">
+<div class="ui vertical stripe segment">
     <div class="ui middle aligned stackable grid container">
         <div class="row">
             <div class="sixteen wide column center aligned">
                 <h1>
                     {{ course.name }}
                 </h1>
+                <p>{{ course.frequency }}</p>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="ui vertical stripe segment">
-    <div class="ui middle aligned stackable grid container">
         <div class="row">
             <div class="six wide left floated column">
                 <h3>
@@ -42,15 +38,6 @@
                         Professores
                     </div>
                 </div>
-                <br>
-                <div class="ui huge statistic">
-                    <div class="value">
-                        {{ course.events.all | length }} <i class="icon clock"></i>
-                    </div>
-                    <div class="label">
-                        Eventos até hoje
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -60,12 +47,26 @@
         <div class="row">
             <div class="sixteen wide center aligned column">
                 <h3>
-                    Próximos eventos
+                    Próximas aulas
                 </h3>
                 {% for event in course.events.all %}
                 {% if event.is_near_future %}
                 <p>
-                    <a href="{% url 'event-view' event_id=event.id %}"><button class="ui green button">{{ event.name }}</button></a>
+                    <a href="{% url 'event-view' event_id=event.id %}"><button class="ui green button">{{ event.name }} ({{ event.datetime|date:'d/M' }})</button></a>
+                </p>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="sixteen wide center aligned column">
+                <h3>
+                    Aulas passadas
+                </h3>
+                {% for event in course.events.all %}
+                {% if event.is_past %}
+                <p>
+                    <a href="{% url 'event-view' event_id=event.id %}"><button class="ui blue button">{{ event.name }} ({{ event.datetime|date:'d/M' }})</button></a>
                 </p>
                 {% endif %}
                 {% endfor %}

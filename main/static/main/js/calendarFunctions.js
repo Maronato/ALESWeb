@@ -2,7 +2,7 @@ function addEvent(id, name, start, duration, day) {
     var newEvent = new Object();
     newEvent.title = name;
     newEvent.start = moment('2000-01-' + day + ' ' + start.toString(), "YYYY-MM-DD HH:mm");
-    newEvent.end = moment('2000-01-' + day + ' ' + start.toString(), "YYYY-MM-DD HH:mm").add(duration.match(/[0-9]+/g)[0], 'hours');
+    newEvent.end = moment('2000-01-' + day + ' ' + start.toString(), "YYYY-MM-DD HH:mm").add(duration.match(/[0-9]+/g)[0], 'hours').add(duration.match(/[0-9]+/g)[1], 'minutes');
     newEvent.allDay = false;
     newEvent.id = id;
 
@@ -20,8 +20,7 @@ function changeHandler(t) {
     var id = Number(t.attr('value'));
 
     if (t.is(':checked')) {
-
-        addEvent(id, options[id].name, options[id].start, options[id].duration, options[id].day)
+        addEvent(id, options[id].name, options[id].start, options[id].duration, options[id].day);
     } else {
       removeEvent(id)
     }

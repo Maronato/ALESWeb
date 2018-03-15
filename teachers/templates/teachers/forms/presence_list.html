@@ -9,35 +9,36 @@
                 <th>Nome</th>
                 <th>Série</th>
                 <th>Escola</th>
-            </tr></thead>
-            <tbody>
-                {% for form in formset.forms %}
-                <tr {% if not form.is_authorized.value %}class="disabled"{% endif %}>
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in formset.forms %}
+            <tr {% if not form.is_authorized.value %}class="disabled"{% endif %}>
 
-                    {% for field in form.visible_fields %}
+                {% for field in form.visible_fields %}
 
-                    {% if field.label != 'Presença' and field.label != 'is_authorized' %}
-                    <td>
-                        {{ field.value }}
-                        {{ field|attr:"type:hidden" }}
-                    </td>
-                    {% elif field.label == 'Presença' %}
-                    <td class='collapsing' width="10%">
+                {% if field.label != 'Presença' and field.label != 'is_authorized' %}
+                <td>
+                    {{ field.value }}
+                    {{ field|attr:"type:hidden" }}
+                </td>
+                {% elif field.label == 'Presença' %}
+                <td class='collapsing' width="10%">
                     <div class='ui fitted slider checkbox'>
                         {{ field }}
                         <label></label>
                     </div>
-                    </td>
-                    {% endif %}
+                </td>
+                {% endif %}
 
-                    {% endfor %}
-                    {% for hidden in form.hidden_fields %}
-                    {{ hidden }}
-                    {% endfor %}
-
-                </tr>
                 {% endfor %}
-            </tbody>
-        </table>
-        <button class="ui button primary" type="submit">Salvar alterações</button>
-    </form>
+                {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button class="ui button primary" type="submit">Salvar alterações</button>
+</form>

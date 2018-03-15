@@ -13,6 +13,9 @@
                         {{ obj.name }}
                     </div>
                     <div class="meta">
+                        <a href="{% url 'course-view' course_slug=obj.slug %}"><i class="ui icon share"></i> Abrir página da matéria</a>
+                    </div>
+                    <div class="meta">
                         {{ obj.frequency }}
                     </div>
                     <div class="meta">

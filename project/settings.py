@@ -28,7 +28,7 @@ SECRET_KEY = str(os.environ.get('DJANGO_SECRET'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = eval(os.environ.get('DEBUG', 'True'))
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = eval(os.environ.get('ALLOWED_HOSTS', '["*"]'))
 
 # Current site domain (http://localhost:8000 if locally, probably)
 SITE_URL = str(os.environ.get('SITE_URL'))

@@ -28,9 +28,14 @@
         </h1>
         <h2>Aulas extracurriculares, de graça</h2>
         <a href="{% url 'enroll' %}"><div class="ui huge primary button">Nossas Matérias!<i class="right arrow icon"></i></div></a>
+        {% comment %}
         <br>
         <br>
-        {# <a href="{% url 'volunteers' %}"><div class="ui huge yellow button">Me Voluntariar!<i class="right arrow icon"></i></div></a> #}
+         <a href="{% url 'volunteers' %}"><div class="ui huge yellow button">Me Voluntariar!<i class="right arrow icon"></i></div></a>
+        {% endcomment %}
+        <br>
+        <br>
+         <a href="{% url 'how_it_works' %}"><div class="ui huge green button">Inscrições abertas!<i class="right arrow icon"></i></div></a>
     </div>
 </div>
 {% endblock %}
@@ -49,7 +54,7 @@
         <div class="row">
             <div class="eight wide column">
                 <p>
-                    Acreditamos que a curiosidade e a vontade de aprender são essenciais na vida dos jovens, mas muitas vezes estes são suprimidos pela falta de acesso às informações corretas ou são desestimulados pelo sistema de ensino arcaico que ainda mantemos em nosso país.<br>Reconhecemos que a culpa disso não é das escolas. Muitas vezes faltam, em especial nas públicas, as ferramentas e oportunidades para abordar temas extra-curriculares, por mais importantes que eles sejam.
+                    Acreditamos que a curiosidade e a vontade de aprender são essenciais na vida dos jovens, mas muitas vezes estes são suprimidos pela falta de acesso às informações corretas ou são desestimulados pelo sistema de ensino arcaico que ainda mantemos em nosso país.<br>Reconhecemos que a culpa disso não é das escolas. Muitas vezes faltam, em especial nas públicas, as ferramentas e oportunidades para abordar temas extra-curriculares, por mais importantes que eles sejam.
                 </p>
                 <p>
                     Desta percepção nasceu o ALES, um projeto que tem como
@@ -61,7 +66,7 @@
                     Os alunos que tiverem interesse em participar do projeto terão a oportunidade de crescer, se conhecer e aprender através do contato com conteúdos que dificilmente teriam acesso apenas através da rede pública de ensino.
                 </p>
                 <p>
-                    Nosso projeto, portanto, não é um substituto da escola. É uma ferramenta para expandir horizontes e inspirar alunos a fazerem algo novo.
+                    Nosso projeto, portanto, não é um substituto da escola. É uma ferramenta para expandir horizontes e inspirar alunos a fazerem algo novo.
                 </p>
                 <p>
                     É a nossa vontade de mostrar para os alunos que conhecimento é muito mais do que as coisas que aprendem na escola e que eles também podem aprender, alcançar e criar coisas que antes eles pensavam, ou eram ditos, serem distantes demais de sua realidade.
@@ -80,15 +85,9 @@
             <div class="ten wide column">
                 <p>Aulas regulares lecionadas por alunos e professores da Unicamp:</p>
                 <div class="ui list big bulleted">
-                    <div class="ui item"><strong>Dança Contemporânea</strong></div>
-                    <div class="ui item"><strong>Teatro</strong></div>
-                    <div class="ui item"><strong>Chinês(Mandarim)</strong></div>
-                    <div class="ui item"><strong>História do Cinema</strong></div>
-                    <div class="ui item"><strong>Astronomia</strong> para Olimpíada Brasileria de Astronomia</div>
-                    <div class="ui item"><strong>Programação</strong> para desenvolvimento de Jogos, Sites, Aplicativos de Celular e para a Olimpíada Brasileira de Informática</div>
-                    <div class="ui item"><strong>Matemática</strong> para Olimpíada Brasileira de Matemática das Escolas Públicas</div>
-                    <div class="ui item"><strong>Física</strong> para Olimpíada Brasileira de Física das Escolas Públicas</div>
-                    <div class="ui item"><strong>Química</strong> para Olimpíada Brasileira de Química Jr</div>
+                    {% for course in courses %}
+                    <div class="ui item"><strong>{{ course.name }}</strong> <a href="{% url 'course-view' course_slug=course.slug %}">Ver página <i style="display: inline-block;" class="ui icon share"></i></a></div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="six wide column">
@@ -139,7 +138,6 @@
         <div class="ui column aligned center">
             <h1>Como chegar</h1>
 
-            <h3>Campinas</h3>
             <h2>Aulas Gerais</h2>
             <small style="color: grey">E.E. Barão Geraldo de Rezende<br> Rua Jerônimo Páttaro, S/N - Barão Geraldo, Campinas - SP, 13084-110</small><br><br>
             <div class="google-maps">
@@ -149,18 +147,6 @@
             <small style="color: grey">Instituto de Computação 3, Sala 302<br> Av. Albert Einstein, 1355 - Cidade Universitária, Campinas - SP, 13083-852</small><br><br>
             <div class="google-maps">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d540.2809218450735!2d-47.064717992282326!3d-22.814218426372992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c8c153471b7987%3A0x342a6c83f6e63b7f!2sAv.+Albert+Einstein%2C+1355+-+Cidade+Universit%C3%A1ria%2C+Campinas+-+SP%2C+13083-852!5e0!3m2!1sen!2sbr!4v1489946851591" width="600" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </div>
-            <div class="ui divider"></div>
-            <h3>Limeira</h3>
-            <h2>Aulas Gerais</h2>
-            <small style="color: grey">E.E. Cônego Manuel Alves<br> Praça Primeiro de Maio, 26 - Jardim Mro Azul, Limeira - SP, 13484-440</small><br><br>
-            <div class="google-maps">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7369.144866874604!2d-47.4337807201294!3d-22.557684019058723!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x92c3a301644428dc!2z4oCLRUUgIkPDlE5FR08gTUFOVUVMIEFMVkVTIg!5e0!3m2!1sen!2sbr!4v1503880408202" width="600" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </div>
-            <h2>Aulas de programação</h2>
-            <small style="color: grey">Faculdade de Tecnologia da Unicamp<br> R. Paschoal Marmo, 1888 - Jardim Sao Paulo, Limeira - SP, 13484-332</small><br><br>
-            <div class="google-maps">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14737.846420031497!2d-47.4240964!3d-22.5618325!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7e2d51442c4d9794!2sFaculdade+de+Tecnologia+da+Unicamp+-+FT!5e0!3m2!1sen!2sbr!4v1503880331483" width="600" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
             </div>
         </div>
     </div>

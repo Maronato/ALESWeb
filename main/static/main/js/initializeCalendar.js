@@ -14,11 +14,12 @@ $(document).ready(function() {
         displayEventTime: true,
         timeFormat: 'HH:mm',
         contentHeight: "auto",
+        aspectRatio: 2,
         views: {
             agenda: {
                 allDaySlot: false,
 
-                slotDuration: '01:00:00',
+                slotDuration: '00:30:00',
                 minTime: '09:00:00',
                 maxTime: '17:00:00',
                 slotLabelFormat: 'HH:mm',
@@ -28,8 +29,8 @@ $(document).ready(function() {
         },
     });
 
-    addEvent(-1, 'Monitoria e Palestras', '12:00', '02:00', 1);
-    addEvent(-2, 'Monitoria e Palestras', '12:00', '02:00', 2);
+    addEvent(-1, 'Monitoria e Almoço', '12:00', '02:00', 1);
+    addEvent(-2, 'Monitoria e Almoço', '12:00', '02:00', 2);
 
     $("input:checkbox").each(function () {
         changeHandler($(this));
