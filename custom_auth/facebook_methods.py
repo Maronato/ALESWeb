@@ -25,24 +25,17 @@ def get_graph():
 graph = get_graph()
 
 
-def canv_url(request, key):
+def canv_url(request):
     """Return Canvas URL
 
     Generates the canvas_url used by facebook to redirect after auth
     """
-    key = key if key else ""
 
     # Check whether the last call was secure and use its protocol
     if request.is_secure():
-        if key:
-            return 'https://' + request.get_host() + reverse('custom_auth:facebook_login_response', kwargs={"key": key})
-        else:
-            return 'https://' + request.get_host() + reverse('custom_auth:facebook_login_response')
+        return 'https://' + request.get_host() + reverse('custom_auth:facebook_login_response')
     else:
-        if key:
-            return 'http://' + request.get_host() + reverse('custom_auth:facebook_login_response', kwargs={"key": key})
-        else:
-            return 'http://' + request.get_host() + reverse('custom_auth:facebook_login_response')
+        return 'https://' + request.get_host() + reverse('custom_auth:facebook_login_response')
 
 
 def auth_url(request, key):
@@ -51,7 +44,7 @@ def auth_url(request, key):
     Returns the facebook auth url using the current app's domain
     """
 
-    canvas_url = canv_url(request, key)
+    canvas_url = canv_url(request)
 
     # Permissions set by user. Default is none
     perms = settings.FACEBOOK_PERMISSIONS
@@ -59,7 +52,7 @@ def auth_url(request, key):
     url = "https://www.facebook.com/dialog/oauth?"
 
     # Payload
-    kvps = {'client_id': app_id, 'redirect_uri': canvas_url}
+    kvps = {'client_id': app_id, 'redirect_uri': canvas_url, 'state': key}
 
     # Format permissions if needed
     if perms:
@@ -84,7 +77,7 @@ def login_successful(code, request, user, key):
     Process successful login by creating or updating an user using Facebook's response
     """
 
-    canvas_url = canv_url(request, key)
+    canvas_url = canv_url(request)
 
     # Get token info from user
     token_info = graph.get_access_token_from_code(code, canvas_url, app_id, app_secret)

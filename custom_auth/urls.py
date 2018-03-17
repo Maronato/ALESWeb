@@ -28,6 +28,5 @@ urlpatterns = [
     url(r'facebook/login/$', views.facebook_login, name='facebook_login'),
     url(r'facebook/login/(?P<key>\w+)$', views.facebook_login, name='facebook_login'),
     url(r'facebook/login_response/$', views.facebook_login_response, name='facebook_login_response'),
-    url(r'facebook/login_response/(?P<key>\w+)$', views.facebook_login_response, name='facebook_login_response'),
     url(r'^logout/$', logout, {'next_page': '/'}, name='logout'),
 ]

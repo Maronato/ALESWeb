@@ -20,12 +20,12 @@ def facebook_login(request, key=None):
     return redirect(auth_url(request, key))
 
 
-def facebook_login_response(request, key=None):
+def facebook_login_response(request):
     """Facebook Login Response
 
     Try to access 'code' from the response. If found, the login was successful. Unsuccessful otherwise
     """
-
+    key = request.GET.get('state', None)
     user = get_user_from_key(key)
 
     try:
