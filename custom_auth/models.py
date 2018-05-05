@@ -31,11 +31,11 @@ class FacebookUser(models.Model):
     first_name = models.CharField(max_length=50)
     name = models.CharField(max_length=150)
 
-    thumbnail = models.CharField(max_length=1000, null=True)
+    thumbnail = models.CharField(max_length=2000, null=True)
     thumbnail_age = models.DateTimeField(null=True)
 
     # Direct link to user's profile
-    link = models.URLField()
+    link = models.URLField(max_length=2000)
 
     @property
     def is_expired(self):
