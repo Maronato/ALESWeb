@@ -132,7 +132,7 @@ def presence_list(request, event_id):
     event = Event.objects.get(id=event_id)
 
     # if the event does not belong to the current teacher, render the index page
-    if request.user.teacher != event.teacher:
+    if event.course in request.user.teacher.courses.all():
         return reverse('index')
 
     # Create a new formset with the right size
