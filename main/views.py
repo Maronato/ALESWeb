@@ -6,7 +6,7 @@ from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from schools.models import School, Student, City
-from courses.models import Course
+from courses.models import Course, Event
 from courses.date_comparisons import AllEvents
 from teachers.models import Teacher, EmailList
 from .forms import ContactForm
@@ -128,7 +128,7 @@ def dashboard(request):
 
     # If the user is a teacher, load their events
     if request.user.is_teacher:
-        context['event_list'] = request.user.teacher.events.all()
+        context['event_list'] = Event.objects.filter(course__in=request.user.teacher.courses.all()).distinct()
 
     return render(request, 'main/dashboard.html', context)
 
