@@ -1,1 +1,1303 @@
-{}
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Is",
+				"IsReadyOnlyRequest\tclass"
+			],
+			[
+				"Rea",
+				"IsReadyOnlyRequest\tclass"
+			],
+			[
+				"perm",
+				"permission_classes\tstatement"
+			],
+			[
+				"i",
+				"IsStaff\tclass"
+			],
+			[
+				"col",
+				"color\tproperty"
+			],
+			[
+				"obj",
+				"obj_field\tstatement"
+			],
+			[
+				"u",
+				"u_rel\tstatement"
+			],
+			[
+				"user",
+				"user_relation\tstatement"
+			],
+			[
+				"Views",
+				"GenericViewSet\tclass"
+			],
+			[
+				"ow",
+				"ownership_field\tstatement"
+			],
+			[
+				"is",
+				"IsPostRequest\tclass"
+			],
+			[
+				"tic",
+				"ticketUpdated"
+			],
+			[
+				"cre",
+				"ticketCreated"
+			],
+			[
+				"up",
+				"updatesub"
+			],
+			[
+				"cl",
+				"claimer"
+			],
+			[
+				"f",
+				"for\tfor (…) {…} (Improved Native For-Loop)"
+			],
+			[
+				"get",
+				"getCurrentTicket"
+			],
+			[
+				"Tic",
+				"Ticket\tclass"
+			],
+			[
+				"mar",
+				"margin-bottom\tproperty"
+			],
+			[
+				"da",
+				"database_sync_to_async\tclass"
+			],
+			[
+				"mode",
+				"models\tmodule"
+			],
+			[
+				"skill",
+				"skills"
+			],
+			[
+				"ski",
+				"skillSet"
+			],
+			[
+				"val",
+				"values"
+			],
+			[
+				"Retr",
+				"RetrieveUpdateAPIView\tclass"
+			],
+			[
+				"vie",
+				"views\tmodule"
+			],
+			[
+				"Re",
+				"RetrieveModelMixin\tclass"
+			],
+			[
+				"mi",
+				"mixins\tmodule"
+			],
+			[
+				"he",
+				"helper_context"
+			],
+			[
+				"sel",
+				"self_mentor"
+			],
+			[
+				"sle",
+				"SelfMentorViewset\tclass"
+			],
+			[
+				"re",
+				"PrefetchRetrieveAPIView\tclass"
+			],
+			[
+				"Ment",
+				"Mentor\tclass"
+			],
+			[
+				"ge",
+				"GenericViewSet\tclass"
+			],
+			[
+				"in",
+				"instance\tstatement"
+			],
+			[
+				"cla",
+				"claimed_tickets"
+			],
+			[
+				"filt",
+				"filteredMentors"
+			],
+			[
+				"mentor",
+				"mentors"
+			],
+			[
+				"hel",
+				"helper_context"
+			],
+			[
+				"qu",
+				"queueEnabled"
+			],
+			[
+				"sett",
+				"settings_context"
+			],
+			[
+				"def",
+				"default"
+			],
+			[
+				"rat",
+				"rating"
+			],
+			[
+				"tick",
+				"ticketRating"
+			],
+			[
+				"reo",
+				"reopenTicket"
+			],
+			[
+				"com",
+				"completeTicket"
+			],
+			[
+				"delee",
+				"deleteTicket"
+			],
+			[
+				"cle",
+				"clearExpire"
+			],
+			[
+				"font",
+				"font-size\tproperty"
+			],
+			[
+				"from",
+				"fromNow"
+			],
+			[
+				"text-a",
+				"text-align\tproperty"
+			],
+			[
+				"dele",
+				"ticketDeleted"
+			],
+			[
+				"tci",
+				"tickets"
+			],
+			[
+				"em",
+				"expireEmitter"
+			],
+			[
+				"set",
+				"setExpireEmitter"
+			],
+			[
+				"ex",
+				"expireEmitter"
+			],
+			[
+				"ticke",
+				"ticket"
+			],
+			[
+				"sc",
+				"scheduleCounter"
+			],
+			[
+				"fro",
+				"fromNow"
+			],
+			[
+				"mn",
+				"MentorSkills"
+			],
+			[
+				"ticket",
+				"ticketUpdated"
+			],
+			[
+				"est",
+				"estResponse"
+			],
+			[
+				"cac",
+				"calcEstimatedWait"
+			],
+			[
+				"for",
+				"formatTime"
+			],
+			[
+				"late",
+				"latestOpen"
+			],
+			[
+				"lat",
+				"latestOpen"
+			],
+			[
+				"clai",
+				"claimedTickets"
+			],
+			[
+				"ope",
+				"openTickets"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"ment",
+				"mentors"
+			],
+			[
+				"time",
+				"timeDiff"
+			],
+			[
+				"sec",
+				"seconds"
+			],
+			[
+				"sum",
+				"sumSeconds"
+			],
+			[
+				"mean",
+				"meanSeconds"
+			],
+			[
+				"mento",
+				"mentorText"
+			],
+			[
+				"men",
+				"mentor"
+			],
+			[
+				"on",
+				"onlineMentors"
+			],
+			[
+				"mentors",
+				"mentors_online\tstatement"
+			],
+			[
+				"get_",
+				"get_mentor"
+			],
+			[
+				"as",
+				"async\tkeyword"
+			],
+			[
+				"send",
+				"send_mentor_offline\tfunction"
+			],
+			[
+				"gr",
+				"group_name\tstatement"
+			],
+			[
+				"gor",
+				"group_name"
+			],
+			[
+				"Men",
+				"MentorSerializer"
+			],
+			[
+				"ser",
+				"serializer_class\tstatement"
+			],
+			[
+				"expi",
+				"expiresIn"
+			],
+			[
+				"exp",
+				"expiresIn"
+			],
+			[
+				"no",
+				"now_seconds"
+			],
+			[
+				"sub",
+				"submitTicket"
+			],
+			[
+				"M",
+				"ModelViewSet\tclass"
+			],
+			[
+				"all",
+				"all_fields\tstatement"
+			],
+			[
+				"fie",
+				"fields\tstatement"
+			],
+			[
+				"res",
+				"rest_framework\tmodule"
+			],
+			[
+				"crea",
+				"createsub"
+			],
+			[
+				"we",
+				"websocket_urlpatterns\tstatement"
+			],
+			[
+				"Ti",
+				"TicketConsumer\tclass"
+			],
+			[
+				"pos",
+				"post_delete\tinstance"
+			],
+			[
+				"Up",
+				"UpdateTicketSubscription\tclass"
+			],
+			[
+				"Cre",
+				"CreateTicketSubscription\tclass"
+			],
+			[
+				"B",
+				"BaseTicketSubscription\tclass"
+			],
+			[
+				"Ba",
+				"BaseTicketSubscription\tclass"
+			],
+			[
+				"mo",
+				"model_sockets\tmodule"
+			],
+			[
+				"uni",
+				"unique_id"
+			],
+			[
+				"Tick",
+				"TicketViewset\tclass"
+			],
+			[
+				"ti",
+				"TicketSerializer\tclass"
+			],
+			[
+				"Pro",
+				"PrefetchQuerysetModelMixin\tclass"
+			],
+			[
+				"Model",
+				"ModelSerializer\tclass"
+			],
+			[
+				"comp",
+				"completed"
+			],
+			[
+				"c",
+				"claimed\tstatement"
+			],
+			[
+				"viw",
+				"viewsets\tmodule"
+			],
+			[
+				"tex",
+				"text-transform\tproperty"
+			],
+			[
+				"text",
+				"text-transform\tproperty"
+			],
+			[
+				"He",
+				"HelperContextMixin\tclass"
+			],
+			[
+				"is_",
+				"is_mentor"
+			],
+			[
+				"I",
+				"IsMentorAdminOrCanSubmitTickets\tclass"
+			],
+			[
+				"cal",
+				"calc_ticket_expires\tfunction"
+			],
+			[
+				"tim",
+				"timezone\tmodule"
+			],
+			[
+				"con",
+				"contrib\tmodule"
+			],
+			[
+				"auto",
+				"auto_now_add\tparam"
+			],
+			[
+				"Date",
+				"DateTimeField\tclass"
+			],
+			[
+				"max",
+				"max_length"
+			],
+			[
+				"Exp",
+				"ExportEventsViewset\tclass"
+			],
+			[
+				"Pre",
+				"PrefetchQuerysetModelMixin\tclass"
+			],
+			[
+				"view",
+				"viewsets\tmodule"
+			],
+			[
+				"sche",
+				"schedule_context"
+			],
+			[
+				"Expor",
+				"ExportEvents"
+			],
+			[
+				"att",
+				"attended__shortcuts"
+			],
+			[
+				"Fee",
+				"FeedbackSerializer\tclass"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"com",
+				"Git: Commit"
+			],
+			[
+				"add",
+				"Git: Add All"
+			],
+			[
+				"gst",
+				"Git: Status"
+			],
+			[
+				"reset",
+				"Git: Reset (hard) HEAD"
+			],
+			[
+				"unsta",
+				"Git: Reset (unstage) All"
+			],
+			[
+				"co",
+				"Git: Commit"
+			],
+			[
+				"pus",
+				"Git: Push"
+			],
+			[
+				"prett",
+				"JsPrettier: Format Code"
+			],
+			[
+				"log",
+				"Git: Log All"
+			],
+			[
+				"his",
+				"Git: Commit history"
+			],
+			[
+				"hist",
+				"Git: Commit history"
+			],
+			[
+				"rein",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"indee",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"stat",
+				"Git: Status"
+			],
+			[
+				"rese",
+				"Git: Reset (hard) HEAD"
+			],
+			[
+				"rei",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"pre",
+				"JsPrettier: Format Code"
+			],
+			[
+				"con",
+				"Convert Case: Lower Case"
+			],
+			[
+				"comm",
+				"Git: Commit"
+			],
+			[
+				"reu",
+				"LaTeXTools: Reset user settings to default"
+			],
+			[
+				"ad",
+				"Git: Add Current File"
+			],
+			[
+				"sta",
+				"Indexing Status"
+			],
+			[
+				"enab",
+				"Package Control: Enable Package"
+			],
+			[
+				"lint",
+				"SublimeLinter: Show Line Errors"
+			],
+			[
+				"pret",
+				"JsPrettier: Format Code"
+			],
+			[
+				"p",
+				"Package Control: Install Package"
+			],
+			[
+				"linter",
+				"SublimeLinter: Show All Errors"
+			],
+			[
+				"lin",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"li",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"j",
+				"JsPrettier: Format Code"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"re",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"r",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"stash",
+				"Git: Stash Changes"
+			],
+			[
+				"rest",
+				"Git: Reset (hard) HEAD"
+			],
+			[
+				"Pus",
+				"Git: Push"
+			],
+			[
+				"status",
+				"Git: Status"
+			],
+			[
+				"staus",
+				"Git: Status"
+			],
+			[
+				"git sta",
+				"Git: Status"
+			],
+			[
+				"pull",
+				"Git: Pull"
+			],
+			[
+				"pu",
+				"Git: Push"
+			],
+			[
+				"diff",
+				"Git: Diff All Files"
+			],
+			[
+				"uns",
+				"Git: Reset (unstage) All"
+			],
+			[
+				"git re",
+				"Git: Reset (unstage) All"
+			],
+			[
+				"mark",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"un",
+				"Git: Reset (unstage) All"
+			],
+			[
+				"git",
+				"Git: Reset (hard) HEAD"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"md",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"pep",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"res",
+				"Git: Reset (unstage) All"
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"inde",
+				"Indexing Status"
+			],
+			[
+				"mar",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"unst",
+				"Git: Reset (unstage) All"
+			],
+			[
+				"pe",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"pul",
+				"Git: Pull"
+			],
+			[
+				"st",
+				"Git: Status"
+			],
+			[
+				"Pu",
+				"Git: Push"
+			],
+			[
+				"tod",
+				"TodoReview: Open Files"
+			],
+			[
+				"todo",
+				"TodoReview: Open Files"
+			],
+			[
+				"REIN",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"init",
+				"Git: Init"
+			],
+			[
+				"sts",
+				"Set Syntax: Tcl"
+			],
+			[
+				"in",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"dif",
+				"Git: Diff All Files"
+			],
+			[
+				"lo",
+				"Git: Log Current File"
+			],
+			[
+				"i",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"pacage",
+				"Package Control: List Packages"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"l",
+				"Git: Log Current File"
+			],
+			[
+				"ana",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"us",
+				"LaTeXTools: Reset user settings to default"
+			],
+			[
+				"gits",
+				"Git: Status"
+			],
+			[
+				"a",
+				"Git: Add All"
+			],
+			[
+				"pep8",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"ocm",
+				"Markdown Preview: Open Markdown Cheat sheet"
+			],
+			[
+				"gi",
+				"Git: Add All"
+			],
+			[
+				"statu",
+				"Git: Status"
+			],
+			[
+				"ind",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"PU",
+				"Git: Push"
+			],
+			[
+				"git com",
+				"Git: Commit"
+			],
+			[
+				"cha",
+				"Git: Change Branch"
+			],
+			[
+				"ch",
+				"Git: Change Branch"
+			],
+			[
+				"chan",
+				"Git: Change Branch"
+			],
+			[
+				"mer",
+				"Git: Merge Branch"
+			],
+			[
+				"bra",
+				"Git: Change Branch"
+			],
+			[
+				"amme",
+				"Git: Amend Commit"
+			],
+			[
+				"c",
+				"Git: Change Branch"
+			],
+			[
+				"chang",
+				"Git: Change Branch"
+			],
+			[
+				"bran",
+				"Git: Change Branch"
+			],
+			[
+				"previ",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"dig",
+				"Git: Diff All Files (Ignore Whitespace)"
+			],
+			[
+				"add ",
+				"Git: Add Current File"
+			],
+			[
+				"bu",
+				"Build With: LaTeX"
+			],
+			[
+				"bui",
+				"Build With: LaTeX"
+			],
+			[
+				"latex",
+				"LaTeXTools: Delete temporary files"
+			],
+			[
+				"buid",
+				"Build With: LaTeX"
+			],
+			[
+				"pdf",
+				"LaTeXTools: View PDF"
+			]
+		],
+		"width": 472.0
+	},
+	"console":
+	{
+		"height": 726.0,
+		"history":
+		[
+			"python",
+			"exit()",
+			"ls",
+			"python",
+			"pythpn",
+			"ls",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/Maronato/Documents/ALES/website",
+		"/Users/Maronato/Documents/ALES/website/courses",
+		"/Users/Maronato/Documents/ALES/website/teachers"
+	],
+	"file_history":
+	[
+		"/Users/Maronato/Documents/ALES/website/schools/models.py",
+		"/Users/Maronato/Documents/ALES/website/main/views.py",
+		"/Users/Maronato/Documents/ALES/website/courses/views.py",
+		"/Users/Maronato/Documents/ALES/website/requirements.txt",
+		"/Users/Maronato/Documents/ALES/website/courses/models.py",
+		"/Users/Maronato/Documents/ALES/website/project/settings.py",
+		"/Users/Maronato/Documents/ALES/website/project/wsgi.py",
+		"/Users/Maronato/Documents/ALES/website/main/templates/main/how_it_works.html",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/app.json",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/app2.json",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/permissions.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/static/project/components/sidebar/sidebar.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/initialize.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/staff/api.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/hacker/permissions.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/settings.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/user_profile/api.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/user_profile/permissions.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/api.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/company/api.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/application/api.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/announcement/api.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/mixins.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/static/project/components/sidebar/item.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/.env",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/company/permissions.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/templates/project/root.html",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/requirements.txt",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/api.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/claimer/stats/stats.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/sender/ticket_panel/ticket_panel.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/templates/project/base.html",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/permissions.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/static/project/js/ticket_subscriptions.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/static/project/apps/ticket_subs.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/static/project/js/notifications.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/mixins.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/urls.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/subscriptions/ticket_subscription.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/claimer/list/list.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/profile/profile.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/claimer/skills/skills.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/helper.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/sender/sender.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/static/project/js/requestNotificationPermission.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/model_sockets/consumers.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/urls.py",
+		"/Users/Maronato/pyenvs/_Users_Maronato_Documents_TalentoUnicamp_my/venv/lib/python3.6/site-packages/rest_framework/generics.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/generics.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/consumers.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/models.py",
+		"/Users/Maronato/pyenvs/_Users_Maronato_Documents_TalentoUnicamp_my/venv/lib/python3.6/site-packages/channels/auth.py",
+		"/Users/Maronato/pyenvs/_Users_Maronato_Documents_TalentoUnicamp_my/venv/lib/python3.6/site-packages/channels/db.py",
+		"/Users/Maronato/pyenvs/_Users_Maronato_Documents_TalentoUnicamp_my/venv/lib/python3.6/site-packages/rest_framework/__init__.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/sender/feed/feed.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/sender/feed/item.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/claimer/leaderboard/leaderboard.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/claimer/claimer.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/claimer/leaderboard/mentor/mentor.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/serializers.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/claimer/list/ticket/ticket.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/apps/helper.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/settings/mixins.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/settings/models.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/components/sender/feedback/feedback.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/godmode/static/godmode/components/sections/settings.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/static/project/js/stats.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/js/stats.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/user_profile/serializers.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/routing.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/js/mentor_sub.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/model_sockets/static/model_sockets/js/subscription.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/model_sockets/subscriptions/generics.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/model_sockets/subscriptions/base.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/js/ticket_sub.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper/js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/model_sockets/models.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/router_application.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/subscriptions/__init__.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/static/project/apps/self_subs.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/user_profile/models.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/company/models.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/godmode/static/godmode/components/sections/list.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/godmode/mixins.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/godmode/api.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/godmode/static/godmode/components/sections/list/user_table.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/views.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/models.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/templates/helper/helper.html",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/mixins.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/helper/admin.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/static/project/js/important/top1.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/static/schedule/components/sections/all/event.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/static/project/js/important/top2.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/static/project/js/important/top3.js",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/static/schedule/components/sections/attended/event.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/static/schedule/components/sections/checkin/event.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/static/schedule/components/sections/my/event.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/static/schedule/components/sections/create/list.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/exports.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/urls.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/static/schedule/components/sections/create.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/static/schedule/components/sections/registered/event.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/static/schedule/components/sections/create/attendee_list.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/company/static/company/components/sections/scan_list.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/serializers.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/schedule/export_serializers.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/Procfile",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/dashboard/static/dashboard/components/sections/withdraw.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/stats/static/stats/components/stats.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/hacker/exports.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/stats/static/stats/components/plotlyCharts/simplePie.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/stats/static/stats/components/plotlyCharts/simpleArea.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/stats/static/stats/components/plotlyCharts/simpleBar.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/stats/static/stats/components/sections/raw_data.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/stats/templates/stats/stats.html",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/stats/static/stats/components/vue_plotly.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/stats/static/stats/components/sections/application_stats.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/stats/static/stats/components/charts/simpleBar.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/application/models.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/project/static/project/mixins/nlp.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/application/export_serializers.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/stats/mixins.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/hacker/urls.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/hacker/export_serializers.py",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/stats/static/stats/components/sections/hacker_stats.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/stats/static/stats/components/charts/simplePie.vue",
+		"/Users/Maronato/Documents/TalentoUnicamp/my/stats/static/stats/components/charts/timeSeries.vue"
+	],
+	"find":
+	{
+		"height": 72.0
+	},
+	"find_in_files":
+	{
+		"height": 322.0,
+		"where_history":
+		[
+			"/Users/Maronato/Documents/TalentoUnicamp/my/helper/static/helper"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"rest",
+			"mentor",
+			"list_mentors",
+			"axios",
+			"js",
+			"claimed",
+			"getFro",
+			"leng",
+			"skills",
+			"trim",
+			"strip",
+			"connect",
+			"deixa",
+			"pri",
+			"print",
+			"id",
+			"model",
+			"sock",
+			"data",
+			"line",
+			"flat",
+			"toLower",
+			"len",
+			"semantic",
+			"len",
+			"name",
+			"update",
+			"spea",
+			"staff",
+			"pri",
+			"data",
+			"get_ex",
+			"extra_",
+			"log",
+			"education2",
+			"school",
+			"course",
+			"education",
+			"conso"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"toLowerCase",
+			"schedule",
+			"education",
+			"school2",
+			"course2",
+			"education2"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 72.0
+	},
+	"input":
+	{
+		"height": 136.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 155.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 192.0
+	},
+	"pinned_build_system": "Packages/User/C.sublime-build",
+	"project": "website.sublime-project",
+	"replace":
+	{
+		"height": 118.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"com",
+				"node_modules/debug/component.json"
+			],
+			[
+				"",
+				"staff/templates/staff/staff.html"
+			],
+			[
+				"us",
+				"venv/lib/python2.7/encodings/utf_8_sig.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Documents/TalentoUnicamp/my/my.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 296.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

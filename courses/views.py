@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, redirect
 from .models import Event, Course
 from schools.models import Student
 from teachers.models import Teacher
@@ -127,13 +127,12 @@ def presence_list(request, event_id):
     Teacher only
     Allows for the editing of the presence list of a given event
     """
-
     # Get the event(if it does not exist, the website will break but that's ok)
     event = Event.objects.get(id=event_id)
 
     # if the event does not belong to the current teacher, render the index page
-    if event.course in request.user.teacher.courses.all():
-        return reverse('index')
+    if not request.user.teacher.courses.filter(id=event.course.id).exists():
+        return redirect('index')
 
     # Create a new formset with the right size
     PresenceFormSet = formset_factory(StudentPresence, extra=0)
