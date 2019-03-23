@@ -16,7 +16,7 @@ def get_graph():
     returns a graph object containing an app token from the registered facebook app
     """
 
-    graph = facebook.GraphAPI(version='2.7')
+    graph = facebook.GraphAPI(version='3.1')
     graph.access_token = graph.get_app_access_token(app_id, app_secret)
     return graph
 
@@ -88,7 +88,7 @@ def login_successful(code, request, user, key):
     # Token may never expire, so set its expire time to something big if needed
     try:
         token_expires = token_info['expires']
-    except:
+    except KeyError:
         token_expires = 9999999
 
     # Debug the token, as per documentation
@@ -101,7 +101,7 @@ def login_successful(code, request, user, key):
     extra_data = graph.get_object(str(social_id) + '/?fields=name,first_name,link')
     name = extra_data['name']
     first_name = extra_data['first_name']
-    link = extra_data['link']
+    link = 'https://facebook.com'
 
     # Call FacebookUser's method to create or update based on social_id, that returns an facebookuser object
     from .models import FacebookUser
